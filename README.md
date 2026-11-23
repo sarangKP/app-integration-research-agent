@@ -13,7 +13,7 @@
 ![LangGraph](https://img.shields.io/badge/Agent-LangGraph-1C3C3C)
 ![Composio](https://img.shields.io/badge/Tools-Composio-6C47FF)
 ![Tavily](https://img.shields.io/badge/Search-Tavily-0A66C2)
-![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.13%2B-3776AB?logo=python&logoColor=white)
 ![Gemini](https://img.shields.io/badge/LLM-Gemini-8E75B2?logo=googlegemini&logoColor=white)
 ![Groq](https://img.shields.io/badge/Fallback-Groq-F55036)
 ![S3](https://img.shields.io/badge/AWS-S3-569A31?logo=amazons3&logoColor=white)
@@ -152,8 +152,8 @@ This is the graph that ran. The verify and retry loop (checks against the eviden
 ├── output/               # pass1.json, failures, eval and pattern results
 ├── site/
 │   ├── build.py          # Builds the page
+│   ├── templates/index.html.j2
 │   └── dist/             # index.html, results.csv, results.json, metrics.json, llms.txt
-├── main.py
 ├── pyproject.toml
 ├── uv.lock
 └── .env.example
@@ -161,7 +161,7 @@ This is the graph that ran. The verify and retry loop (checks against the eviden
 
 ## Run it yourself
 
-**Prerequisites:** Python, [uv](https://docs.astral.sh/uv/), and API keys for Composio, Gemini and Groq. Copy `.env.example` to `.env` and fill in the values.
+**Prerequisites:** Python 3.13+, [uv](https://docs.astral.sh/uv/), and API keys for Composio, Gemini and Groq. Copy `.env.example` to `.env` and fill in the values.
 
 ```bash
 uv sync

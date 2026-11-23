@@ -1,7 +1,7 @@
 [project]
 name = "tool-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = "Agent that researches 100 SaaS apps for integration readiness (auth, access, API, MCP, buildability)"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
