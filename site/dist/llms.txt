@@ -1,0 +1,16 @@
+# App Integration Research Agent - results for agents
+
+This site reports pattern analysis across 100 apps researched
+for API/auth/buildability characteristics, by an autonomous LangGraph agent.
+
+Only pass 1 (extraction, no verification/retry loop) was run - pass 2 and
+final human review were not completed (time/API limits). Treat all numbers
+as pass-1 accuracy, not final accuracy.
+
+Files in this directory:
+- results.json / results.csv: one record per researched app
+- metrics.json: accuracy of pass 1 against a 20-app hand-labeled gold set
+- index.html: the full report (data embedded in a <script type="application/json" id="data"> tag)
+
+5 apps could not be researched at all (listed as
+"not researched" on the page) due to LLM provider errors.

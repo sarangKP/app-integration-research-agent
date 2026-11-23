@@ -1,0 +1,32 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# run state and caches
+run.lock
+*.log
+logs/
+.cache/
+cache/
+
+# personal notes
+theory.md
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+.cache-ra/
+PRD.md
+NOTES.md
+output/*.backup_*.json
+output/credits.json
+output/groq_usage.json

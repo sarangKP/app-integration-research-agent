@@ -1,0 +1,27 @@
+{
+  "86": {
+    "name": "QuickBooks",
+    "error": "StructuredOutputEmpty('Structured output parsed as None for model qwen/qwen3.8-27b')",
+    "reason": "exception"
+  },
+  "87": {
+    "name": "Xero",
+    "error": "StructuredOutputEmpty('Structured output parsed as None for model qwen/qwen3.8-27b')",
+    "reason": "exception"
+  },
+  "92": {
+    "name": "Otter AI",
+    "error": "RateLimitError('Error code: 429 - {\\'error\\': {\\'message\\': \"Request too large for model `qwen/qwen3.8-27b` in organization `org_01kk8ymqsde5eb7q89wwtwt17m` service tier `on_demand` on output tokens per minute (OTPM): Limit 1000, Requested 2048. The request\\'s expected output tokens exceed the enforced limit; reduce max_tokens (or the request\\'s expected output) and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\", \\'type\\': \\'tokens\\', \\'code\\': \\'rate_limit_exceeded\\'}}')",
+    "reason": "exception"
+  },
+  "93": {
+    "name": "Fathom",
+    "error": "RateLimitError('Error code: 429 - {\\'error\\': {\\'message\\': \"Request too large for model `qwen/qwen3.8-27b` in organization `org_01kk8ymqsde5eb7q89wwtwt17m` service tier `on_demand` on output tokens per minute (OTPM): Limit 1000, Requested 2048. The request\\'s expected output tokens exceed the enforced limit; reduce max_tokens (or the request\\'s expected output) and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\", \\'type\\': \\'tokens\\', \\'code\\': \\'rate_limit_exceeded\\'}}')",
+    "reason": "exception"
+  },
+  "95": {
+    "name": "Reducto",
+    "error": "RateLimitError('Error code: 429 - {\\'error\\': {\\'message\\': \"Request too large for model `qwen/qwen3.8-27b` in organization `org_01kk8ymqsde5eb7q89wwtwt17m` service tier `on_demand` on output tokens per minute (OTPM): Limit 1000, Requested 2048. The request\\'s expected output tokens exceed the enforced limit; reduce max_tokens (or the request\\'s expected output) and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\", \\'type\\': \\'tokens\\', \\'code\\': \\'rate_limit_exceeded\\'}}')",
+    "reason": "exception"
+  }
+}

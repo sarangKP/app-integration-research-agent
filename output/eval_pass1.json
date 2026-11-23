@@ -1,0 +1,838 @@
+{
+  "gold_total": 20,
+  "scored_apps": 20,
+  "scored_apps_label": "20/20",
+  "skipped_missing_from_pass1": [],
+  "per_field_accuracy": {
+    "auth_methods": {
+      "correct": 7,
+      "total": 20,
+      "accuracy": 0.35
+    },
+    "api_type": {
+      "correct": 13,
+      "total": 20,
+      "accuracy": 0.65
+    },
+    "access": {
+      "correct": 10,
+      "total": 20,
+      "accuracy": 0.5
+    },
+    "buildability": {
+      "correct": 11,
+      "total": 20,
+      "accuracy": 0.55
+    },
+    "main_blocker": {
+      "correct": 10,
+      "total": 20,
+      "accuracy": 0.5
+    },
+    "existing_mcp": {
+      "correct": 2,
+      "total": 7,
+      "accuracy": 0.2857
+    }
+  },
+  "per_field_accuracy_loose_subset": {
+    "auth_methods": {
+      "correct": 14,
+      "total": 20,
+      "accuracy": 0.7
+    },
+    "api_type": {
+      "correct": 18,
+      "total": 20,
+      "accuracy": 0.9
+    }
+  },
+  "overall_accuracy": {
+    "correct": 53,
+    "total": 107,
+    "accuracy": 0.4953
+  },
+  "accuracy_by_provider_model": {
+    "gemini/gemini-3.5-flash-lite": {
+      "correct": 29,
+      "total": 49,
+      "accuracy": 0.5918
+    },
+    "groq/openai/gpt-oss-120b": {
+      "correct": 21,
+      "total": 38,
+      "accuracy": 0.5526
+    },
+    "groq/qwen/qwen3.8-27b": {
+      "correct": 3,
+      "total": 20,
+      "accuracy": 0.15
+    }
+  },
+  "low_confidence_rows": [
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "access",
+      "gold": "app_review_required",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "Waterfall.io",
+      "id": "59",
+      "field": "access",
+      "gold": "unknown",
+      "predicted": "unknown",
+      "correct": true
+    },
+    {
+      "app": "GitHub",
+      "id": "61",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "Stripe",
+      "id": "81",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "auth_methods",
+      "gold": "other",
+      "predicted": [
+        "unknown"
+      ],
+      "correct": false
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "api_type",
+      "gold": "none",
+      "predicted": [
+        "unknown"
+      ],
+      "correct": false
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "access",
+      "gold": "no_public_api",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "main_blocker",
+      "gold": "unclear_docs",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "PitchBook",
+      "id": "90",
+      "field": "access",
+      "gold": "contact_sales",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "PitchBook",
+      "id": "90",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "PitchBook",
+      "id": "90",
+      "field": "main_blocker",
+      "gold": "enterprise_only",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "access",
+      "gold": "paid_plan_required",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "main_blocker",
+      "gold": "paid_plan",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "access",
+      "gold": "self_serve_free",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "correct": false
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "main_blocker",
+      "gold": "cli_only_not_api",
+      "predicted": "unknown",
+      "correct": false
+    }
+  ],
+  "mismatches": [
+    {
+      "app": "HubSpot",
+      "id": "2",
+      "field": "auth_methods",
+      "gold": "oauth2|bearer_token",
+      "predicted": [
+        "oauth2",
+        "bearer_token",
+        "other"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "HubSpot",
+      "id": "2",
+      "field": "api_type",
+      "gold": "rest",
+      "predicted": [
+        "rest",
+        "websocket",
+        "sdk_only",
+        "cli_only"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Twenty",
+      "id": "5",
+      "field": "auth_methods",
+      "gold": "api_key|oauth2",
+      "predicted": [
+        "api_key",
+        "bearer_token",
+        "oauth2"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Twenty",
+      "id": "5",
+      "field": "api_type",
+      "gold": "rest|graphql",
+      "predicted": [
+        "rest",
+        "graphql",
+        "websocket"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Twenty",
+      "id": "5",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "community",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "DealCloud",
+      "id": "10",
+      "field": "auth_methods",
+      "gold": "oauth2",
+      "predicted": [
+        "api_key",
+        "bearer_token"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "DealCloud",
+      "id": "10",
+      "field": "access",
+      "gold": "admin_approval",
+      "predicted": "self_serve_free",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "DealCloud",
+      "id": "10",
+      "field": "buildability",
+      "gold": "ready_with_caveats",
+      "predicted": "ready",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "DealCloud",
+      "id": "10",
+      "field": "main_blocker",
+      "gold": "enterprise_only",
+      "predicted": "none",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Zendesk",
+      "id": "11",
+      "field": "auth_methods",
+      "gold": "oauth2|basic",
+      "predicted": [
+        "oauth2",
+        "bearer_token",
+        "basic"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Zendesk",
+      "id": "11",
+      "field": "access",
+      "gold": "admin_approval",
+      "predicted": "self_serve_free",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Slack",
+      "id": "21",
+      "field": "auth_methods",
+      "gold": "oauth2|bearer_token",
+      "predicted": [
+        "oauth2",
+        "bearer_token",
+        "other"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Slack",
+      "id": "21",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "community",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "WhatsApp Business",
+      "id": "28",
+      "field": "api_type",
+      "gold": "rest",
+      "predicted": [
+        "rest",
+        "websocket"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "WhatsApp Business",
+      "id": "28",
+      "field": "access",
+      "gold": "app_review_required",
+      "predicted": "self_serve_free",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "WhatsApp Business",
+      "id": "28",
+      "field": "buildability",
+      "gold": "ready_with_caveats",
+      "predicted": "ready",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "WhatsApp Business",
+      "id": "28",
+      "field": "main_blocker",
+      "gold": "app_review",
+      "predicted": "none",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "auth_methods",
+      "gold": "oauth2|other",
+      "predicted": [
+        "oauth2"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "api_type",
+      "gold": "grpc|rest",
+      "predicted": [
+        "rest"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "access",
+      "gold": "app_review_required",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "buildability",
+      "gold": "ready_with_caveats",
+      "predicted": "ready",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "main_blocker",
+      "gold": "app_review",
+      "predicted": "none",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Google Ads",
+      "id": "31",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Shopify",
+      "id": "41",
+      "field": "auth_methods",
+      "gold": "oauth2",
+      "predicted": [
+        "oauth2",
+        "api_key",
+        "bearer_token"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Shopify",
+      "id": "41",
+      "field": "api_type",
+      "gold": "graphql",
+      "predicted": [
+        "rest",
+        "graphql"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Amazon Selling Partner",
+      "id": "49",
+      "field": "auth_methods",
+      "gold": "oauth2",
+      "predicted": [
+        "oauth2",
+        "bearer_token"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Amazon Selling Partner",
+      "id": "49",
+      "field": "access",
+      "gold": "app_review_required",
+      "predicted": "admin_approval",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Amazon Selling Partner",
+      "id": "49",
+      "field": "main_blocker",
+      "gold": "app_review",
+      "predicted": "partner_approval",
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "DataForSEO",
+      "id": "51",
+      "field": "access",
+      "gold": "self_serve_trial",
+      "predicted": "self_serve_free",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Sherlock",
+      "id": "58",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "ready",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Sherlock",
+      "id": "58",
+      "field": "main_blocker",
+      "gold": "cli_only_not_api",
+      "predicted": "none",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Waterfall.io",
+      "id": "59",
+      "field": "buildability",
+      "gold": "ready_with_caveats",
+      "predicted": "ready",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Waterfall.io",
+      "id": "59",
+      "field": "main_blocker",
+      "gold": "unclear_docs",
+      "predicted": "none",
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "GitHub",
+      "id": "61",
+      "field": "auth_methods",
+      "gold": "oauth2|bearer_token",
+      "predicted": [
+        "oauth2",
+        "api_key",
+        "bearer_token",
+        "jwt",
+        "session/cookie"
+      ],
+      "confidence": "medium",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "GitHub",
+      "id": "61",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite"
+    },
+    {
+      "app": "Stripe",
+      "id": "81",
+      "field": "auth_methods",
+      "gold": "api_key|oauth2",
+      "predicted": [
+        "api_key"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "Stripe",
+      "id": "81",
+      "field": "existing_mcp",
+      "gold": "official",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b"
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "auth_methods",
+      "gold": "other",
+      "predicted": [
+        "unknown"
+      ],
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "api_type",
+      "gold": "none",
+      "predicted": [
+        "unknown"
+      ],
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "access",
+      "gold": "no_public_api",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "iPayX",
+      "id": "85",
+      "field": "main_blocker",
+      "gold": "unclear_docs",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "PitchBook",
+      "id": "90",
+      "field": "access",
+      "gold": "contact_sales",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "PitchBook",
+      "id": "90",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "PitchBook",
+      "id": "90",
+      "field": "main_blocker",
+      "gold": "enterprise_only",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "auth_methods",
+      "gold": "oauth2",
+      "predicted": [
+        "bearer_token"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "access",
+      "gold": "paid_plan_required",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "NotebookLM",
+      "id": "91",
+      "field": "main_blocker",
+      "gold": "paid_plan",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "auth_methods",
+      "gold": "none",
+      "predicted": [
+        "oauth2",
+        "api_key"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "api_type",
+      "gold": "cli_only",
+      "predicted": [
+        "cli_only",
+        "sdk_only",
+        "websocket"
+      ],
+      "confidence": "medium",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "access",
+      "gold": "self_serve_free",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "buildability",
+      "gold": "blocked",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "app": "Mermaid CLI",
+      "id": "98",
+      "field": "main_blocker",
+      "gold": "cli_only_not_api",
+      "predicted": "unknown",
+      "confidence": "low",
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b"
+    }
+  ]
+}

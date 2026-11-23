@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Integration Research Agent — Results</title>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true, theme: "dark", themeVariables: { primaryColor: "#2a2140", primaryTextColor: "#ece8f5", primaryBorderColor: "#a78bfa", lineColor: "#a78bfa", secondaryColor: "#161124", tertiaryColor: "#161124" } });
+</script>
+<style>
+  :root {
+    --bg: #0e0b16; --panel: #161124; --border: #2a2140; --text: #ece8f5; --muted: #9a90b5;
+    --accent: #a78bfa; --accent-2: #f0b84a; --ok: #4fc59a; --bad: #f06b7a; --info: #6aa8ff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0; line-height: 1.55;
+  }
+  .mono, .num, td, th, .caption, footer, code, .bar-label, .bar-value, .heat-cell, .kpi .num {
+    font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 28px 24px 90px; }
+
+  header h1 { font-size: 1.9rem; margin: 0 0 4px; color: var(--text); }
+  header p.subtitle { color: var(--muted); font-size: 1.02rem; margin: 0 0 22px; }
+
+  .kpi-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+  .kpi { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; min-width: 150px; flex: 1 1 150px; }
+  .kpi .num { font-size: 1.8rem; font-weight: 600; color: var(--accent); display: block; }
+  .kpi .label { color: var(--muted); font-size: 0.78rem; margin-top: 4px; }
+
+  .callout { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--info); padding: 14px 18px; margin: 18px 0; border-radius: 0 8px 8px 0; }
+  .callout.warn { border-left-color: var(--accent-2); }
+
+  .section-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 52px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  .section-head h2 { font-size: 1.3rem; color: #fff; margin: 0; }
+  .section-head .subtitle { color: var(--muted); font-size: 0.92rem; }
+
+  ul.bullets { font-size: 1.02rem; padding-left: 22px; }
+  ul.bullets li { margin-bottom: 8px; }
+
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+  @media (max-width: 900px) { .cards-grid { grid-template-columns: 1fr; } }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .card-header { padding: 16px 20px 10px; border-bottom: 1px solid var(--border); }
+  .card-header .card-title { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+  .card-body { padding: 20px; }
+  .card-caption { padding: 0 20px 16px; color: var(--muted); font-size: 0.78rem; }
+
+  .bar-row { display: grid; grid-template-columns: 170px 1fr 70px; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.85rem; }
+  .bar-label { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { background: #0c0a14; border-radius: 999px; height: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; }
+  .bar-value { text-align: right; color: var(--text); }
+
+  .stat-callout { text-align: center; padding: 10px 0; }
+  .stat-callout .big { font-size: 2.6rem; font-weight: 700; color: var(--accent-2); display: block; }
+  .stat-callout .caption-text { color: var(--muted); font-size: 0.88rem; margin-top: 6px; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
+  th { background: #1b1530; color: var(--muted); position: sticky; top: 0; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
+  tbody tr:hover { background: #1b1530; }
+
+  .heat-wrap table { border: none; }
+  .heat-wrap th { background: transparent; color: var(--muted); border: none; font-size: 0.68rem; }
+  .heat-wrap td { border: none; padding: 4px; }
+  .heat-cell { display: flex; align-items: center; justify-content: center; height: 36px; border-radius: 8px; background: rgba(167, 139, 250, var(--a, 0)); color: var(--text); font-size: 0.8rem; }
+  .heat-cat { color: var(--muted); font-size: 0.75rem; padding-right: 10px; white-space: nowrap; }
+
+  .matrix-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .matrix-controls input, .matrix-controls select {
+    background: #0c0a14; color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 7px 10px; font-family: inherit;
+  }
+  .matrix-controls input:focus, .matrix-controls select:focus { outline: none; border-color: var(--accent); }
+  .matrix-wrap { max-height: 560px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; }
+
+  .badge { display: inline-block; font-size: 0.68rem; padding: 1px 6px; border-radius: 4px; margin-right: 3px; font-family: inherit; }
+  .badge.low { background: rgba(240, 184, 74, 0.15); color: var(--accent-2); }
+  .badge.flagged { background: rgba(240, 107, 122, 0.15); color: var(--bad); }
+  .badge.lowrel { background: rgba(167, 139, 250, 0.15); color: var(--accent); }
+
+  footer { margin-top: 70px; border-top: 1px solid var(--border); padding-top: 18px; font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer a { color: var(--accent); }
+  footer .footer-links a { margin-left: 12px; }
+
+  a { color: var(--accent); }
+  code { background: #0c0a14; color: var(--text); padding: 1px 5px; border-radius: 4px; font-size: 0.85em; }
+
+  .lists-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .lists-2 { grid-template-columns: 1fr; } }
+  .lists-2 ul { max-height: 260px; overflow: auto; background: #0c0a14; border-radius: 8px; padding: 10px 10px 10px 28px; }
+
+  .mermaid { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>App Integration Research Agent — Results</h1>
+  <p class="subtitle">An autonomous agent researched the API/auth/buildability surface of {{ patterns.total_apps }} apps, so Composio doesn't have to do it by hand before deciding what to build next.</p>
+
+  <div class="kpi-row">
+    <div class="kpi"><span class="num">{{ patterns.done_count }}/{{ patterns.total_apps }}</span><span class="label">researched</span></div>
+    <div class="kpi"><span class="num">{{ (eval_metrics.overall_accuracy.accuracy * 100) | round(1) }}%</span><span class="label">pass‑1 accuracy (gold, {{ eval_metrics.scored_apps_label }})</span></div>
+    <div class="kpi"><span class="num">{{ patterns.buildable_ready_count }}</span><span class="label">rated ready (upper estimate)</span></div>
+    <div class="kpi"><span class="num">{{ patterns.ready_self_serve | length }}</span><span class="label">ready + self-serve</span></div>
+  </div>
+</header>
+
+<div class="callout warn">
+  <strong>Pass 2 and my correction of the agent's flagged answers were not run</strong> (out of time and API rate limits). I did verify the gold labels (15 of 20). Every accuracy number is pass 1 only; no improvement is claimed.
+</div>
+
+<div class="section-head"><h2>Headline numbers</h2></div>
+<ul class="bullets">
+  {% set top_auth = (patterns.auth_overall.items() | list | sort(attribute='1', reverse=True))[0] %}
+  <li><strong>{{ top_auth[0] }}</strong> is the most common auth method, used by {{ top_auth[1] }} of {{ patterns.done_count }} researched apps.</li>
+  <li>The agent found no blocker for <strong>{{ patterns.no_blocker_count }} of {{ patterns.done_count }}</strong> researched apps (likely an overestimate: on the gold set it wrote "none" where a real blocker existed, e.g. DealCloud, Sherlock, Waterfall.io). For <strong>{{ patterns.unknown_blocker_count }}</strong> apps the blocker is unknown, and only <strong>{{ patterns.named_blocker_count }}</strong> app{{ 's' if patterns.named_blocker_count != 1 else '' }} {{ 'have' if patterns.named_blocker_count != 1 else 'has' }} a named blocker ({{ patterns.top_real_blocker_name }}).</li>
+  <li><strong>{{ patterns.buildable_ready_count }} of {{ patterns.done_count }} researched apps are rated ready by the agent</strong> ({{ patterns.buildable_pct }}%). Buildability was only {{ (eval_metrics.per_field_accuracy.buildability.accuracy * 100) | round(1) }}% accurate on the gold set, and errors lean optimistic, so treat this as an upper estimate.</li>
+  <li><strong>{{ patterns.ready_self_serve | length }}</strong> apps are ready and self-serve — candidates for new toolkits today. Whether these are already in the Composio catalog was not checked.</li>
+  <li><strong>{{ patterns.needs_outreach | length }}</strong> apps need partner/sales/approval outreach before a toolkit could be built.</li>
+  <li>Pass‑1 accuracy against the 20-app gold set (drafted with Claude, 15 of 20 verified by me) is <strong>{{ (eval_metrics.overall_accuracy.accuracy * 100) | round(1) }}%</strong> overall — see the honest breakdown below, including where the agent did worst.</li>
+</ul>
+
+<div class="section-head"><h2>Patterns</h2></div>
+
+<div class="cards-grid">
+  <div class="card">
+    <div class="card-header"><span class="card-title">Auth method mix</span></div>
+    <div class="card-body">
+      {% for b in auth_bars %}
+      <div class="bar-row">
+        <div class="bar-label" title="{{ b.label }}">{{ b.label }}</div>
+        <div class="bar-track"><div class="bar-fill" style="width: {{ b.pct }}%; background: {{ b.color }};"></div></div>
+        <div class="bar-value">{{ b.value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Top blockers to buildability</span></div>
+    <div class="card-body">
+      {% for b in blocker_bars %}
+      <div class="bar-row">
+        <div class="bar-label" title="{{ b.label }}">{{ b.label }}</div>
+        <div class="bar-track"><div class="bar-fill" style="width: {{ b.pct }}%; background: {{ b.color }};"></div></div>
+        <div class="bar-value">{{ b.value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="section-head"><h2>Self-serve vs. gated, by category</h2></div>
+<div class="card" style="margin-top:18px">
+  <div class="card-body heat-wrap">
+    <table>
+      <thead><tr><th></th>{% for a in heat_table.access_types %}<th>{{ a }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for row in heat_table.rows %}
+        <tr>
+          <td class="heat-cat">{{ row.category }}</td>
+          {% for cell in row.cells %}
+          <td><div class="heat-cell" style="--a: {{ cell.alpha }}">{{ cell.value if cell.value else '' }}</div></td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-head"><h2>Ready and self-serve vs. needs outreach</h2><span class="subtitle">Whether these are already in the Composio catalog was not checked — the D5 catalog cross-check never ran in this pass.</span></div>
+<div class="lists-2">
+  <div>
+    <strong>Ready and self-serve</strong> ({{ patterns.ready_self_serve | length }})
+    <ul>
+      {% for a in patterns.ready_self_serve %}<li>{{ a.name }} <span class="mono">({{ a.category }})</span></li>{% endfor %}
+    </ul>
+  </div>
+  <div>
+    <strong>Needs outreach</strong> — partner/sales/admin-gated ({{ patterns.needs_outreach | length }})
+    <ul>
+      {% for a in patterns.needs_outreach %}<li>{{ a.name }} <span class="mono">({{ a.access }})</span></li>{% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% if patterns.inconsistent_buildability %}
+<div class="section-head"><h2>Inconsistent, needs review</h2><span class="subtitle">({{ patterns.inconsistent_buildability | length }}) Access is gated (admin approval / app review / contact sales) but buildability was rated "ready" anyway — these two fields disagree with each other and I should check them.</span></div>
+<ul class="bullets">
+  {% for a in patterns.inconsistent_buildability %}<li>{{ a.name }} — access=<span class="mono">{{ a.access }}</span>, buildability=<span class="mono">{{ a.buildability }}</span></li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if patterns.not_an_api %}
+<div class="section-head"><h2>Not an API</h2><span class="subtitle">({{ patterns.not_an_api | length }}) CLI-only, SDK-only, or self-host-only — a toolkit here would need a different approach than a hosted API wrapper.</span></div>
+<ul class="bullets">
+  {% for a in patterns.not_an_api %}<li>{{ a.name }} — {{ a.main_blocker }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<div class="section-head"><h2>The matrix</h2></div>
+<div class="matrix-controls">
+  <input type="text" id="searchBox" placeholder="Search name…">
+  <select id="catFilter"><option value="">All categories</option></select>
+  <select id="accessFilter"><option value="">All access types</option></select>
+  <select id="buildFilter"><option value="">All buildability</option></select>
+</div>
+<div class="matrix-wrap">
+<table id="matrixTable">
+<thead><tr>
+  <th>ID</th><th>Name</th><th>Category</th><th>Auth</th><th>Access</th><th>API type</th>
+  <th>Buildability</th><th>Blocker</th><th>MCP</th><th>Model</th>
+</tr></thead>
+<tbody>
+{% for r in records %}
+<tr data-category="{{ r.category }}" data-access="{{ r.access }}" data-build="{{ r.buildability }}" data-name="{{ r.name | lower }}">
+  <td>{{ r.id }}</td>
+  <td>
+    {{ r.name }}
+    {% if r.lower_reliability %}<span class="badge lowrel" title="Extracted by {{ qwen_model_name }}, which scored much lower on the gold set (see Verification)">lower reliability</span>{% endif %}
+  </td>
+  <td>{{ r.category }}</td>
+  <td title="{{ r.auth_notes }}">
+    {{ r.auth_methods | join(', ') }}
+    {% if r.confidence.auth_methods == 'low' %}<span class="badge low">low</span>{% endif %}
+    {% if r.verification.auth_methods and r.verification.auth_methods.status == 'flagged_for_human' %}<span class="badge flagged">flagged</span>{% endif %}
+  </td>
+  <td>
+    {{ r.access }}
+    {% if r.confidence.access == 'low' %}<span class="badge low">low</span>{% endif %}
+    {% if r.verification.access and r.verification.access.status == 'flagged_for_human' %}<span class="badge flagged">flagged</span>{% endif %}
+  </td>
+  <td>{{ r.api_type | join(', ') }}</td>
+  <td>
+    {{ r.buildability }}
+    {% if r.confidence.buildability == 'low' %}<span class="badge low">low</span>{% endif %}
+  </td>
+  <td>{{ r.main_blocker }}</td>
+  <td>
+    {% if r.existing_mcp.mcp_url %}<a href="{{ r.existing_mcp.mcp_url }}" target="_blank" rel="noopener" title="{{ r.existing_mcp.status }}">{{ r.existing_mcp.status }}</a>{% else %}{{ r.existing_mcp.status }}{% endif %}
+  </td>
+  <td class="mono">{{ r.model_provider }}/{{ r.model_name }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+{% if failures %}
+<div class="section-head"><h2>Not researched</h2><span class="subtitle">({{ patterns.failed_count }}) These apps failed extraction entirely (LLM provider errors) and have no record — shown honestly as not researched, not guessed.</span></div>
+<table>
+<thead><tr><th>ID</th><th>Name</th><th>Reason</th></tr></thead>
+<tbody>
+{% for fid, info in failures.items() %}
+<tr><td>{{ fid }}</td><td>{{ info.name }}</td><td class="mono">{{ info.reason }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+
+<div class="section-head"><h2>How it works</h2></div>
+<div class="mermaid">
+graph TD
+  START([START]) --> plan[plan_queries<br/>LLM writes 3 search queries]
+  plan --> search[search<br/>Tavily via Composio, 1 credit/query]
+  search --> select[select_sources<br/>rank by domain trust, top 6]
+  select --> fetch[fetch_pages<br/>httpx+trafilatura, Playwright fallback]
+  fetch --> extract[extract<br/>LLM structured output to AppRecord]
+  extract --> finalize[finalize<br/>set confidence, flag unknowns]
+  finalize --> END([END])
+</div>
+<p class="card-caption" style="padding-left:0">This is the graph that actually ran (pass 1, extract-only). The verify/retry loop (D1–D6 checks against evidence, a second search pass for failed fields) is part of the design but was <strong>not run</strong> — it belongs to pass 2, which this run did not reach.</p>
+
+<div class="section-head"><h2>Where I stepped in</h2></div>
+<ul class="bullets">
+  <li>The 20 gold labels were drafted with Claude from official docs, independently of the agent's output. I verified 15 of 20 against the sources myself and found one error (fanbasis: docs on commasdocs.com, a different domain from the product site, which search missed). I corrected it. (See Verification.)</li>
+  <li>I decided to switch models mid-run after Gemini's free-tier daily quota ran out.</li>
+  <li>I found the {{ patterns.failed_count }} apps that defeated the agent entirely (listed above as "not researched") by reviewing the run logs, not the agent itself.</li>
+  <li>No automated review pass (pass 2) or my correction pass (final) happened — everything on this page is the agent's unreviewed first attempt.</li>
+</ul>
+
+<div class="section-head"><h2>Verification</h2></div>
+
+<div class="callout">
+  <strong>Gold set methodology:</strong> The 20 gold labels were drafted with Claude from official docs, independently of the agent's output. I verified 15 of 20 against the sources myself and found one error (fanbasis: docs on commasdocs.com, a different domain from the product site, which search missed). I corrected it.
+</div>
+
+<div class="callout warn">
+  <strong>Scoring rule:</strong> a predicted value counts as correct when it equals gold, including when both are <code>"unknown"</code> (the agent and I both honestly not knowing counts as agreement). A predicted <code>"unknown"</code> only counts as a miss when gold has a real, verified answer. <code>api_breadth</code> is not scored. <code>existing_mcp</code> is scored only on the gold rows I actually verified.
+</div>
+
+<div class="cards-grid">
+  <div class="card">
+    <div class="card-header"><span class="card-title">Pass‑1 accuracy per field</span></div>
+    <div class="card-body">
+      {% for b in field_accuracy_bars %}
+      <div class="bar-row">
+        <div class="bar-label" title="{{ b.label }}">{{ b.label }}</div>
+        <div class="bar-track"><div class="bar-fill" style="width: {{ b.pct }}%; background: {{ b.color }};"></div></div>
+        <div class="bar-value">{{ b.pct }}%</div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="card-caption">({{ eval_metrics.scored_apps_label }} gold apps scored). <code>auth_methods</code> and <code>api_type</code> are scored as exact set matches, so an extra item (e.g. HubSpot predicting an extra <code>"other"</code> auth method) counts as a miss.</p>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Accuracy by model</span></div>
+    <div class="card-body">
+      {% for b in model_accuracy_bars %}
+      <div class="bar-row">
+        <div class="bar-label" title="{{ b.label }}">{{ b.label }}</div>
+        <div class="bar-track"><div class="bar-fill" style="width: {{ b.pct }}%; background: {{ b.color }};"></div></div>
+        <div class="bar-value">{{ b.pct }}%</div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="card-caption">Gemini's free-tier daily quota (<code>gemini-3.5-flash-lite</code>) ran out partway through the run. The remaining apps used Groq's free tier instead — first <code>openai/gpt-oss-120b</code>, then <code>qwen/qwen3.8-27b</code> once that model's own daily token budget was nearly spent. Every record on this page stores which model actually produced it; apps from <code>{{ qwen_model_name }}</code> are marked <span class="badge lowrel">lower reliability</span> in the matrix above because of what the numbers above show.</p>
+  </div>
+</div>
+
+<table style="margin-top:20px">
+<thead><tr><th>Field</th><th>Exact-match accuracy</th><th>Looser: gold values all present in predicted</th></tr></thead>
+<tbody>
+{% for field, loose in eval_metrics.per_field_accuracy_loose_subset.items() %}
+<tr>
+  <td>{{ field }}</td>
+  <td>{{ (eval_metrics.per_field_accuracy[field].accuracy * 100) | round(1) }}%</td>
+  <td>{{ (loose.accuracy * 100) | round(1) }}%</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="card" style="margin-top:20px">
+  <div class="card-header"><span class="card-title">Low-confidence rows: confidence is a useful signal</span></div>
+  <div class="card-body stat-callout">
+    <span class="big">{{ low_conf_wrong }}/{{ low_conf_total }}</span>
+    <div class="caption-text">({{ low_conf_pct_wrong }}%) wrong</div>
+  </div>
+  <p class="card-caption">The agent flags a field <code>low</code> confidence whenever it couldn't find an answer and said "unknown" instead of guessing. Of the {{ low_conf_total }} gold-set field values the agent flagged this way, <strong>{{ low_conf_wrong }} ({{ low_conf_pct_wrong }}%) were wrong</strong> — i.e. gold had a real answer the agent missed. That's a strong signal: a <code>low</code> confidence badge in the matrix means "don't trust this without checking," and the data backs that up.</p>
+</div>
+
+<div class="section-head"><h2>All mismatches</h2><span class="subtitle">({{ eval_metrics.mismatches | length }})</span></div>
+<div class="matrix-wrap" style="max-height:400px">
+<table>
+<thead><tr><th>App</th><th>Field</th><th>Gold</th><th>Predicted</th><th>Confidence</th><th>Model</th></tr></thead>
+<tbody>
+{% for m in eval_metrics.mismatches %}
+<tr><td>{{ m.app }}</td><td>{{ m.field }}</td><td class="mono">{{ m.gold }}</td><td class="mono">{{ m.predicted }}</td><td>{{ m.confidence }}</td><td class="mono">{{ m.provider }}/{{ m.model }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<div class="section-head"><h2>Limitations, stated honestly</h2></div>
+<ul class="bullets">
+  <li><strong>{{ patterns.apps_with_unknown_fields }}</strong> of {{ patterns.done_count }} researched apps have at least one <code>unknown</code>/low-confidence field ({{ patterns.total_unknown_low_confidence_fields }} such fields total) — these are gaps the agent admitted to, not silent guesses.</li>
+  <li>Pass 1 accuracy overall is {{ (eval_metrics.overall_accuracy.accuracy * 100) | round(1) }}% — well short of production quality. No verify/retry loop ran, and I did not do a correction pass, to improve on this.</li>
+  <li><code>{{ qwen_model_name }}</code>'s records are markedly less reliable than the other two models (see "accuracy by model" chart above) — a direct consequence of switching providers mid-run under free-tier quota pressure, not a reflection of the agent design.</li>
+  <li>{{ patterns.failed_count }} apps have no record at all (not researched), all due to LLM provider errors during extraction, not missing data on the web.</li>
+</ul>
+
+<div class="section-head"><h2>Run it yourself</h2></div>
+<ul class="bullets">
+  <li>Run command: <code>uv run research --all</code> (resumable; skips apps already in <code>output/pass1.json</code>)</li>
+  <li>Evaluate: <code>uv run python -m research_agent.evaluate</code></li>
+  <li>Analyze + rebuild this page: <code>uv run python -m research_agent.analyze && uv run python site/build.py</code></li>
+  <li>Downloads: <a href="results.json">results.json</a> · <a href="results.csv">results.csv</a> · <a href="metrics.json">metrics.json</a> · <a href="llms.txt">llms.txt</a></li>
+</ul>
+
+<footer>
+  <div>App integration research agent · pass 1</div>
+  <div class="footer-links">
+    Generated {{ generated_at }}. Models used: gemini-3.5-flash-lite ({{ gemini_apps }} apps), openai/gpt-oss-120b, {{ qwen_model_name }}.
+    Groq API calls (exact, from the usage tracker): {{ groq_requests_total }}. Gemini calls: not instrumented exactly — at least 2 per completed Gemini app (~{{ gemini_apps * 2 }}), excluding retries.
+    Pass 1 only; pass 2 and final review were not run.
+    <a href="results.csv">results.csv</a><a href="results.json">results.json</a><a href="llms.txt">llms.txt</a>
+  </div>
+</footer>
+
+</div>
+
+<script id="data" type="application/json">{{ records_json | safe }}</script>
+<script id="patterns-data" type="application/json">{{ patterns_json | safe }}</script>
+<script id="eval-data" type="application/json">{{ eval_metrics_json | safe }}</script>
+
+<script>
+function el(tag, props, text) {
+  const e = document.createElement(tag);
+  if (props) Object.assign(e, props);
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+// --- Matrix filters (safe DOM option creation, no innerHTML) ---
+(function matrixFilters() {
+  const rows = Array.from(document.querySelectorAll('#matrixTable tbody tr'));
+  const catSel = document.getElementById('catFilter');
+  const accessSel = document.getElementById('accessFilter');
+  const buildSel = document.getElementById('buildFilter');
+  const search = document.getElementById('searchBox');
+
+  function uniqueSorted(attr) {
+    return Array.from(new Set(rows.map(r => r.dataset[attr]))).sort();
+  }
+  function addOptions(select, values) {
+    values.forEach(v => select.appendChild(el('option', { value: v }, v)));
+  }
+  addOptions(catSel, uniqueSorted('category'));
+  addOptions(accessSel, uniqueSorted('access'));
+  addOptions(buildSel, uniqueSorted('build'));
+
+  function apply() {
+    const q = search.value.toLowerCase();
+    rows.forEach(r => {
+      const matches = (!catSel.value || r.dataset.category === catSel.value)
+        && (!accessSel.value || r.dataset.access === accessSel.value)
+        && (!buildSel.value || r.dataset.build === buildSel.value)
+        && (!q || r.dataset.name.includes(q));
+      r.style.display = matches ? '' : 'none';
+    });
+  }
+  [catSel, accessSel, buildSel, search].forEach(e => e.addEventListener('input', apply));
+})();
+</script>
+</body>
+</html>
