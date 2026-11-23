@@ -189,10 +189,6 @@ The live page was restyled by hand after `build.py` made it, so running `build.p
 
 The same data as the page: [results.json](site/dist/results.json) · [results.csv](site/dist/results.csv) · [metrics.json](site/dist/metrics.json) · [llms.txt](site/dist/llms.txt)
 
-## How this was built
-
-I built this with Claude Code and Claude: the gold labels were drafted with Claude, and Claude Code wrote much of the code and the page under my direction. The decisions on scope, the model switches, the gold-label checks, and what the page claims are mine.
-
 ## Author
 
 Built by [Sarang](https://github.com/sarangKP).
