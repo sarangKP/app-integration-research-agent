@@ -20,7 +20,7 @@
       "status": "official",
       "mcp_url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -39,7 +39,7 @@
       {
         "field": "auth_methods",
         "url": "https://developer.salesforce.com/docs/platform/api-rest/guide/quickstart-oauth.html",
-        "quote": "Use the access token (also known as a \u201cbearer token\u201d) that you get from Salesforce CLI to authenticate cURL requests.",
+        "quote": "Use the access token (also known as a “bearer token”) that you get from Salesforce CLI to authenticate cURL requests.",
         "fetched_at": "2026-11-23T13:24:09.004988Z"
       },
       {
@@ -100,14 +100,16 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "salesforce"
   },
   {
     "id": 2,
     "name": "HubSpot",
     "category": "CRM and Sales",
     "hint": "hubspot.com",
-    "one_liner": "HubSpot offers two distinct MCP servers\u2014one for connecting MCP-compatible AI tools or agents to your CRM, and one for building",
+    "one_liner": "HubSpot offers two distinct MCP servers—one for connecting MCP-compatible AI tools or agents to your CRM, and one for building",
     "auth_methods": [
       "oauth2",
       "bearer_token",
@@ -126,20 +128,20 @@
       "status": "official",
       "mcp_url": "https://mcp.hubspot.com"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
       {
         "field": "one_liner",
         "url": "https://developers.hubspot.com/ai-tools/mcp",
-        "quote": "HubSpot offers two distinct MCP (Model Context Protocol) servers \u2014 one for connecting any MCP-compatible AI tool or agent to your CRM, and one for building on the HubSpot Developer Platform.",
+        "quote": "HubSpot offers two distinct MCP (Model Context Protocol) servers — one for connecting any MCP-compatible AI tool or agent to your CRM, and one for building on the HubSpot Developer Platform.",
         "fetched_at": "2026-11-23T13:24:14.597284Z"
       },
       {
         "field": "auth_methods",
         "url": "https://developers.hubspot.com/docs/apps/legacy-apps/authentication/intro-to-auth",
-        "quote": "There are two ways to authenticate calls to HubSpot\u2019s APIs: OAuth, and private app access tokens.",
+        "quote": "There are two ways to authenticate calls to HubSpot’s APIs: OAuth, and private app access tokens.",
         "fetched_at": "2026-11-23T13:24:11.740779Z"
       },
       {
@@ -175,25 +177,25 @@
       {
         "field": "existing_mcp_status",
         "url": "https://developers.hubspot.com/ai-tools/mcp",
-        "quote": "HubSpot offers two distinct MCP (Model Context Protocol) servers \u2014 one for connecting any MCP-compatible AI tool or agent to your CRM, and one for building on the HubSpot Developer Platform.",
+        "quote": "HubSpot offers two distinct MCP (Model Context Protocol) servers — one for connecting any MCP-compatible AI tool or agent to your CRM, and one for building on the HubSpot Developer Platform.",
         "fetched_at": "2026-11-23T13:24:14.597284Z"
       },
       {
         "field": "existing_mcp_url",
         "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server",
-        "quote": "Configuring your MCP client to connect to the HubSpot MCP server at https://mcp.hubspot.com using your connector\u2019s OAuth credentials.",
+        "quote": "Configuring your MCP client to connect to the HubSpot MCP server at https://mcp.hubspot.com using your connector’s OAuth credentials.",
         "fetched_at": "2026-11-23T13:24:14.894187Z"
       },
       {
         "field": "buildability",
         "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server",
-        "quote": "Configuring your MCP client to connect to the HubSpot MCP server at https://mcp.hubspot.com using your connector\u2019s OAuth credentials.",
+        "quote": "Configuring your MCP client to connect to the HubSpot MCP server at https://mcp.hubspot.com using your connector’s OAuth credentials.",
         "fetched_at": "2026-11-23T13:24:14.894187Z"
       },
       {
         "field": "main_blocker",
         "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server",
-        "quote": "Configuring your MCP client to connect to the HubSpot MCP server at https://mcp.hubspot.com using your connector\u2019s OAuth credentials.",
+        "quote": "Configuring your MCP client to connect to the HubSpot MCP server at https://mcp.hubspot.com using your connector’s OAuth credentials.",
         "fetched_at": "2026-11-23T13:24:14.894187Z"
       }
     ],
@@ -212,7 +214,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "hubspot"
   },
   {
     "id": 3,
@@ -234,14 +238,14 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
       {
         "field": "one_liner",
         "url": "https://www.pipedrive.com/en/blog/prm-software",
-        "quote": "Pipedrive\u2019s customizable CRM can serve as an intuitive PRM solution for SMBs, helping you organize partner deals and tasks in one place.",
+        "quote": "Pipedrive’s customizable CRM can serve as an intuitive PRM solution for SMBs, helping you organize partner deals and tasks in one place.",
         "fetched_at": "2026-11-23T13:24:25.601766Z"
       },
       {
@@ -308,7 +312,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "pipedrive"
   },
   {
     "id": 4,
@@ -332,7 +338,7 @@
       "status": "official",
       "mcp_url": "https://attio.com/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -369,13 +375,13 @@
       {
         "field": "api_type",
         "url": "https://github.com/itsbrex/attio-mcp-server",
-        "quote": "- \ud83d\udcca Full API Coverage: Access to objects, records, attributes, lists, tasks, notes, and more",
+        "quote": "- 📊 Full API Coverage: Access to objects, records, attributes, lists, tasks, notes, and more",
         "fetched_at": "2026-11-23T13:24:36.269600Z"
       },
       {
         "field": "api_breadth",
         "url": "https://github.com/itsbrex/attio-mcp-server",
-        "quote": "- \ud83d\udcca Full API Coverage: Access to objects, records, attributes, lists, tasks, notes, and more",
+        "quote": "- 📊 Full API Coverage: Access to objects, records, attributes, lists, tasks, notes, and more",
         "fetched_at": "2026-11-23T13:24:36.269600Z"
       },
       {
@@ -418,7 +424,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "attio"
   },
   {
     "id": 5,
@@ -443,7 +451,7 @@
       "status": "community",
       "mcp_url": "https://github.com/KonstiDoll/twenty-crm-mcp-server"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -505,7 +513,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "twenty"
   },
   {
     "id": 6,
@@ -527,7 +537,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -577,7 +587,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "podio"
   },
   {
     "id": 7,
@@ -600,7 +612,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -686,7 +698,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "zoho"
   },
   {
     "id": 8,
@@ -709,7 +723,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -746,13 +760,13 @@
       {
         "field": "api_type",
         "url": "https://developer.close.com/integrations",
-        "quote": "Close\u2019s REST API supports everything from a simple internal script to a full product integration used by thousands of Close customers.",
+        "quote": "Close’s REST API supports everything from a simple internal script to a full product integration used by thousands of Close customers.",
         "fetched_at": "2026-11-23T13:25:38.220817Z"
       },
       {
         "field": "api_breadth",
         "url": "https://developer.close.com/integrations",
-        "quote": "Close\u2019s REST API supports everything from a simple internal script to a full product integration used by thousands of Close customers.",
+        "quote": "Close’s REST API supports everything from a simple internal script to a full product integration used by thousands of Close customers.",
         "fetched_at": "2026-11-23T13:25:38.220817Z"
       },
       {
@@ -789,7 +803,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "close"
   },
   {
     "id": 9,
@@ -811,7 +827,7 @@
       "status": "community",
       "mcp_url": "https://github.com/dazanza/copper-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -872,14 +888,16 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "copper"
   },
   {
     "id": 10,
     "name": "DealCloud",
     "category": "CRM and Sales",
     "hint": "api.docs.dealcloud.com",
-    "one_liner": "DealCloud provides a REST API accessed via API keys or OAuth tokens, with user\u2011group permissions and optional user\u2011proxying.",
+    "one_liner": "DealCloud provides a REST API accessed via API keys or OAuth tokens, with user‑group permissions and optional user‑proxying.",
     "auth_methods": [
       "api_key",
       "bearer_token"
@@ -961,7 +979,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 11,
@@ -984,7 +1004,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -1064,14 +1084,16 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "zendesk"
   },
   {
     "id": 12,
     "name": "Intercom",
     "category": "Support and Helpdesk",
     "hint": "intercom.com",
-    "one_liner": "Fin Agent API provides server\u2011to\u2011server access to Intercom\u2019s Fin AI Agent using a bearer\u2011token API key.",
+    "one_liner": "Fin Agent API provides server‑to‑server access to Intercom’s Fin AI Agent using a bearer‑token API key.",
     "auth_methods": [
       "bearer_token"
     ],
@@ -1085,7 +1107,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -1144,7 +1166,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "intercom"
   },
   {
     "id": 13,
@@ -1165,7 +1189,7 @@
       "status": "official",
       "mcp_url": "https://support.freshdesk.com/support/solutions/articles/50000012670-model-context-protocol-mcp-integration-in-freshdesk-eap-"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "none",
     "evidence": [
@@ -1240,7 +1264,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "freshdesk"
   },
   {
     "id": 14,
@@ -1261,7 +1287,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [],
@@ -1309,7 +1335,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "front"
   },
   {
     "id": 15,
@@ -1338,7 +1366,7 @@
       {
         "field": "auth_methods",
         "url": "https://docs.usepylon.com/pylon-docs/developer/api/authentication",
-        "quote": "The Pylon API uses Bearer authentication. This means you\u2019ll need to pass your API token in the header of your request:\nAuthorization: Bearer <token>",
+        "quote": "The Pylon API uses Bearer authentication. This means you’ll need to pass your API token in the header of your request:\nAuthorization: Bearer <token>",
         "fetched_at": "2026-11-23T13:27:49.690422Z"
       },
       {
@@ -1404,7 +1432,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "mcp_only",
+    "composio_toolkit": "pylon_mcp"
   },
   {
     "id": 16,
@@ -1490,7 +1520,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 17,
@@ -1512,7 +1544,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -1555,7 +1587,7 @@
       {
         "field": "existing_mcp_status",
         "url": "https://www.plain.com/blog/api-first-support-platforms",
-        "quote": "If you\u2019re looking to access our GraphQL API from an Agent, try our MCP Server instead.",
+        "quote": "If you’re looking to access our GraphQL API from an Agent, try our MCP Server instead.",
         "fetched_at": "2026-11-23T13:29:03.778494Z"
       }
     ],
@@ -1579,7 +1611,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "plain"
   },
   {
     "id": 18,
@@ -1602,14 +1636,14 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
       {
         "field": "one_liner",
         "url": "https://hiverhq.com/blog/help-scout-pricing",
-        "quote": "Help Scout is a customer support platform that facilitates seamless communication between companies and customers through multiple channels \u2013 email, live chat, and a knowledge base.",
+        "quote": "Help Scout is a customer support platform that facilitates seamless communication between companies and customers through multiple channels – email, live chat, and a knowledge base.",
         "fetched_at": "2026-11-23T13:29:07.977474Z"
       },
       {
@@ -1651,7 +1685,7 @@
       {
         "field": "buildability",
         "url": "https://www.getmacha.com/blog/how-to-use-the-help-scout-api",
-        "quote": "To use the Help Scout API, create an OAuth2 app under Your Profile \u2192 My apps, POST its client ID and secret to https://api.helpscout.net/v2/oauth2/token, and send the returned access token...",
+        "quote": "To use the Help Scout API, create an OAuth2 app under Your Profile → My apps, POST its client ID and secret to https://api.helpscout.net/v2/oauth2/token, and send the returned access token...",
         "fetched_at": "2026-11-23T13:29:01.778644Z"
       },
       {
@@ -1676,7 +1710,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "help_scout"
   },
   {
     "id": 19,
@@ -1699,7 +1735,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -1779,7 +1815,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "gorgias"
   },
   {
     "id": 20,
@@ -1880,7 +1918,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 21,
@@ -1903,7 +1943,7 @@
       "status": "community",
       "mcp_url": "https://github.com/chaodonghu/Slack-Gitlab-Test-Model-Context-Protocol-Server"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -1947,7 +1987,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "slack"
   },
   {
     "id": 22,
@@ -1971,7 +2013,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2033,7 +2075,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "twilio"
   },
   {
     "id": 23,
@@ -2055,7 +2099,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2129,7 +2173,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "zoho_cliq"
   },
   {
     "id": 24,
@@ -2152,7 +2198,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2214,7 +2260,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "lark"
   },
   {
     "id": 25,
@@ -2235,7 +2283,7 @@
       "status": "official",
       "mcp_url": "https://pumble.com/learn/pumble/ai-automation-guide"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2297,7 +2345,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "pumble"
   },
   {
     "id": 26,
@@ -2321,7 +2371,7 @@
       "status": "community",
       "mcp_url": "https://github.com/SaseQ/discord-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2334,13 +2384,13 @@
       {
         "field": "auth_methods",
         "url": "https://docs.discord.com/developers/reference",
-        "quote": "Authenticating with the Discord API can be done in one of three ways: Using a bot token found on the Bot page within your app\u2019s settings. Using an OAuth2 bearer token gained through the OAuth2 API. Using basic authentication with credentials as the client ID and client secret found on the OAuth2 page of your app\u2019s settings in the format client_id:client_secret as a Base64 encoded string.",
+        "quote": "Authenticating with the Discord API can be done in one of three ways: Using a bot token found on the Bot page within your app’s settings. Using an OAuth2 bearer token gained through the OAuth2 API. Using basic authentication with credentials as the client ID and client secret found on the OAuth2 page of your app’s settings in the format client_id:client_secret as a Base64 encoded string.",
         "fetched_at": "2026-11-23T13:32:42.565764Z"
       },
       {
         "field": "auth_notes",
         "url": "https://docs.discord.com/developers/reference",
-        "quote": "Authenticating with the Discord API can be done in one of three ways: Using a bot token found on the Bot page within your app\u2019s settings. Using an OAuth2 bearer token gained through the OAuth2 API. Using basic authentication with credentials as the client ID and client secret found on the OAuth2 page of your app\u2019s settings in the format client_id:client_secret as a Base64 encoded string.",
+        "quote": "Authenticating with the Discord API can be done in one of three ways: Using a bot token found on the Bot page within your app’s settings. Using an OAuth2 bearer token gained through the OAuth2 API. Using basic authentication with credentials as the client ID and client secret found on the OAuth2 page of your app’s settings in the format client_id:client_secret as a Base64 encoded string.",
         "fetched_at": "2026-11-23T13:32:42.565764Z"
       },
       {
@@ -2401,7 +2451,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "discord"
   },
   {
     "id": 27,
@@ -2422,7 +2474,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2483,7 +2535,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "telegram"
   },
   {
     "id": 28,
@@ -2505,14 +2559,14 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
       {
         "field": "one_liner",
         "url": "https://developers.facebook.com/docs/whatsapp/cloud-api/get-started#set-up-developer-assets-and-platform-access",
-        "quote": "The WhatsApp Cloud API enables you to send messages and receive webhooks\u2014these are the fundamental building blocks for messaging integration.",
+        "quote": "The WhatsApp Cloud API enables you to send messages and receive webhooks—these are the fundamental building blocks for messaging integration.",
         "fetched_at": "2026-11-23T13:33:41.132488Z"
       },
       {
@@ -2579,7 +2633,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "whatsapp"
   },
   {
     "id": 29,
@@ -2600,7 +2656,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2637,7 +2693,7 @@
       {
         "field": "buildability",
         "url": "https://developer.aircall.io/docs/your-first-api-call",
-        "quote": "\u2705 A successful response looks like this: { \"ping\": \"pong\" }",
+        "quote": "✅ A successful response looks like this: { \"ping\": \"pong\" }",
         "fetched_at": "2026-11-23T14:25:43.664375Z"
       },
       {
@@ -2671,7 +2727,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "aircall"
   },
   {
     "id": 30,
@@ -2748,7 +2806,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 31,
@@ -2769,7 +2829,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2826,7 +2886,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "googleads"
   },
   {
     "id": 32,
@@ -2850,7 +2912,7 @@
       "status": "official",
       "mcp_url": "https://mcp.facebook.com/ads"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -2930,7 +2992,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "metaads"
   },
   {
     "id": 33,
@@ -2951,7 +3015,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [],
@@ -2999,7 +3063,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "linkedin_ads"
   },
   {
     "id": 34,
@@ -3021,7 +3087,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -3092,7 +3158,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "highlevel_agency, highlevel_location"
   },
   {
     "id": 35,
@@ -3113,14 +3181,14 @@
       "status": "community",
       "mcp_url": "https://github.com/AgentX-ai/mailchimp-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
       {
         "field": "auth_methods",
         "url": "https://mailchimp.com/help/about-api-keys",
-        "quote": "An API key is a unique series of characters that\u2019s included in a request to verify that the requesting system is allowed to communicate with the receiving system.",
+        "quote": "An API key is a unique series of characters that’s included in a request to verify that the requesting system is allowed to communicate with the receiving system.",
         "fetched_at": "2026-11-23T13:36:42.053011Z"
       },
       {
@@ -3151,14 +3219,16 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "mailchimp"
   },
   {
     "id": 36,
     "name": "Klaviyo",
     "category": "Marketing, Ads, Email and Social",
     "hint": "developers.klaviyo.com",
-    "one_liner": "Klaviyo offers a REST API with private key, OAuth, and public key authentication for server\u2011side and client\u2011side endpoints.",
+    "one_liner": "Klaviyo offers a REST API with private key, OAuth, and public key authentication for server‑side and client‑side endpoints.",
     "auth_methods": [
       "api_key",
       "oauth2"
@@ -3173,7 +3243,7 @@
       "status": "official",
       "mcp_url": "https://mcp.klaviyo.com/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -3222,7 +3292,7 @@
       {
         "field": "existing_mcp_status",
         "url": "https://developers.klaviyo.com/en/docs/connect_to_the_klaviyo_mcp_server",
-        "quote": "Configure your MCP client for the remote\u2011hosted server (recommended)... URL: https://mcp.klaviyo.com/mcp",
+        "quote": "Configure your MCP client for the remote‑hosted server (recommended)... URL: https://mcp.klaviyo.com/mcp",
         "fetched_at": "2026-11-23T13:36:39.788763Z"
       },
       {
@@ -3234,7 +3304,7 @@
       {
         "field": "main_blocker",
         "url": "https://developers.klaviyo.com/en/reference/api_overview",
-        "quote": "All new API endpoints are rate limited on a per\u2011account basis... (no indication of access restrictions beyond API keys).",
+        "quote": "All new API endpoints are rate limited on a per‑account basis... (no indication of access restrictions beyond API keys).",
         "fetched_at": "2026-11-23T13:36:39.287860Z"
       }
     ],
@@ -3253,7 +3323,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "klaviyo"
   },
   {
     "id": 37,
@@ -3349,7 +3421,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 38,
@@ -3372,14 +3446,14 @@
       "status": "community",
       "mcp_url": "https://github.com/aymandakirgh/pinterest-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
       {
         "field": "one_liner",
         "url": "https://github.com/aymandakirgh/pinterest-mcp",
-        "quote": "A Model Context Protocol server for the Pinterest API v5. It gives an AI assistant 35 typed tools over boards, pins, analytics, search and OAuth \u2014 runnable as a local stdio subprocess or as a hosted HTTP endpoint.",
+        "quote": "A Model Context Protocol server for the Pinterest API v5. It gives an AI assistant 35 typed tools over boards, pins, analytics, search and OAuth — runnable as a local stdio subprocess or as a hosted HTTP endpoint.",
         "fetched_at": "2026-11-23T13:37:36.608988Z"
       },
       {
@@ -3427,7 +3501,7 @@
       {
         "field": "buildability",
         "url": "https://github.com/aymandakirgh/pinterest-mcp",
-        "quote": "A Model Context Protocol server for the Pinterest API v5. It gives an AI assistant 35 typed tools over boards, pins, analytics, search and OAuth \u2014 runnable as a local stdio subprocess or as a hosted HTTP endpoint.",
+        "quote": "A Model Context Protocol server for the Pinterest API v5. It gives an AI assistant 35 typed tools over boards, pins, analytics, search and OAuth — runnable as a local stdio subprocess or as a hosted HTTP endpoint.",
         "fetched_at": "2026-11-23T13:37:36.608988Z"
       },
       {
@@ -3452,7 +3526,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "pinterest"
   },
   {
     "id": 39,
@@ -3473,7 +3549,7 @@
       "status": "community",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -3541,7 +3617,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "threads"
   },
   {
     "id": 40,
@@ -3562,7 +3640,7 @@
       "status": "community",
       "mcp_url": "https://github.com/Garoth/sendgrid-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -3575,7 +3653,7 @@
       {
         "field": "access",
         "url": "https://docs.gravityforms.com/sendgrid-api-key",
-        "quote": "To use the SendGrid Add-On, you\u2019ll need to have your SendGrid API key... Log into your SendGrid account... Click the Create API Key button...",
+        "quote": "To use the SendGrid Add-On, you’ll need to have your SendGrid API key... Log into your SendGrid account... Click the Create API Key button...",
         "fetched_at": "2026-11-23T14:31:37.847565Z"
       },
       {
@@ -3624,7 +3702,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "sendgrid"
   },
   {
     "id": 41,
@@ -3648,7 +3728,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -3673,7 +3753,7 @@
       {
         "field": "api_type",
         "url": "https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/getting-started",
-        "quote": "This guide creates access tokens for a Shopify store\u2019s Storefront API. You can call this GraphQL API from any HTTP client.",
+        "quote": "This guide creates access tokens for a Shopify store’s Storefront API. You can call this GraphQL API from any HTTP client.",
         "fetched_at": "2026-11-23T13:38:53.385727Z"
       },
       {
@@ -3698,14 +3778,16 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "shopify"
   },
   {
     "id": 42,
     "name": "WooCommerce",
     "category": "Ecommerce",
     "hint": "woocommerce.com/document/woocommerce-rest-api",
-    "one_liner": "WooCommerce provides a free, open\u2011source REST API that can be accessed with consumer key/secret via HTTP Basic Auth or query\u2011string",
+    "one_liner": "WooCommerce provides a free, open‑source REST API that can be accessed with consumer key/secret via HTTP Basic Auth or query‑string",
     "auth_methods": [
       "api_key",
       "basic"
@@ -3763,7 +3845,7 @@
       {
         "field": "buildability",
         "url": "https://developer.woocommerce.com/docs/apis/rest-api/authentication",
-        "quote": "Pre\u2011generated keys can be used to authenticate use of the REST API endpoints.",
+        "quote": "Pre‑generated keys can be used to authenticate use of the REST API endpoints.",
         "fetched_at": "2026-11-23T13:38:38.412854Z"
       },
       {
@@ -3793,7 +3875,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 43,
@@ -3815,7 +3899,7 @@
       "status": "community",
       "mcp_url": "https://github.com/isaacgounton/bigcommerce-api-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -3834,7 +3918,7 @@
       {
         "field": "auth_notes",
         "url": "https://github.com/isaacgounton/bigcommerce-api-mcp",
-        "quote": "Get both from BigCommerce admin \u2192 Settings \u2192 API accounts \u2192 Create API account.",
+        "quote": "Get both from BigCommerce admin → Settings → API accounts → Create API account.",
         "fetched_at": "2026-11-23T13:39:28.881640Z"
       },
       {
@@ -3846,7 +3930,7 @@
       {
         "field": "api_type",
         "url": "https://developer.bigcommerce.com/docs/storefront/catalyst/reference/security?mktid=aWQlM0EwNTEtVUhGLTcxOCUyNnRva2VuJTNBX21jaC0zcXVpaHY3NTctNjhxcGV5bDN5LWNvbW1lcmNlLW1hcmtldGluZy52ZXJjZWwuYXBwLWU0NGI5YzQ5M2JlZTczYmQ4NTY1NmZhMzdjOTYzZWNk",
-        "quote": "By default, all commerce operations and checkout use BigCommerce\u2019s GraphQL APIs and hosted checkout",
+        "quote": "By default, all commerce operations and checkout use BigCommerce’s GraphQL APIs and hosted checkout",
         "fetched_at": "2026-11-23T13:39:26.923113Z"
       },
       {
@@ -3876,13 +3960,13 @@
       {
         "field": "buildability",
         "url": "https://github.com/isaacgounton/bigcommerce-api-mcp",
-        "quote": "An MCP server for the BigCommerce REST API. Gives an AI assistant read access to your catalog, customers and orders \u2014 and, when you turn it on, the ability to change them.",
+        "quote": "An MCP server for the BigCommerce REST API. Gives an AI assistant read access to your catalog, customers and orders — and, when you turn it on, the ability to change them.",
         "fetched_at": "2026-11-23T13:39:28.881640Z"
       },
       {
         "field": "main_blocker",
         "url": "https://github.com/isaacgounton/bigcommerce-api-mcp",
-        "quote": "An MCP server for the BigCommerce REST API. Gives an AI assistant read access to your catalog, customers and orders \u2014 and, when you turn it on, the ability to change them.",
+        "quote": "An MCP server for the BigCommerce REST API. Gives an AI assistant read access to your catalog, customers and orders — and, when you turn it on, the ability to change them.",
         "fetched_at": "2026-11-23T13:39:28.881640Z"
       }
     ],
@@ -3901,7 +3985,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "bigcommerce"
   },
   {
     "id": 44,
@@ -3959,7 +4045,7 @@
       {
         "field": "buildability",
         "url": "https://developer.salesforce.com/docs/commerce/commerce-api/guide/authorization-for-admin-apis.html",
-        "quote": "Learn how to create an API client in Account Manager and use the API client\u2019s credentials to request an access token for the SCAPI Admin APIs.",
+        "quote": "Learn how to create an API client in Account Manager and use the API client’s credentials to request an access token for the SCAPI Admin APIs.",
         "fetched_at": "2026-11-23T14:33:32.331597Z"
       },
       {
@@ -3989,7 +4075,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 45,
@@ -4079,7 +4167,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 46,
@@ -4176,7 +4266,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 47,
@@ -4252,7 +4344,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 48,
@@ -4274,7 +4368,7 @@
       "status": "community",
       "mcp_url": "https://github.com/rmarescu/gumroad-mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -4354,7 +4448,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "gumroad"
   },
   {
     "id": 49,
@@ -4456,7 +4552,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 50,
@@ -4496,7 +4594,7 @@
       {
         "field": "access",
         "url": "https://www.tarvent.com/integrations/fanbasis",
-        "quote": "\"Create an API\u00a0key. To do this, go to Account >\u00a0API\u00a0Keys\"",
+        "quote": "\"Create an API key. To do this, go to Account > API Keys\"",
         "fetched_at": "2026-11-23T14:35:35.118614Z"
       },
       {
@@ -4530,7 +4628,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 51,
@@ -4541,7 +4641,7 @@
     "auth_methods": [
       "basic"
     ],
-    "auth_notes": "Credentials are passed in the Authorization header as \"Basic login:password\" (Base64\u2011encoded).",
+    "auth_notes": "Credentials are passed in the Authorization header as \"Basic login:password\" (Base64‑encoded).",
     "access": "self_serve_free",
     "api_type": [
       "rest"
@@ -4551,7 +4651,7 @@
       "status": "community",
       "mcp_url": "https://github.com/Skobyn/dataforseo-mcp-server"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -4570,7 +4670,7 @@
       {
         "field": "auth_notes",
         "url": "https://docs.dataforseo.com/v3/auth",
-        "quote": "Regardless of the programming language, your unique API token should be passed in the \u2018Authorization\u2019 header within the request in the following format: Authorization: Basic login:password",
+        "quote": "Regardless of the programming language, your unique API token should be passed in the ‘Authorization’ header within the request in the following format: Authorization: Basic login:password",
         "fetched_at": "2026-11-23T13:42:25.315139Z"
       },
       {
@@ -4588,7 +4688,7 @@
       {
         "field": "api_breadth",
         "url": "https://github.com/Skobyn/dataforseo-mcp-server",
-        "quote": "- SERP API - Search engine results data from Google, Bing, Yahoo, and more\n- Keywords Data API - Keyword research, suggestions, and search volume data\n- DataForSEO Labs API - Advanced SEO analytics, domain comparisons, and keyword analysis\n- Backlinks API - Backlink profiles, referring domains, and anchor text analysis\n- OnPage API - Website audit, content analysis, and technical SEO checks\n- Domain Analytics API - Technology stack detection and domain data analysis\n- Content Analysis API - Content quality evaluation and semantic analysis\n- Content Generation API - AI\u2011powered content generation tools\n- Merchant API - E\u2011commerce data from Amazon and Google Shopping\n- App Data API - Mobile app data from Google Play and App Store\n- Business Data API - Business listing data from Google My Business, Trustpilot, and more",
+        "quote": "- SERP API - Search engine results data from Google, Bing, Yahoo, and more\n- Keywords Data API - Keyword research, suggestions, and search volume data\n- DataForSEO Labs API - Advanced SEO analytics, domain comparisons, and keyword analysis\n- Backlinks API - Backlink profiles, referring domains, and anchor text analysis\n- OnPage API - Website audit, content analysis, and technical SEO checks\n- Domain Analytics API - Technology stack detection and domain data analysis\n- Content Analysis API - Content quality evaluation and semantic analysis\n- Content Generation API - AI‑powered content generation tools\n- Merchant API - E‑commerce data from Amazon and Google Shopping\n- App Data API - Mobile app data from Google Play and App Store\n- Business Data API - Business listing data from Google My Business, Trustpilot, and more",
         "fetched_at": "2026-11-23T13:42:36.203449Z"
       },
       {
@@ -4631,7 +4731,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "dataforseo"
   },
   {
     "id": 52,
@@ -4703,7 +4805,7 @@
       {
         "field": "buildability",
         "url": "https://seranking.com/api/integrations/mcp",
-        "quote": "Connect in one click in Claude or ChatGPT, natively in Cursor and other clients, or use the mcp-remote module for clients that don\u2019t support remote servers.",
+        "quote": "Connect in one click in Claude or ChatGPT, natively in Cursor and other clients, or use the mcp-remote module for clients that don’t support remote servers.",
         "fetched_at": "2026-11-23T13:42:31.007959Z"
       },
       {
@@ -4728,7 +4830,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 53,
@@ -4750,7 +4854,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -4817,7 +4921,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "ahrefs"
   },
   {
     "id": 54,
@@ -4841,7 +4947,7 @@
       "status": "official",
       "mcp_url": "https://github.com"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -4927,7 +5033,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "mrscraper"
   },
   {
     "id": 55,
@@ -4949,7 +5057,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5022,7 +5130,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "apify"
   },
   {
     "id": 56,
@@ -5047,7 +5157,7 @@
       "status": "official",
       "mcp_url": "https://mcp.firecrawl.dev/v2/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5121,7 +5231,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "firecrawl"
   },
   {
     "id": 57,
@@ -5143,7 +5255,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5205,7 +5317,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "brightdata"
   },
   {
     "id": 58,
@@ -5245,7 +5359,7 @@
       {
         "field": "access",
         "url": "https://github.com/bellingcat/toolkit/blob/main/gitbook/tools/sherlock/README.md",
-        "quote": "The core Sherlock CLI tool remains free and community\u2011driven",
+        "quote": "The core Sherlock CLI tool remains free and community‑driven",
         "fetched_at": "2026-11-23T14:37:33.596846Z"
       },
       {
@@ -5269,13 +5383,13 @@
       {
         "field": "existing_mcp_url",
         "url": "https://github.com/Burnsedia/sherlock-mcp",
-        "quote": "FastMCP server integration for the Sherlock OSINT tool \u2013 Seamlessly search social media accounts across 400+ platforms",
+        "quote": "FastMCP server integration for the Sherlock OSINT tool – Seamlessly search social media accounts across 400+ platforms",
         "fetched_at": "2026-11-23T14:37:34.530683Z"
       },
       {
         "field": "buildability",
         "url": "https://github.com/bellingcat/toolkit/blob/main/gitbook/tools/sherlock/README.md",
-        "quote": "The latest version is published on PyPI for one\u2011command install (e.g. pipx install sherlock\u2011project or pip install --user sherlock\u2011project)",
+        "quote": "The latest version is published on PyPI for one‑command install (e.g. pipx install sherlock‑project or pip install --user sherlock‑project)",
         "fetched_at": "2026-11-23T14:37:33.596846Z"
       },
       {
@@ -5300,14 +5414,16 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 59,
     "name": "Waterfall.io",
     "category": "Data, SEO and Scraping",
     "hint": "waterfall.io (contact/company intel)",
-    "one_liner": "Waterfall.io is a B2B data API for go\u2011to\u2011market workflows.",
+    "one_liner": "Waterfall.io is a B2B data API for go‑to‑market workflows.",
     "auth_methods": [
       "api_key"
     ],
@@ -5328,7 +5444,7 @@
       {
         "field": "one_liner",
         "url": "https://docs.waterfall.io/v1/faq",
-        "quote": "Waterfall.io is a B2B data API for go\u2011to\u2011market workflows.",
+        "quote": "Waterfall.io is a B2B data API for go‑to‑market workflows.",
         "fetched_at": "2026-11-23T13:44:56.900934Z"
       },
       {
@@ -5380,14 +5496,16 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 60,
     "name": "Clay",
     "category": "Data, SEO and Scraping",
     "hint": "clay.com",
-    "one_liner": "Clay\u2019s HTTP API lets you pull data into or push data out of Clay using any REST endpoint with configurable",
+    "one_liner": "Clay’s HTTP API lets you pull data into or push data out of Clay using any REST endpoint with configurable",
     "auth_methods": [
       "api_key",
       "bearer_token",
@@ -5403,7 +5521,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5476,7 +5594,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "clay"
   },
   {
     "id": 61,
@@ -5502,7 +5622,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5569,7 +5689,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "github"
   },
   {
     "id": 62,
@@ -5592,7 +5714,7 @@
       "status": "official",
       "mcp_url": "https://mcp.vercel.com"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5678,7 +5800,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "vercel"
   },
   {
     "id": 63,
@@ -5756,7 +5880,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "mcp_only",
+    "composio_toolkit": "netlify_mcp"
   },
   {
     "id": 64,
@@ -5778,7 +5904,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5816,7 +5942,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "cloudflare"
   },
   {
     "id": 65,
@@ -5839,7 +5967,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5900,7 +6028,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "supabase"
   },
   {
     "id": 66,
@@ -5922,7 +6052,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -5983,14 +6113,16 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "neo4j"
   },
   {
     "id": 67,
     "name": "Snowflake",
     "category": "Developer, Infra and Data platforms",
     "hint": "docs.snowflake.com",
-    "one_liner": "Snowflake provides REST APIs that can be authenticated via key\u2011pair JWT, OAuth, programmatic access tokens, or workload identity federation.",
+    "one_liner": "Snowflake provides REST APIs that can be authenticated via key‑pair JWT, OAuth, programmatic access tokens, or workload identity federation.",
     "auth_methods": [
       "oauth2",
       "bearer_token",
@@ -5998,7 +6130,7 @@
       "basic",
       "other"
     ],
-    "auth_notes": "Supported methods include key\u2011pair JWT, OAuth, programmatic access tokens (Bearer), workload identity federation (OIDC), and basic authentication for external APIs.",
+    "auth_notes": "Supported methods include key‑pair JWT, OAuth, programmatic access tokens (Bearer), workload identity federation (OIDC), and basic authentication for external APIs.",
     "access": "unknown",
     "api_type": [
       "rest"
@@ -6008,7 +6140,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6051,7 +6183,7 @@
       {
         "field": "buildability",
         "url": "https://docs.snowflake.com/en/developer-guide/snowflake-rest-api/authentication",
-        "quote": "The documentation provides step\u2011by\u2011step instructions and example commands for generating JWTs, using OAuth, and sending authenticated requests.",
+        "quote": "The documentation provides step‑by‑step instructions and example commands for generating JWTs, using OAuth, and sending authenticated requests.",
         "fetched_at": "2026-11-23T13:47:46.138582Z"
       },
       {
@@ -6089,7 +6221,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "snowflake"
   },
   {
     "id": 68,
@@ -6111,7 +6245,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6179,7 +6313,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "mongodb"
   },
   {
     "id": 69,
@@ -6202,7 +6338,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6282,14 +6418,16 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "datadog"
   },
   {
     "id": 70,
     "name": "Sentry",
     "category": "Developer, Infra and Data platforms",
     "hint": "docs.sentry.io/api",
-    "one_liner": "Sentry\u2019s API uses auth headers with bearer tokens or OAuth2 to authenticate requests.",
+    "one_liner": "Sentry’s API uses auth headers with bearer tokens or OAuth2 to authenticate requests.",
     "auth_methods": [
       "bearer_token",
       "oauth2",
@@ -6305,7 +6443,7 @@
       "status": "official",
       "mcp_url": "https://docs.sentry.io/product/mcp-servers/getting-started"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "none",
     "evidence": [
@@ -6324,7 +6462,7 @@
       {
         "field": "auth_methods",
         "url": "https://docs.sentry.io/api/auth",
-        "quote": "For third\u2011party applications that need to access Sentry on behalf of users, Sentry supports OAuth2 with the authorization code grant type.",
+        "quote": "For third‑party applications that need to access Sentry on behalf of users, Sentry supports OAuth2 with the authorization code grant type.",
         "fetched_at": "2026-11-23T13:48:56.617572Z"
       },
       {
@@ -6374,7 +6512,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "sentry"
   },
   {
     "id": 71,
@@ -6396,7 +6536,7 @@
       "status": "none",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6445,7 +6585,7 @@
       {
         "field": "buildability",
         "url": "https://developers.notion.com/guides/notion-api/quick-start",
-        "quote": "Now that you\u2019ve made your first request, explore what else you can build.",
+        "quote": "Now that you’ve made your first request, explore what else you can build.",
         "fetched_at": "2026-11-23T13:48:53.358527Z"
       },
       {
@@ -6470,7 +6610,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "notion"
   },
   {
     "id": 72,
@@ -6492,7 +6634,7 @@
       "status": "official",
       "mcp_url": "https://mcp.airtable.com/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6560,7 +6702,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "airtable"
   },
   {
     "id": 73,
@@ -6582,7 +6726,7 @@
       "status": "official",
       "mcp_url": "https://mcp.linear.app/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6650,7 +6794,9 @@
     "pass_number": 1,
     "model_provider": "gemini",
     "model_name": "gemini-3.5-flash-lite",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "linear"
   },
   {
     "id": 74,
@@ -6671,7 +6817,7 @@
       "status": "official",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6739,7 +6885,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "jira"
   },
   {
     "id": 75,
@@ -6760,7 +6908,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6833,7 +6981,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "asana"
   },
   {
     "id": 76,
@@ -6855,7 +7005,7 @@
       "status": "official",
       "mcp_url": "https://mcp.monday.com/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -6929,7 +7079,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "monday"
   },
   {
     "id": 77,
@@ -6951,7 +7103,7 @@
       "status": "official",
       "mcp_url": "https://mcp.clickup.com/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -7022,7 +7174,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "clickup"
   },
   {
     "id": 78,
@@ -7043,7 +7197,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -7074,7 +7228,7 @@
       {
         "field": "api_breadth",
         "url": "https://coda.io/@oleg/getting-started-guide-coda-api/start-here-5",
-        "quote": "you\u2019ll want to get familiar with is the .  We recommend you have it open in a separate tab while working through this guide.",
+        "quote": "you’ll want to get familiar with is the .  We recommend you have it open in a separate tab while working through this guide.",
         "fetched_at": "2026-11-23T14:56:06.051969Z"
       },
       {
@@ -7086,7 +7240,7 @@
       {
         "field": "main_blocker",
         "url": "https://coda.io/@oleg/getting-started-guide-coda-api/start-here-5",
-        "quote": "If you did everything right and hit the Run button (\u25b6), you should see some beautiful satellite images in your Superhuman Docs document.",
+        "quote": "If you did everything right and hit the Run button (▶), you should see some beautiful satellite images in your Superhuman Docs document.",
         "fetched_at": "2026-11-23T14:56:06.051969Z"
       }
     ],
@@ -7110,7 +7264,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "coda"
   },
   {
     "id": 79,
@@ -7132,7 +7288,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -7197,7 +7353,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "smartsheet"
   },
   {
     "id": 80,
@@ -7219,7 +7377,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [],
@@ -7259,7 +7417,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "harvest"
   },
   {
     "id": 81,
@@ -7280,7 +7440,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "ready",
     "main_blocker": "none",
     "evidence": [
@@ -7299,7 +7459,7 @@
       {
         "field": "access",
         "url": "https://docs.stripe.com/keys",
-        "quote": "Use the API keys page in the Dashboard to create, reveal, expire and rotate keys for the account or sandbox you\u2019re viewing.",
+        "quote": "Use the API keys page in the Dashboard to create, reveal, expire and rotate keys for the account or sandbox you’re viewing.",
         "fetched_at": "2026-11-23T14:59:02.168648Z"
       },
       {
@@ -7317,13 +7477,13 @@
       {
         "field": "buildability",
         "url": "https://docs.stripe.com/keys",
-        "quote": "If a request doesn\u2019t include a valid key, Stripe returns an invalid request error.",
+        "quote": "If a request doesn’t include a valid key, Stripe returns an invalid request error.",
         "fetched_at": "2026-11-23T14:59:02.168648Z"
       },
       {
         "field": "main_blocker",
         "url": "https://docs.stripe.com/keys",
-        "quote": "Only publishable keys are safe to expose outside your application\u2019s back end.",
+        "quote": "Only publishable keys are safe to expose outside your application’s back end.",
         "fetched_at": "2026-11-23T14:59:02.168648Z"
       }
     ],
@@ -7347,7 +7507,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "openai/gpt-oss-120b",
-    "lower_reliability": false
+    "lower_reliability": false,
+    "composio_catalog": "yes",
+    "composio_toolkit": "stripe"
   },
   {
     "id": 82,
@@ -7368,7 +7530,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -7427,7 +7589,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "plaid"
   },
   {
     "id": 83,
@@ -7494,7 +7658,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 84,
@@ -7563,7 +7729,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 85,
@@ -7632,7 +7800,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 88,
@@ -7654,7 +7824,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [],
@@ -7694,7 +7864,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "brex"
   },
   {
     "id": 89,
@@ -7716,7 +7888,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -7775,14 +7947,16 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "ramp"
   },
   {
     "id": 90,
     "name": "PitchBook",
     "category": "Finance and Fintech",
     "hint": "pitchbook.com (research API)",
-    "one_liner": "PitchBook is a market intelligence platform for private and public capital markets \u2014 companies, investors, funds, deals, people, limited partners,",
+    "one_liner": "PitchBook is a market intelligence platform for private and public capital markets — companies, investors, funds, deals, people, limited partners,",
     "auth_methods": [
       "api_key"
     ],
@@ -7796,7 +7970,7 @@
       "status": "unknown",
       "mcp_url": null
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -7855,7 +8029,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "pitchbook"
   },
   {
     "id": 91,
@@ -7876,7 +8052,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -7935,7 +8111,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "notebook_lm"
   },
   {
     "id": 94,
@@ -7958,7 +8136,7 @@
       "status": "unknown",
       "mcp_url": "https://mcp.consensus.app/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -8041,7 +8219,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "consensus"
   },
   {
     "id": 96,
@@ -8102,7 +8282,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "mcp_only",
+    "composio_toolkit": "devin_mcp"
   },
   {
     "id": 97,
@@ -8123,7 +8305,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -8182,7 +8364,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "higgsfield"
   },
   {
     "id": 98,
@@ -8194,7 +8378,7 @@
       "oauth2",
       "api_key"
     ],
-    "auth_notes": "Authentication is free \u2014 you can sign up for a free Mermaid account (the Basic tier) to get started. Authenticate automatically via OAuth 2.1 with Dynamic Client Registration (for clients that support OAuth discovery, such as VS Code, Cursor, and Antigravity via mcp-remote), or manually by pasting a Mermaid token into your client configuration.",
+    "auth_notes": "Authentication is free — you can sign up for a free Mermaid account (the Basic tier) to get started. Authenticate automatically via OAuth 2.1 with Dynamic Client Registration (for clients that support OAuth discovery, such as VS Code, Cursor, and Antigravity via mcp-remote), or manually by pasting a Mermaid token into your client configuration.",
     "access": "unknown",
     "api_type": [
       "cli_only",
@@ -8243,7 +8427,7 @@
       {
         "field": "auth_notes",
         "url": "https://mermaid.ai/docs/ai/mcp-server",
-        "quote": "Authentication is free \u2014 you can sign up for a free Mermaid account (the Basic tier) to get started. Authenticate automatically via OAuth 2.1 with Dynamic Client Registration (for clients that support OAuth discovery, such as VS Code, Cursor, and Antigravity via mcp-remote), or manually by pasting a Mermaid token into your client configuration.",
+        "quote": "Authentication is free — you can sign up for a free Mermaid account (the Basic tier) to get started. Authenticate automatically via OAuth 2.1 with Dynamic Client Registration (for clients that support OAuth discovery, such as VS Code, Cursor, and Antigravity via mcp-remote), or manually by pasting a Mermaid token into your client configuration.",
         "fetched_at": "2026-11-23T15:18:38.356460Z"
       }
     ],
@@ -8283,7 +8467,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "no",
+    "composio_toolkit": null
   },
   {
     "id": 99,
@@ -8304,7 +8490,7 @@
       "status": "unknown",
       "mcp_url": "unknown"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -8363,7 +8549,9 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "youtube_transcript"
   },
   {
     "id": 100,
@@ -8386,7 +8574,7 @@
       "status": "unknown",
       "mcp_url": "https://api.grain.com/_/mcp"
     },
-    "in_composio_catalog": false,
+    "in_composio_catalog": true,
     "buildability": "unknown",
     "main_blocker": "unknown",
     "evidence": [
@@ -8457,6 +8645,8 @@
     "pass_number": 1,
     "model_provider": "groq",
     "model_name": "qwen/qwen3.8-27b",
-    "lower_reliability": true
+    "lower_reliability": true,
+    "composio_catalog": "yes",
+    "composio_toolkit": "grain"
   }
 ]

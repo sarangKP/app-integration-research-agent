@@ -49,7 +49,7 @@ Then I look for patterns across the 100 apps and check the agent's accuracy agai
 - **Accuracy on the 20 gold apps: 49.5%** (53 of 107 field values). This is a strict score; see the scoring rule below.
 - **Low confidence is a useful signal.** The agent marked 19 gold-set values as `low` confidence, and 18 of them were wrong.
 - **Buildability is optimistic.** 73 of 95 apps are rated "ready", but buildability was only 55% accurate on the gold set and the errors lean optimistic, so treat 73 as an upper estimate.
-- **58 apps** are rated ready and self-serve. I did not check whether they are already in the Composio catalog.
+- **58 apps** are rated ready and self-serve. I checked them against Composio's public toolkit list (see "Composio catalog check" below): 49 already have a toolkit, 1 (Netlify) has an MCP-only toolkit, and 8 do not.
 - **oauth2** is the most common auth method (53 of 95 apps).
 
 | Field | Accuracy |
@@ -68,6 +68,28 @@ Then I look for patterns across the 100 apps and check the agent's accuracy agai
 | qwen/qwen3.8-27b (Groq) | 15.0% | Last fallback, marked "lower reliability" on the page |
 
 **Scoring rule.** A value counts as correct when it equals gold, including when both are `unknown`. `auth_methods` and `api_type` are exact set matches, so one extra item counts as a miss. With a looser rule (all gold values present) the scores are 70% for auth and 90% for api type. `api_breadth` is not scored, and `existing_mcp` is scored only on gold rows I verified.
+
+## Composio catalog check
+
+After pass 1, I checked all 100 apps against Composio's public toolkit list (https://docs.composio.dev/toolkits, 1,841 toolkits) on 23 Nov 2026. I did this with Claude in Chrome, not with the agent. Each app was matched by name, and short names that could be a different product were checked by reading the toolkit description (Close, Front, Plain, Copper, Clay, Grain, Consensus, Ramp).
+
+| | Apps |
+|---|---|
+| Has a toolkit in the catalog | 76 |
+| Only an MCP-server toolkit (Pylon, Netlify, Otter AI, Devin) | 4 |
+| Not found | 20 |
+
+Of the 58 apps rated ready and self-serve:
+
+- **49** already have a toolkit.
+- **1** (Netlify) has an MCP-only toolkit.
+- **8** are not in the catalog: DealCloud, LiveAgent, systeme.io, WooCommerce, Salesforce Commerce Cloud, fanbasis, SE Ranking, Sherlock.
+
+Treat those 8 as leads, not answers. Three of them are gold apps. **fanbasis** matched gold (self-serve, ready, no blocker), so it is a real lead. **DealCloud** and **Sherlock** were wrong on the gold set (admin approval, and CLI-only), so they are not. The other 5 were not checked.
+
+Of the 5 apps that were not researched, QuickBooks, Xero and Fathom are in the catalog, Otter AI has an MCP-only toolkit, and Reducto is not found.
+
+Limits: a name match shows that a toolkit exists, not how many tools it has or whether the auth is complete. A few matches are looser than exact: GoHighLevel is listed as HighLevel, Zoho CRM sits under the general Zoho toolkit, and NotebookLM is the Enterprise toolkit. Amazon Selling Partner is not matched, because the `amazon` toolkit is a different one. Per-app results are in [`data/composio_catalog_check.json`](data/composio_catalog_check.json), and `results.json` and `results.csv` have new `composio_catalog` and `composio_toolkit` columns.
 
 ## How it works
 
@@ -112,12 +134,12 @@ This is the graph that ran. The verify and retry loop (checks against the eviden
 - Exact-set scoring is harsh on list fields.
 - The gold set has only 20 apps, and 5 of the labels are not verified by me line by line.
 - The "ready" and "blocker" fields are optimistic. The agent often wrote `none` where gold had a real blocker.
-- The Composio catalog cross-check was not run.
+- The agent's own catalog check never ran. The catalog check above was done separately, by name, so it shows that a toolkit exists, not how complete it is.
 
 ## Next steps
 
 - Re-run the apps that qwen processed and the 5 failed ones on `gpt-oss-120b` after the quota resets.
-- Build pass 2: check that each quote appears in the page, that links are alive, and that fields agree with each other; add the Composio catalog check.
+- Build pass 2: check that each quote appears in the page, that links are alive, and that fields agree with each other.
 - Review the low-confidence fields by hand and re-score.
 
 ## Tech stack
@@ -148,6 +170,7 @@ This is the graph that ran. The verify and retry loop (checks against the eviden
 │   └── analyze.py        # Finds patterns across the apps
 ├── data/
 │   ├── apps.csv          # The 100 apps
+│   ├── composio_catalog_check.json  # Which apps have a Composio toolkit
 │   └── gold/gold_labels.csv
 ├── output/               # pass1.json, failures, eval and pattern results
 ├── site/

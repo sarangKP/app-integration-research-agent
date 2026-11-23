@@ -1,0 +1,416 @@
+{
+  "checked_on": "2026-11-23",
+  "source": "https://docs.composio.dev/toolkits (1,841 toolkits listed)",
+  "method": "Matched each of the 100 app names against the toolkit list by name, then read the toolkit descriptions for short or ambiguous names (Close, Front, Plain, Copper, Clay, Grain, Consensus, Ramp). Done by hand with Claude in Chrome, not by the agent. A name match shows a toolkit exists, not how complete it is.",
+  "notes": {
+    "GoHighLevel": "Listed as HighLevel (agency and location toolkits).",
+    "NotebookLM": "Listed toolkit is NotebookLM Enterprise.",
+    "Zoho CRM": "Listed as the general Zoho toolkit; Zoho CRM is part of the suite.",
+    "Amazon Selling Partner": "Not matched. The 'amazon' toolkit is a general Amazon one, not the Selling Partner API.",
+    "Mermaid CLI": "Not matched. Only a Mermaid Chart MCP toolkit exists, which is a different product.",
+    "mcp_only": "Only an MCP-server toolkit exists in the catalog, no direct toolkit.",
+    "WhatsApp Business": "Listed as WhatsApp (WhatsApp Business API only)."
+  },
+  "apps": {
+    "Salesforce": {
+      "status": "yes",
+      "toolkit": "salesforce"
+    },
+    "HubSpot": {
+      "status": "yes",
+      "toolkit": "hubspot"
+    },
+    "Pipedrive": {
+      "status": "yes",
+      "toolkit": "pipedrive"
+    },
+    "Attio": {
+      "status": "yes",
+      "toolkit": "attio"
+    },
+    "Twenty": {
+      "status": "yes",
+      "toolkit": "twenty"
+    },
+    "Podio": {
+      "status": "yes",
+      "toolkit": "podio"
+    },
+    "Zoho CRM": {
+      "status": "yes",
+      "toolkit": "zoho"
+    },
+    "Close": {
+      "status": "yes",
+      "toolkit": "close"
+    },
+    "Copper": {
+      "status": "yes",
+      "toolkit": "copper"
+    },
+    "DealCloud": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Zendesk": {
+      "status": "yes",
+      "toolkit": "zendesk"
+    },
+    "Intercom": {
+      "status": "yes",
+      "toolkit": "intercom"
+    },
+    "Freshdesk": {
+      "status": "yes",
+      "toolkit": "freshdesk"
+    },
+    "Front": {
+      "status": "yes",
+      "toolkit": "front"
+    },
+    "Pylon": {
+      "status": "mcp_only",
+      "toolkit": "pylon_mcp"
+    },
+    "LiveAgent": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Plain": {
+      "status": "yes",
+      "toolkit": "plain"
+    },
+    "Help Scout": {
+      "status": "yes",
+      "toolkit": "help_scout"
+    },
+    "Gorgias": {
+      "status": "yes",
+      "toolkit": "gorgias"
+    },
+    "Gladly": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Slack": {
+      "status": "yes",
+      "toolkit": "slack"
+    },
+    "Twilio": {
+      "status": "yes",
+      "toolkit": "twilio"
+    },
+    "Zoho Cliq": {
+      "status": "yes",
+      "toolkit": "zoho_cliq"
+    },
+    "Lark (Larksuite)": {
+      "status": "yes",
+      "toolkit": "lark"
+    },
+    "Pumble": {
+      "status": "yes",
+      "toolkit": "pumble"
+    },
+    "Discord": {
+      "status": "yes",
+      "toolkit": "discord"
+    },
+    "Telegram": {
+      "status": "yes",
+      "toolkit": "telegram"
+    },
+    "WhatsApp Business": {
+      "status": "yes",
+      "toolkit": "whatsapp"
+    },
+    "Aircall": {
+      "status": "yes",
+      "toolkit": "aircall"
+    },
+    "Vonage": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Google Ads": {
+      "status": "yes",
+      "toolkit": "googleads"
+    },
+    "Meta Ads": {
+      "status": "yes",
+      "toolkit": "metaads"
+    },
+    "LinkedIn Ads": {
+      "status": "yes",
+      "toolkit": "linkedin_ads"
+    },
+    "GoHighLevel": {
+      "status": "yes",
+      "toolkit": "highlevel_agency, highlevel_location"
+    },
+    "Mailchimp": {
+      "status": "yes",
+      "toolkit": "mailchimp"
+    },
+    "Klaviyo": {
+      "status": "yes",
+      "toolkit": "klaviyo"
+    },
+    "systeme.io": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Pinterest": {
+      "status": "yes",
+      "toolkit": "pinterest"
+    },
+    "Threads (Meta)": {
+      "status": "yes",
+      "toolkit": "threads"
+    },
+    "SendGrid": {
+      "status": "yes",
+      "toolkit": "sendgrid"
+    },
+    "Shopify": {
+      "status": "yes",
+      "toolkit": "shopify"
+    },
+    "WooCommerce": {
+      "status": "no",
+      "toolkit": null
+    },
+    "BigCommerce": {
+      "status": "yes",
+      "toolkit": "bigcommerce"
+    },
+    "Salesforce Commerce Cloud": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Magento (Adobe Commerce)": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Squarespace": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Ecwid": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Gumroad": {
+      "status": "yes",
+      "toolkit": "gumroad"
+    },
+    "Amazon Selling Partner": {
+      "status": "no",
+      "toolkit": null
+    },
+    "fanbasis": {
+      "status": "no",
+      "toolkit": null
+    },
+    "DataForSEO": {
+      "status": "yes",
+      "toolkit": "dataforseo"
+    },
+    "SE Ranking": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Ahrefs": {
+      "status": "yes",
+      "toolkit": "ahrefs"
+    },
+    "MrScraper": {
+      "status": "yes",
+      "toolkit": "mrscraper"
+    },
+    "Apify": {
+      "status": "yes",
+      "toolkit": "apify"
+    },
+    "Firecrawl": {
+      "status": "yes",
+      "toolkit": "firecrawl"
+    },
+    "Bright Data": {
+      "status": "yes",
+      "toolkit": "brightdata"
+    },
+    "Sherlock": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Waterfall.io": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Clay": {
+      "status": "yes",
+      "toolkit": "clay"
+    },
+    "GitHub": {
+      "status": "yes",
+      "toolkit": "github"
+    },
+    "Vercel": {
+      "status": "yes",
+      "toolkit": "vercel"
+    },
+    "Netlify": {
+      "status": "mcp_only",
+      "toolkit": "netlify_mcp"
+    },
+    "Cloudflare": {
+      "status": "yes",
+      "toolkit": "cloudflare"
+    },
+    "Supabase": {
+      "status": "yes",
+      "toolkit": "supabase"
+    },
+    "Neo4j": {
+      "status": "yes",
+      "toolkit": "neo4j"
+    },
+    "Snowflake": {
+      "status": "yes",
+      "toolkit": "snowflake"
+    },
+    "MongoDB Atlas": {
+      "status": "yes",
+      "toolkit": "mongodb"
+    },
+    "Datadog": {
+      "status": "yes",
+      "toolkit": "datadog"
+    },
+    "Sentry": {
+      "status": "yes",
+      "toolkit": "sentry"
+    },
+    "Notion": {
+      "status": "yes",
+      "toolkit": "notion"
+    },
+    "Airtable": {
+      "status": "yes",
+      "toolkit": "airtable"
+    },
+    "Linear": {
+      "status": "yes",
+      "toolkit": "linear"
+    },
+    "Jira": {
+      "status": "yes",
+      "toolkit": "jira"
+    },
+    "Asana": {
+      "status": "yes",
+      "toolkit": "asana"
+    },
+    "Monday.com": {
+      "status": "yes",
+      "toolkit": "monday"
+    },
+    "ClickUp": {
+      "status": "yes",
+      "toolkit": "clickup"
+    },
+    "Coda": {
+      "status": "yes",
+      "toolkit": "coda"
+    },
+    "Smartsheet": {
+      "status": "yes",
+      "toolkit": "smartsheet"
+    },
+    "Harvest": {
+      "status": "yes",
+      "toolkit": "harvest"
+    },
+    "Stripe": {
+      "status": "yes",
+      "toolkit": "stripe"
+    },
+    "Plaid": {
+      "status": "yes",
+      "toolkit": "plaid"
+    },
+    "Binance": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Paygent Connect": {
+      "status": "no",
+      "toolkit": null
+    },
+    "iPayX": {
+      "status": "no",
+      "toolkit": null
+    },
+    "QuickBooks": {
+      "status": "yes",
+      "toolkit": "quickbooks"
+    },
+    "Xero": {
+      "status": "yes",
+      "toolkit": "xero"
+    },
+    "Brex": {
+      "status": "yes",
+      "toolkit": "brex"
+    },
+    "Ramp": {
+      "status": "yes",
+      "toolkit": "ramp"
+    },
+    "PitchBook": {
+      "status": "yes",
+      "toolkit": "pitchbook"
+    },
+    "NotebookLM": {
+      "status": "yes",
+      "toolkit": "notebook_lm"
+    },
+    "Otter AI": {
+      "status": "mcp_only",
+      "toolkit": "otter_ai_mcp"
+    },
+    "Fathom": {
+      "status": "yes",
+      "toolkit": "fathom"
+    },
+    "Consensus": {
+      "status": "yes",
+      "toolkit": "consensus"
+    },
+    "Reducto": {
+      "status": "no",
+      "toolkit": null
+    },
+    "Devin": {
+      "status": "mcp_only",
+      "toolkit": "devin_mcp"
+    },
+    "higgsfield": {
+      "status": "yes",
+      "toolkit": "higgsfield"
+    },
+    "Mermaid CLI": {
+      "status": "no",
+      "toolkit": null
+    },
+    "YouTube Transcript": {
+      "status": "yes",
+      "toolkit": "youtube_transcript"
+    },
+    "Grain": {
+      "status": "yes",
+      "toolkit": "grain"
+    }
+  }
+}
