@@ -30,7 +30,7 @@
 
 ## What it does
 
-This is my take on the Composio case study. For each of 100 apps (10 categories), the agent searches the web, reads the docs, and fills one record:
+This is a Composio project. For each of 100 apps (10 categories), the agent searches the web, reads the docs, and fills one record:
 
 - **auth methods** (oauth2, api key, bearer token, and so on)
 - **access**: self-serve free, trial, paid plan, admin approval, app review, contact sales
@@ -45,7 +45,7 @@ The results are then analysed for patterns across the 100 apps, and the agent's 
 
 ### Pass 1 (100 apps)
 
-In the original submission, the second pass (checks and retries) and the correction pass were not run, because time and API quota ran out.
+Pass 1 ran on all 100 apps without the check-and-retry loop or a correction pass, because time and API quota ran out.
 
 - **95 of 100** apps have a record. 5 failed extraction and are shown as "not researched": QuickBooks, Xero, Otter AI, Fathom, Reducto.
 - **Accuracy on the 20 gold apps: 49.5%** (53 of 107 field values). This is a strict score; see the scoring rule below.
@@ -94,7 +94,7 @@ On the 9 gold apps whose pass 1 record also came from Gemini, accuracy went from
 - `fanbasis` / `auth_methods` and `fanbasis` / `access` — correct in pass 1, `unknown` in pass 2. A real loss, not a scoring artifact: fanbasis's real docs are on `commasdocs.com`, a different domain from its product site, and pass 2's search missed that domain again, the same way pass 1's did.
 - `Waterfall.io` / `access` — `unknown` in pass 1, a specific (wrong, per gold) guess in pass 2.
 
-**Verification audit (the D1-D4 checks `verify` enforces), pass 1 vs pass 2, same 50 apps:**
+**Verification audit (the D1-D4 checks `verify` enforces), pass 1 vs pass 2:**
 
 | Check | pass 1 (45 apps) | pass 2 (50 apps) |
 |---|---|---|
@@ -193,7 +193,7 @@ The four checks in `verify`:
 - Gemini's free daily quota ran out partway through, and it was shared with another project of mine. The run switched to Groq (`gpt-oss-120b`), and then to `qwen3.8-27b` when that hit its own daily limit. The qwen records are the weakest.
 - Two runs wrote to the same output at once. A lock file and atomic writes fixed this.
 - The 5 failed apps were found by reading the run logs. They are listed as "not researched" and not guessed.
-- Pass 2 and the correction pass were skipped in the first submission, rather than report numbers that could not be backed up. Pass 2 was added and run afterwards, on 50 of the 100 apps; results are in "Results" above and the run mechanics are in "Running pass 2".
+- Pass 2 and the correction pass were skipped at first, rather than report numbers that could not be backed up. Pass 2 was added and run afterwards, on 50 of the 100 apps; results are in "Results" above and the run mechanics are in "Running pass 2".
 
 ## Limitations
 
@@ -227,7 +227,7 @@ The four checks in `verify`:
 | Agent | LangGraph, Python (uv project) |
 | Tools | Composio SDK (Tavily search), httpx, trafilatura, Playwright |
 | LLMs | Gemini `gemini-3.5-flash-lite`, fallback Groq `openai/gpt-oss-120b`, then `qwen/qwen3.8-27b` |
-| Report | One static HTML page, generated from the results |
+| Report | One static HTML page, first generated from the results, now edited by hand |
 | Hosting | S3 (private) + CloudFront with Origin Access Control, `ap-south-1` |
 
 ## Project structure
@@ -249,8 +249,13 @@ The four checks in `verify`:
 ├── data/
 │   ├── apps.csv          # The 100 apps
 │   ├── composio_catalog_check.json  # Which apps have a Composio toolkit
+│   ├── pass2_apps.json   # The 50 apps for pass 2
+│   ├── human_review_notes.md  # Hand check of 8 apps
 │   └── gold/gold_labels.csv
-├── output/               # pass1.json, failures, eval and pattern results
+├── output/               # pass1.json, pass2.json, failures, eval and pattern results
+├── scripts/              # pick_pass2_apps.py, d1_audit.py
+├── tests/
+├── images/hero-v2.png    # README image
 ├── site/
 │   ├── build.py          # Builds the page
 │   ├── templates/index.html.j2
@@ -265,7 +270,7 @@ The four checks in `verify`:
 **Prerequisites:** Python 3.13+, [uv](https://docs.astral.sh/uv/), and these keys in `.env` (copy from `.env.example`):
 
 - `COMPOSIO_API_KEY` and `TAVILY_API_KEY`: search calls Composio first, and falls back to the Tavily API directly with `TAVILY_API_KEY` if that fails.
-- An LLM key for the pass being run: `GOOGLE_API_KEY` for Gemini (pass 2), `GROQ_API_KEY` for Groq (pass 1).
+- An LLM key: `GOOGLE_API_KEY` for Gemini (first 48 apps of pass 1, and all of pass 2), `GROQ_API_KEY` for Groq (pass 1 fallback).
 
 ```bash
 uv sync
@@ -287,7 +292,7 @@ aws s3 sync site/dist/ s3://<your-bucket>/ --delete
 aws cloudfront create-invalidation --distribution-id <your-distribution-id> --paths "/*"
 ```
 
-The live page was restyled by hand after `build.py` made it, so running `build.py` gives the same content with a plainer look.
+The live page (`site/dist/index.html`) is edited by hand. Running `build.py` gives older wording and a plainer look, and overwrites the live page, so don't run it over `site/dist/index.html`.
 
 ## Running pass 2
 
