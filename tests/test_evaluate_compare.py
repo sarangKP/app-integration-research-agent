@@ -8,19 +8,19 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import shutil
-import stat
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import research_agent.evaluate as ev  # noqa: E402
 
 PASS1_PATH = Path("output/pass1.json")
+EVAL_PASS1_PATH = Path("output/eval_pass1.json")
 
 
 def _sha256(path: Path) -> str:
@@ -29,23 +29,33 @@ def _sha256(path: Path) -> str:
 
 class TestEvaluateReadOnly(unittest.TestCase):
     """--output-prefix pass1 (and --compare pass1 ...) must never write to
-    pass1.json - proven by making it read-only on disk and running anyway."""
+    pass1.json or eval_pass1.json. Proven purely by a sha256 hash taken
+    before and after each test - not by chmod/PermissionError, which this
+    sandbox doesn't reliably enforce (confirmed: a chmod 444 file was
+    written to successfully in an earlier session)."""
 
     def setUp(self):
         self.assertTrue(PASS1_PATH.exists(), "output/pass1.json must exist for this test to be meaningful")
-        self.original_mode = PASS1_PATH.stat().st_mode
-        self.original_hash = _sha256(PASS1_PATH)
-        os.chmod(PASS1_PATH, stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH)
+        self.assertTrue(EVAL_PASS1_PATH.exists(), "output/eval_pass1.json must exist for this test to be meaningful")
+        self.pass1_hash_before = _sha256(PASS1_PATH)
+        self.eval_pass1_hash_before = _sha256(EVAL_PASS1_PATH)
 
     def tearDown(self):
-        os.chmod(PASS1_PATH, self.original_mode)
-        self.assertEqual(_sha256(PASS1_PATH), self.original_hash, "pass1.json content changed during the test!")
-        eval_out = ev.eval_out_path("pass1")
-        if eval_out.exists():
-            eval_out.unlink()
+        self.assertEqual(_sha256(PASS1_PATH), self.pass1_hash_before, "pass1.json content changed during the test!")
+        self.assertEqual(
+            _sha256(EVAL_PASS1_PATH), self.eval_pass1_hash_before, "eval_pass1.json content changed during the test!"
+        )
 
     def test_single_mode_does_not_write_pass1(self):
-        ev.run_single("pass1")  # would raise PermissionError if it tried to write pass1.json
+        # run_single writes its eval report to eval_out_path(prefix) by
+        # design - that's fine, it's just not output/eval_pass1.json for
+        # this test. Redirect it into a temp folder so nothing real ever
+        # gets touched, regardless of what this test does.
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_eval_out = Path(tmpdir) / "eval_pass1.json"
+            with patch("research_agent.evaluate.eval_out_path", return_value=tmp_eval_out):
+                ev.run_single("pass1")
+            self.assertTrue(tmp_eval_out.exists())
 
     def test_compare_mode_does_not_write_pass1(self):
         with tempfile.TemporaryDirectory() as tmpdir:

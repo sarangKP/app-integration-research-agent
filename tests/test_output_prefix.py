@@ -1,16 +1,21 @@
 """Proves --output-prefix pass2 never touches pass1.json.
 
 No real LLM/network calls: Composio, the LLM, and tavily_search are all
-mocked. Run with: python tests/test_output_prefix.py
+mocked. Proof is a sha256 hash of pass1.json taken before and after each
+test - not chmod/PermissionError, which this sandbox doesn't reliably
+enforce (confirmed: a chmod 444 file was written to successfully in an
+earlier session). The pass2 output files are redirected into a temp
+folder, never written into the real output/ directory.
+
+Run with: python tests/test_output_prefix.py
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
-import os
-import stat
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -42,25 +47,24 @@ def _sha256(path: Path) -> str:
 class TestOutputPrefixNeverTouchesPass1(unittest.TestCase):
     def setUp(self):
         self.assertTrue(PASS1_PATH.exists(), "output/pass1.json must exist for this test to be meaningful")
-        self.original_mode = PASS1_PATH.stat().st_mode
-        self.original_hash = _sha256(PASS1_PATH)
+        self.pass1_hash_before = _sha256(PASS1_PATH)
 
-        # Read-only: any open(pass1.json, "w") (direct, or via os.replace's
-        # temp-file rename target) would raise PermissionError immediately.
-        os.chmod(PASS1_PATH, stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH)
-
-        self.test_pass_path = Path("output/pass2.json")
-        self.test_failures_path = Path("output/pass2_failures.json")
-        for p in (self.test_pass_path, self.test_failures_path):
-            if p.exists():
-                p.unlink()
+        self.tmpdir = tempfile.TemporaryDirectory()
+        self.tmp_base = Path(self.tmpdir.name)
+        self.test_pass_path = self.tmp_base / "pass2.json"
+        self.test_failures_path = self.tmp_base / "pass2_failures.json"
 
     def tearDown(self):
-        os.chmod(PASS1_PATH, self.original_mode)
-        self.assertEqual(_sha256(PASS1_PATH), self.original_hash, "pass1.json content changed during the test!")
-        for p in (self.test_pass_path, self.test_failures_path):
-            if p.exists():
-                p.unlink()
+        self.assertEqual(_sha256(PASS1_PATH), self.pass1_hash_before, "pass1.json content changed during the test!")
+        self.tmpdir.cleanup()
+
+    def _run_pass2(self, args) -> None:
+        with patch("research_agent.run.Composio", return_value=MagicMock()), \
+             patch("research_agent.run.build_extraction_llm", return_value=FakeLLM()), \
+             patch("research_agent.run.output_paths", return_value=(self.test_pass_path, self.test_failures_path)), \
+             patch("research_agent.graph.tavily_search", return_value={"results": []}), \
+             patch.dict("os.environ", {"LLM_PROVIDER": "gemini"}):
+            run_mod._main(args)
 
     def test_pass2_run_does_not_open_pass1_for_writing(self):
         args = SimpleNamespace(
@@ -74,15 +78,9 @@ class TestOutputPrefixNeverTouchesPass1(unittest.TestCase):
             gemini_used_today=0,
         )
 
-        with patch("research_agent.run.Composio", return_value=MagicMock()), \
-             patch("research_agent.run.build_extraction_llm", return_value=FakeLLM()), \
-             patch("research_agent.graph.tavily_search", return_value={"results": []}), \
-             patch.dict(os.environ, {"LLM_PROVIDER": "gemini"}):
-            # Must not raise PermissionError (which it would if any code
-            # path tried to write pass1.json while it's chmod'd read-only).
-            run_mod._main(args)
+        self._run_pass2(args)
 
-        self.assertTrue(self.test_pass_path.exists(), "output/pass2.json should have been written")
+        self.assertTrue(self.test_pass_path.exists(), "the pass2 output file should have been written")
         pass2_data = json.loads(self.test_pass_path.read_text())
         self.assertEqual(len(pass2_data), 1)
         record = next(iter(pass2_data.values()))
@@ -107,11 +105,7 @@ class TestOutputPrefixNeverTouchesPass1(unittest.TestCase):
             gemini_used_today=0,
         )
 
-        with patch("research_agent.run.Composio", return_value=MagicMock()), \
-             patch("research_agent.run.build_extraction_llm", return_value=FakeLLM()), \
-             patch("research_agent.graph.tavily_search", return_value={"results": []}), \
-             patch.dict(os.environ, {"LLM_PROVIDER": "gemini"}):
-            run_mod._main(args)
+        self._run_pass2(args)
 
         pass2_data = json.loads(self.test_pass_path.read_text())
         self.assertEqual(len(pass2_data), 1, "HubSpot should have been processed under pass2, not skipped because of pass1")
