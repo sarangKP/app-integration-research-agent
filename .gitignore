@@ -30,3 +30,6 @@ NOTES.md
 output/*.backup_*.json
 output/credits.json
 output/groq_usage.json
+
+# local style reference, not part of the shipped page
+site/new-look-sample.html
