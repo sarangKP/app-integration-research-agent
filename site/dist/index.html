@@ -7,74 +7,107 @@
 <style>
   :root{
     --bg:#0e0a1a; --card:#171127; --line:#2a2145; --text:#f4f1ff; --muted:#a79fc4;
-    --accent:#8b5cf6; --accent2:#c4b5fd; --bad:#f87171; --good:#4ade80; --info:#6aa8ff;
+    --accent:#8b5cf6; --accent2:#c4b5fd; --p1:#5b4a8f; --bad:#f87171; --good:#4ade80; --warn:#fbbf24;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   code{font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:5px;font-size:.92em}
+  b.w{color:var(--text)}
 
-  .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 32px;position:sticky;top:0;background:rgba(14,10,26,.88);backdrop-filter:blur(8px);z-index:5;border-bottom:1px solid var(--line)}
+  .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px 32px;position:sticky;top:0;background:rgba(14,10,26,.9);backdrop-filter:blur(8px);z-index:5;border-bottom:1px solid var(--line)}
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
   .dot{width:14px;height:14px;border-radius:50%;background:var(--accent)}
   .pill{display:inline-flex;background:var(--card);border-radius:999px;padding:4px;border:1px solid var(--line);flex-wrap:wrap}
-  .pill a{padding:8px 16px;border-radius:999px;font-size:13px;color:var(--muted)}
+  .pill a{padding:8px 14px;border-radius:999px;font-size:13px;color:var(--muted)}
   .pill a.on{background:var(--line);color:var(--text)}
   .right{justify-self:end}
   .btn{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:10px 20px;font-size:14px}
 
-  .hero{text-align:center;padding:88px 24px 48px;max-width:1100px;margin:0 auto}
+  .hero{text-align:center;padding:80px 24px 36px;max-width:1000px;margin:0 auto}
   .badge{display:inline-block;background:#3b2a6b;color:var(--accent2);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.06em}
-  h1{font-size:clamp(34px,6.4vw,74px);line-height:1.04;letter-spacing:-.03em;font-weight:800;margin-top:20px}
+  h1{font-size:clamp(34px,6vw,68px);line-height:1.05;letter-spacing:-.03em;font-weight:800;margin-top:20px}
   h1 em{font-style:normal;color:var(--accent2)}
-  .sub{max-width:700px;margin:24px auto 0;color:var(--muted);font-size:18px}
-  .cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .sub{max-width:640px;margin:22px auto 0;color:var(--muted);font-size:18px}
 
-  section{max-width:1100px;margin:0 auto;padding:48px 24px;scroll-margin-top:84px}
+  section{max-width:1100px;margin:0 auto;padding:44px 24px;scroll-margin-top:84px}
   .label{color:var(--accent2);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
-  h2{font-size:clamp(26px,3.6vw,42px);letter-spacing:-.03em;line-height:1.08;margin:8px 0 10px;font-weight:800}
+  h2{font-size:clamp(26px,3.4vw,40px);letter-spacing:-.03em;line-height:1.1;margin:8px 0 14px;font-weight:800}
+  h3{font-size:17px;font-weight:700;margin-bottom:6px}
   .lede{color:var(--muted);max-width:680px;font-size:16px}
 
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
-  .stats-2col{grid-template-columns:1fr 1fr}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px}
   .card.warn{border-color:#5a3a50}
-  .card h3{font-size:17px;font-weight:700;margin-bottom:4px}
-  .card .count{color:var(--muted);font-size:13px;font-weight:600;margin-left:8px}
-  .big{font-size:clamp(38px,5.4vw,66px);font-weight:800;letter-spacing:-.03em;line-height:1}
-  .cap{margin-top:10px;color:var(--muted);font-size:14.5px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .big{font-size:clamp(38px,5vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1}
+  .big small{color:var(--muted);font-size:.5em}
+  .cap{margin-top:8px;color:var(--muted);font-size:14.5px}
 
-  .rows{margin-top:24px;display:flex;flex-direction:column;gap:14px}
-  .row{display:grid;grid-template-columns:200px 1fr 70px;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 20px}
+  .points{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:15px;margin-top:16px}
+  .points li{padding-left:22px;position:relative}
+  .points li::before{content:"";position:absolute;left:4px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .points.bad li::before{background:var(--bad)}
+
+  /* flow diagram */
+  .flow{display:flex;align-items:stretch;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .step{flex:1;min-width:140px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+  .step .n{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-bottom:10px}
+  .step.p2{border-color:var(--accent)}
+  .step b{display:block;font-size:15px}
+  .step span{color:var(--muted);font-size:13px}
+  .arr{align-self:center;color:var(--muted);font-size:22px}
+  .retry{margin-top:10px;text-align:right;color:var(--accent2);font-size:13px}
+
+  .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+  .q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+  .q b{display:block;font-size:14.5px}
+  .q span{color:var(--muted);font-size:13px}
+
+  /* ring */
+  .ringrow{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:center;margin-top:20px}
+  .ring{width:190px;height:190px;border-radius:50%;background:conic-gradient(var(--accent) 0 49.5%,var(--line) 0);display:flex;align-items:center;justify-content:center;margin:0 auto}
+  .ring div{width:140px;height:140px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring b{font-size:34px;font-weight:800}
+  .ring span{color:var(--muted);font-size:13px}
+
+  /* field rows */
+  .legend{display:flex;gap:18px;font-size:13px;color:var(--muted);margin-top:18px}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .rows{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+  .row{display:grid;grid-template-columns:210px 1fr 60px;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 20px}
   .fname{font-weight:600;font-size:15px}
-  .fname small{display:block;color:var(--muted);font-weight:400;font-size:11.5px;margin-top:2px}
+  .fname small{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:2px}
   .bars{display:flex;flex-direction:column;gap:7px}
-  .line{display:grid;grid-template-columns:48px 1fr 92px;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
-  .track{height:9px;background:var(--line);border-radius:999px;overflow:hidden}
+  .line{display:grid;grid-template-columns:48px 1fr 70px;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+  .track{height:10px;background:var(--line);border-radius:999px;overflow:hidden}
   .fill{height:100%;border-radius:999px}
-  .p1 .fill{background:#5b4a8f}
+  .p1 .fill{background:var(--p1)}
   .p2 .fill{background:var(--accent)}
   .line b{color:var(--text);font-weight:600;text-align:right}
-  .delta{justify-self:end;font-weight:700;font-size:14px}
+  .delta{justify-self:end;font-weight:700;font-size:15px}
   .up{color:var(--good)} .down{color:var(--bad)} .flat{color:var(--muted)}
 
-  .four{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
-  .arrow{font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.02em}
-  .arrow span{color:var(--muted);font-weight:500}
-  .tag{margin-top:6px;font-size:12.5px;font-weight:600}
+  /* stacked bar */
+  .stack{display:flex;height:34px;border-radius:10px;overflow:hidden;margin-top:14px}
+  .stack div{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#120c22}
+  .skey{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+  .skey i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 
-  .cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
-  @media (max-width:820px){.cards-grid{grid-template-columns:1fr}}
-  .clean{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14.5px;color:var(--text)}
-  .clean li{padding-left:16px;position:relative}
-  .clean li::before{content:"–";position:absolute;left:0;color:var(--muted)}
-
-  .barrow{display:grid;grid-template-columns:150px 1fr 40px;align-items:center;gap:12px;margin:8px 0;font-size:13px}
+  /* simple bar rows */
+  .barrow{display:grid;grid-template-columns:150px 1fr 56px;align-items:center;gap:12px;margin:9px 0;font-size:13.5px}
   .blabel{color:var(--muted)}
-  .btrack{height:9px;background:var(--line);border-radius:999px;overflow:hidden}
+  .btrack{height:10px;background:var(--line);border-radius:999px;overflow:hidden}
   .bfill{height:100%;background:var(--accent);border-radius:999px}
   .bval{text-align:right;font-weight:600}
+
+  /* funnel */
+  .funnel{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+  .frow{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:center}
+  .fbar{height:40px;background:var(--accent);border-radius:10px;min-width:44px;display:flex;align-items:center;padding-left:14px;font-weight:800;color:#120c22}
+  .ftext{font-size:14px;color:var(--muted)}
+  .ftext b{color:var(--text)}
 
   table{width:100%;border-collapse:collapse;font-size:13.5px}
   th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
@@ -82,7 +115,7 @@
 
   .heatwrap{overflow-x:auto;color-scheme:dark;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
   .heatwrap table{min-width:620px}
-  .heatwrap th,.heatwrap td{padding:9px 8px}
+  .heatwrap th,.heatwrap td{padding:8px 8px}
   .heatwrap th{white-space:normal;text-align:center;vertical-align:bottom;line-height:1.25}
   .heatwrap thead th:first-child,.heatwrap .heatcat{position:sticky;left:0;background:var(--card);z-index:1;text-align:left}
   .heatwrap td:not(.heatcat) .heatcell{margin:0 auto}
@@ -92,25 +125,43 @@
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
   .chip{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px}
   .chip .ctx{color:var(--muted)}
+  .chip.good{border-color:var(--good)}
 
-  .controls{display:flex;gap:10px;margin:18px 0;flex-wrap:wrap}
-  .controls input, .controls select{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:10px 14px;font-size:14px}
+  details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:16px}
+  summary{cursor:pointer;padding:16px 20px;font-weight:600;font-size:15px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸ ";color:var(--accent2)}
+  details[open] summary::before{content:"▾ "}
+  .dbody{padding:0 20px 20px}
+
+  .controls{display:flex;gap:10px;margin:4px 0 14px;flex-wrap:wrap}
+  .controls input,.controls select{background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:10px 14px;font-size:14px}
   .controls input{flex:1;min-width:160px}
-  .tablewrap{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:18px}
+  .tablewrap{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:14px}
   .tablewrap table{font-size:13px}
   .tablewrap th{position:sticky;top:0;background:var(--card)}
   .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--muted)}
   .notresearched{color:var(--bad)}
 
-  footer{max-width:1100px;margin:0 auto;padding:36px 24px 80px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line)}
-  footer p+p{margin-top:8px}
+  .todo{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:14px;font-size:15px}
+  .todo li::before{content:"☐  ";color:var(--accent2)}
+
+  .gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 24px;margin-top:14px;font-size:14px}
+  .gloss b{color:var(--accent2)}
+  .gloss span{color:var(--muted)}
+
+  footer{max-width:1100px;margin:0 auto;padding:30px 24px 70px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line)}
+  footer p+p{margin-top:6px}
 
   @media (max-width:820px){
     .nav{grid-template-columns:1fr auto;padding:14px 16px}
     .nav .pill{display:none}
-    .stats,.four{grid-template-columns:1fr}
+    .grid3,.grid2,.qgrid,.gloss{grid-template-columns:1fr}
+    .ringrow{grid-template-columns:1fr}
     .row{grid-template-columns:1fr;gap:10px}
     .delta{justify-self:start}
+    .frow{grid-template-columns:1fr}
+    .arr{display:none}
   }
 </style>
 </head>
@@ -121,11 +172,11 @@
   <nav class="pill">
     <a class="on" href="#top">overview</a>
     <a href="#accuracy">accuracy</a>
-    <a href="#loop">the loop</a>
-    <a href="#human-review">human review</a>
-    <a href="#patterns">patterns</a>
+    <a href="#retry">retry step</a>
+    <a href="#human-review">hand check</a>
+    <a href="#findings">findings</a>
     <a href="#all-apps">all apps</a>
-    <a href="#limitations">limitations</a>
+    <a href="#limitations">limits</a>
   </nav>
   <div class="right"><a class="btn" href="https://github.com/sarangKP/app-integration-research-agent">repo &#8599;</a></div>
 </header>
@@ -133,147 +184,257 @@
 <main id="top">
   <div class="hero">
     <span class="badge">CASE STUDY</span>
-    <h1>I ran an agent on 100 apps. Here is how <em>well</em> it did.</h1>
-    <p class="sub">A research agent researched the API, auth, and buildability surface of 100 apps for a Composio project. Checked against 20 apps whose gold answers were drafted from official docs (I verified 15 of 20 myself), it got about half of the checks right. A second pass added a verify-and-retry loop that made the evidence better grounded &mdash; it did not make the answers more accurate.</p>
-    <div class="cta">
-      <a class="btn" href="#accuracy">See the numbers</a>
-      <a class="btn" href="#patterns">Patterns</a>
-    </div>
+    <h1>I ran an AI agent on 100 apps. Here is how <em>well</em> it did.</h1>
+    <p class="sub">The agent reads each app's website and docs and answers 6 questions about whether Composio can build a connector for it. About half of its answers were right.</p>
   </div>
 
-  <section>
-    <div class="stats">
-      <div class="card"><div class="big">95<span style="color:var(--muted);font-size:.5em">/100</span></div><div class="cap">apps researched. 5 failed and are shown as not researched.</div></div>
-      <div class="card"><div class="big">49.5%</div><div class="cap">of gold checks correct, 53 of 107. Same in pass 1 and pass 2.</div></div>
-      <div class="card"><div class="big">29<span style="color:var(--muted);font-size:.5em">/50</span></div><div class="cap">pass 2 apps still have a field flagged for human review.</div></div>
+  <section style="padding-top:8px">
+    <div class="grid3">
+      <div class="card"><div class="big">95<small>/100</small></div><div class="cap">apps researched. 5 failed because of AI service errors.</div></div>
+      <div class="card"><div class="big">49.5%</div><div class="cap">answers correct (53 of 107) against the answer key. Same in both runs.</div></div>
+      <div class="card"><div class="big">29<small>/50</small></div><div class="cap">apps in run 2 have at least one answer the agent marked "not sure".</div></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="label">How it works</div>
+    <h2>What the agent does for each app</h2>
+    <div class="flow">
+      <div class="step"><div class="n">1</div><b>Take app name</b><span>e.g. HubSpot</span></div>
+      <div class="arr">&rarr;</div>
+      <div class="step"><div class="n">2</div><b>Search the web</b><span>find docs and pricing pages</span></div>
+      <div class="arr">&rarr;</div>
+      <div class="step"><div class="n">3</div><b>Read the pages</b><span>pick quotes as proof</span></div>
+      <div class="arr">&rarr;</div>
+      <div class="step"><div class="n">4</div><b>Answer 6 questions</b><span>with a confidence level</span></div>
+      <div class="arr">&rarr;</div>
+      <div class="step p2"><div class="n">5</div><b>Check own proof</b><span>run 2 only</span></div>
+    </div>
+    <div class="retry">&#8634; In run 2, if the check fails, the agent searches again (step 2)</div>
+
+    <div class="qgrid">
+      <div class="q"><b>1. Login method</b><span>API key, OAuth login, username/password&hellip;</span></div>
+      <div class="q"><b>2. Access</b><span>Free sign-up, trial, paid plan, or needs approval?</span></div>
+      <div class="q"><b>3. API type</b><span>REST, GraphQL, command-line only&hellip;</span></div>
+      <div class="q"><b>4. Can it be built?</b><span>Ready, ready with caveats, or unknown</span></div>
+      <div class="q"><b>5. Main blocker</b><span>What stops it, if anything</span></div>
+      <div class="q"><b>6. Ready-made AI connector?</b><span>Does an MCP server already exist?</span></div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="card"><h3>Run 1</h3><p class="cap" style="margin-top:0">All 100 apps. 3 different AI models, because free limits kept running out.</p></div>
+      <div class="card"><h3>Run 2</h3><p class="cap" style="margin-top:0">50 of the apps. One model (Gemini). Added the check-and-retry step.</p></div>
     </div>
   </section>
 
   <section id="accuracy">
     <div class="label">Accuracy</div>
-    <h2>Pass 1 vs pass 2, field by field</h2>
-    <p class="lede">20 gold apps. Counts are shown next to every percentage because the sample is small &mdash; one app is 5 points.</p>
+    <h2>How many answers were right?</h2>
+    <p class="lede">For 20 apps, the correct answers were written from official docs. This is the answer key.</p>
 
+    <div class="ringrow">
+      <div class="ring"><div><b>53/107</b><span>correct</span></div></div>
+      <ul class="points" style="margin-top:0">
+        <li>107 checks = 20 apps &times; 5 questions, plus 7 apps with a known AI-connector answer.</li>
+        <li>Run 1: <b class="w">53</b> right. Run 2: <b class="w">53</b> right. <b class="w">No change.</b></li>
+        <li>The sample is small: one app is 5 points.</li>
+      </ul>
+    </div>
+
+    <div class="legend"><span><i style="background:var(--p1)"></i>Run 1</span><span><i style="background:var(--accent)"></i>Run 2</span></div>
     <div class="rows">
-      <div class="row"><div class="fname">auth_methods</div>
+      <div class="row"><div class="fname">Login method</div>
         <div class="bars">
-          <div class="line p1"><span>pass 1</span><div class="track"><div class="fill" style="width:35.0%"></div></div><b>7/20 &middot; 35.0%</b></div>
-          <div class="line p2"><span>pass 2</span><div class="track"><div class="fill" style="width:25.0%"></div></div><b>5/20 &middot; 25.0%</b></div>
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:35%"></div></div><b>7/20</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:25%"></div></div><b>5/20</b></div>
         </div><div class="delta down">&minus;2</div></div>
-
-      <div class="row"><div class="fname">api_type</div>
+      <div class="row"><div class="fname">API type</div>
         <div class="bars">
-          <div class="line p1"><span>pass 1</span><div class="track"><div class="fill" style="width:65.0%"></div></div><b>13/20 &middot; 65.0%</b></div>
-          <div class="line p2"><span>pass 2</span><div class="track"><div class="fill" style="width:60.0%"></div></div><b>12/20 &middot; 60.0%</b></div>
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:65%"></div></div><b>13/20</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:60%"></div></div><b>12/20</b></div>
         </div><div class="delta down">&minus;1</div></div>
-
-      <div class="row"><div class="fname">access</div>
+      <div class="row"><div class="fname">Access</div>
         <div class="bars">
-          <div class="line p1"><span>pass 1</span><div class="track"><div class="fill" style="width:50.0%"></div></div><b>10/20 &middot; 50.0%</b></div>
-          <div class="line p2"><span>pass 2</span><div class="track"><div class="fill" style="width:50.0%"></div></div><b>10/20 &middot; 50.0%</b></div>
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:50%"></div></div><b>10/20</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:50%"></div></div><b>10/20</b></div>
         </div><div class="delta flat">0</div></div>
-
-      <div class="row"><div class="fname">buildability</div>
+      <div class="row"><div class="fname">Can it be built?</div>
         <div class="bars">
-          <div class="line p1"><span>pass 1</span><div class="track"><div class="fill" style="width:55.0%"></div></div><b>11/20 &middot; 55.0%</b></div>
-          <div class="line p2"><span>pass 2</span><div class="track"><div class="fill" style="width:65.0%"></div></div><b>13/20 &middot; 65.0%</b></div>
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:55%"></div></div><b>11/20</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:65%"></div></div><b>13/20</b></div>
         </div><div class="delta up">+2</div></div>
-
-      <div class="row"><div class="fname">main_blocker</div>
+      <div class="row"><div class="fname">Main blocker</div>
         <div class="bars">
-          <div class="line p1"><span>pass 1</span><div class="track"><div class="fill" style="width:50.0%"></div></div><b>10/20 &middot; 50.0%</b></div>
-          <div class="line p2"><span>pass 2</span><div class="track"><div class="fill" style="width:50.0%"></div></div><b>10/20 &middot; 50.0%</b></div>
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:50%"></div></div><b>10/20</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:50%"></div></div><b>10/20</b></div>
         </div><div class="delta flat">0</div></div>
-
-      <div class="row"><div class="fname">existing_mcp_status<small>only 7 apps have a verified gold label</small></div>
+      <div class="row"><div class="fname">Ready-made AI connector<small>only 7 apps in the answer key</small></div>
         <div class="bars">
-          <div class="line p1"><span>pass 1</span><div class="track"><div class="fill" style="width:28.6%"></div></div><b>2/7 &middot; 28.6%</b></div>
-          <div class="line p2"><span>pass 2</span><div class="track"><div class="fill" style="width:42.9%"></div></div><b>3/7 &middot; 42.9%</b></div>
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:28.6%"></div></div><b>2/7</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:42.9%"></div></div><b>3/7</b></div>
         </div><div class="delta up">+1</div></div>
     </div>
 
-    <p class="cap" style="margin-top:20px"><b style="color:var(--text)">Overall: 53/107 &rarr; 53/107, 49.5% &rarr; 49.5%, no change.</b> No improvement is claimed. The 9 gold apps whose pass 1 record also came from Gemini went from 29/49 to 31/49 &mdash; 2 more correct answers, too few to call an improvement.</p>
-
-    <p class="cap" style="margin-top:14px"><b style="color:var(--text)">8 regressions:</b></p>
-    <ul class="clean" style="margin-top:8px">
-      <li><code>DealCloud</code>/<code>api_type</code>, <code>Zendesk</code>/<code>api_type</code>, <code>Sherlock</code>/<code>api_type</code>, <code>WhatsApp Business</code>/<code>auth_methods</code>, <code>PitchBook</code>/<code>auth_methods</code> &mdash; in all five, pass 2 added an extra value to a list field; the exact-set scoring rule marks the whole field wrong even though the original correct value is still there; the extra values were not checked one by one.</li>
-      <li><code>fanbasis</code>/<code>auth_methods</code> and <code>fanbasis</code>/<code>access</code> &mdash; correct in pass 1, <code>unknown</code> in pass 2. A real loss: fanbasis's real docs are on <code>commasdocs.com</code>, a different domain from its product site, and pass 2's search missed that domain again, the same way pass 1's did.</li>
-      <li><code>Waterfall.io</code>/<code>access</code> &mdash; <code>unknown</code> in pass 1, a specific (wrong, per gold) guess in pass 2.</li>
+    <h3 style="margin-top:28px">8 answers got worse in run 2</h3>
+    <ul class="points bad">
+      <li><b class="w">5 answers</b> &mdash; the agent added an extra item to a list (e.g. "REST, GraphQL" instead of "REST"). Strict scoring marks the whole answer wrong. The extra items were not checked one by one. <span class="cap">(DealCloud, Zendesk, Sherlock, WhatsApp Business, PitchBook)</span></li>
+      <li><b class="w">2 answers</b> &mdash; fanbasis went from right to "unknown". Its docs are on a different website (<code>commasdocs.com</code>) and the agent never found them.</li>
+      <li><b class="w">1 answer</b> &mdash; Waterfall.io went from "unknown" to a wrong guess.</li>
     </ul>
   </section>
 
-  <section id="loop">
-    <div class="label">The loop</div>
-    <h2>What the verify and retry loop changed</h2>
-    <p class="lede">Apps failing each check, pass 1 (45 apps) vs pass 2 (50 apps). The loop enforces these same checks, so this shows evidence is better grounded. It is not a measure of whether the final answers are more accurate.</p>
-    <div class="four">
-      <div class="card"><div class="arrow">29 <span>&rarr;</span> 2</div><div class="cap">Quote is on the page (D1)</div><div class="tag up">better</div></div>
-      <div class="card"><div class="arrow">13 <span>&rarr;</span> 0</div><div class="cap">Source is trusted (D2)</div><div class="tag up">better</div></div>
-      <div class="card"><div class="arrow">1 <span>&rarr;</span> 0</div><div class="cap">Page loaded OK (D3)</div><div class="tag up">better</div></div>
-      <div class="card"><div class="arrow">8 <span>&rarr;</span> 14</div><div class="cap">Fields agree with each other (D4)</div><div class="tag down">worse</div></div>
-    </div>
-    <p class="cap" style="margin-top:20px">Pass 1 only has 45 of the 50 apps here, not 50, because the other 5 failed outright and have no pass 1 record. D1&ndash;D3 improved sharply, which is what the retry loop is for. <b style="color:var(--text)">D4 got worse</b>: D4 checks three rules, not only MCP URLs &mdash; access/buildability, api_type/main_blocker, and existing_mcp_status/existing_mcp_url. On the 45 apps present in both passes, pass 1 had 21 apps with <code>existing_mcp_status</code> official/community (7 of those missing a URL); pass 2 had 20 (11 missing a URL) &mdash; accounting for the shared-45-app rise (8 &rarr; 11 failing). The rest of the jump to 14 comes from 3 of the 5 apps pass 1 never researched at all (Xero, Fathom, Reducto), which pass 2 also flagged as official/community with no URL. So the URL counts explain the whole rise within the shared 45 apps, but only part of the 8-to-14 figure above, which compares different app counts. Pass 2 is not claiming official/community more often overall; it is more likely to leave the URL missing when it does make that claim. The cause was not measured.</p>
+  <section id="retry">
+    <div class="label">Retry step</div>
+    <h2>Did check-and-retry help?</h2>
+    <p class="lede"><b class="w">The proof got better. The answers did not.</b> Number of apps failing each check (fewer is better):</p>
 
-    <p class="cap" style="margin-top:20px"><b style="color:var(--text)">Confidence calibration on the gold fields:</b></p>
-    <table style="margin-top:10px">
-      <thead><tr><th>Confidence</th><th>pass 1</th><th>pass 2</th></tr></thead>
-      <tbody>
-        <tr><td>high</td><td>n/a (no high tier in pass 1)</td><td>29/52 (55.8%)</td></tr>
-        <tr><td>medium</td><td>52/88 (59.1%)</td><td>21/44 (47.7%)</td></tr>
-        <tr><td>low</td><td>1/19 (5.3%)</td><td>3/11 (27.3%)</td></tr>
-      </tbody>
-    </table>
-    <p class="cap" style="margin-top:10px"><code>high</code> is not reliably better than <code>medium</code> yet &mdash; in this sample it scored lower.</p>
-
-    <div class="stats stats-2col" style="margin-top:24px">
-      <div class="card"><div class="big">29<span style="color:var(--muted);font-size:.5em">/50</span></div><div class="cap">pass 2 apps have at least one flagged field</div></div>
-      <div class="card"><div class="big">12</div><div class="cap">Gemini 429 errors across all pass 2 runs. Every one was retried and absorbed by Google's own client library before it ever reached this project's code. This project's own wait-60s-and-stop logic for 429s was not exercised in these runs.</div></div>
+    <div class="legend"><span><i style="background:var(--p1)"></i>Run 1 (45 apps)</span><span><i style="background:var(--accent)"></i>Run 2 (50 apps)</span></div>
+    <div class="rows">
+      <div class="row"><div class="fname">Quote is really on the page</div>
+        <div class="bars">
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:100%"></div></div><b>29</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:6.9%"></div></div><b>2</b></div>
+        </div><div class="delta up">better</div></div>
+      <div class="row"><div class="fname">Source is official / trusted</div>
+        <div class="bars">
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:44.8%"></div></div><b>13</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:0%"></div></div><b>0</b></div>
+        </div><div class="delta up">better</div></div>
+      <div class="row"><div class="fname">Page loaded OK</div>
+        <div class="bars">
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:3.4%"></div></div><b>1</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:0%"></div></div><b>0</b></div>
+        </div><div class="delta up">better</div></div>
+      <div class="row"><div class="fname">Answers agree with each other</div>
+        <div class="bars">
+          <div class="line p1"><span>run 1</span><div class="track"><div class="fill" style="width:27.6%"></div></div><b>8</b></div>
+          <div class="line p2"><span>run 2</span><div class="track"><div class="fill" style="width:48.3%"></div></div><b>14</b></div>
+        </div><div class="delta down">worse</div></div>
     </div>
+    <ul class="points">
+      <li>"Agree with each other" got worse mainly because run 2 more often said "an AI connector exists" without giving its link. Full counts are in Technical details.</li>
+    </ul>
+
+    <h3 style="margin-top:30px">Does "high confidence" mean right?</h3>
+    <p class="cap" style="margin-top:0">Run 2, answer-key questions only. How often each confidence level was right:</p>
+    <div class="card" style="margin-top:12px">
+      <div class="barrow"><div class="blabel">high (29/52)</div><div class="btrack"><div class="bfill" style="width:55.8%"></div></div><div class="bval">56%</div></div>
+      <div class="barrow"><div class="blabel">medium (21/44)</div><div class="btrack"><div class="bfill" style="width:47.7%"></div></div><div class="bval">48%</div></div>
+      <div class="barrow"><div class="blabel">low (3/11)</div><div class="btrack"><div class="bfill" style="width:27.3%;background:var(--bad)"></div></div><div class="bval">27%</div></div>
+    </div>
+    <ul class="points">
+      <li>"Low" is a useful warning sign.</li>
+      <li>"High" is not much better than "medium". Don't trust "high" on its own yet.</li>
+    </ul>
   </section>
 
   <section id="human-review">
-    <div class="label">Human review</div>
-    <h2>Human review of 8 apps</h2>
-    <p class="lede">I checked 13 fields on 8 apps against vendor pages and search results: HubSpot, Close, Copper, GitHub, Notion, Jira, Linear and Clay. The agent had flagged 7 of the 8 (HubSpot and Close existing_mcp; unknown existing_mcp for GitHub, Notion, Jira, Linear, Clay). Copper was not flagged.</p>
-    <ul class="clean" style="margin-top:16px">
-      <li>Wrong or missed (6): Copper existing_mcp "none" (an official server is announced but not public yet, and third-party servers exist); existing_mcp "unknown" for GitHub, Notion, Jira, Linear and Clay, where an official server exists for each.</li>
-      <li>Unproven or weak (3): Close access "paid_plan_required" (the pricing page shows a free trial that seems to include API access; one FAQ answer was not fully read); Close "bearer_token" (the API key page says HTTP Basic; the OAuth page was not opened); HubSpot's single "public beta" quote used for 3 fields (an old changelog post).</li>
-      <li>Held up (4): HubSpot official MCP, Close official MCP, Copper auth methods, HubSpot bearer_token (a Bearer header, but not a separate method).</li>
+    <div class="label">Hand check</div>
+    <h2>I checked 8 apps by hand</h2>
+    <p class="lede">13 answers on HubSpot, Close, Copper, GitHub, Notion, Jira, Linear and Clay. The agent had marked 7 of the 8 as "not sure". Copper was not marked.</p>
+    <div class="card" style="margin-top:18px">
+      <div class="stack">
+        <div style="width:46.2%;background:var(--bad)">6 wrong</div>
+        <div style="width:23.1%;background:var(--warn)">3 weak</div>
+        <div style="width:30.8%;background:var(--good)">4 correct</div>
+      </div>
+      <div class="skey"><span><i style="background:var(--bad)"></i>Wrong or missed</span><span><i style="background:var(--warn)"></i>Proof is weak</span><span><i style="background:var(--good)"></i>Held up</span></div>
+    </div>
+    <div class="grid3" style="margin-top:16px">
+      <div class="card"><h3 style="color:var(--bad)">Wrong or missed (6)</h3><ul class="points" style="font-size:14px;margin-top:8px">
+        <li>GitHub, Notion, Jira, Linear, Clay: agent said "unknown" AI connector. All 5 have an official one.</li>
+        <li>Copper: agent said "none". An official one is announced (not public yet), and community-made ones exist.</li></ul></div>
+      <div class="card"><h3 style="color:var(--warn)">Proof is weak (3)</h3><ul class="points" style="font-size:14px;margin-top:8px">
+        <li>Close "paid plan needed": pricing page shows a free trial that seems to include API access.</li>
+        <li>Close "bearer token" login: API key page says username/password style.</li>
+        <li>HubSpot: one old quote used for 3 answers.</li></ul></div>
+      <div class="card"><h3 style="color:var(--good)">Held up (4)</h3><ul class="points" style="font-size:14px;margin-top:8px">
+        <li>HubSpot official AI connector</li><li>Close official AI connector</li><li>Copper login methods</li><li>HubSpot bearer token</li></ul></div>
+    </div>
+    <ul class="points">
+      <li><b class="w">Key lesson:</b> "not marked" does not mean correct. Copper was wrong with no warning.</li>
+      <li>These 8 were picked because they looked doubtful, so this is not an error rate for all 50 apps.</li>
+      <li>The other 21 marked apps are not checked yet. Notes: <code>data/human_review_notes.md</code>.</li>
     </ul>
-    <p class="cap" style="margin-top:16px">For the five "unknown" apps I looked at Google results, not the vendors' own pages, so server URLs are not confirmed. URLs for HubSpot and Close were not found on the pages I opened. These apps were picked because they were flagged or looked doubtful, so the counts are not an error rate for all 50 apps. The data files were not changed. Notes are in <code>data/human_review_notes.md</code>.</p>
   </section>
 
-  <section id="patterns">
-    <div class="label">Patterns</div>
+  <section id="findings">
+    <div class="label">Findings</div>
     <h2>What the 100 apps show</h2>
-    <p class="lede">Every number here comes from <code>output/patterns.json</code> and <code>data/composio_catalog_check.json</code> &mdash; the same source the current page uses. <b style="color:var(--text)">73 of 95 researched apps are rated ready (76.8%)</b> &mdash; buildability was only 55.0% accurate on the gold set and the errors lean optimistic, so treat this as an upper estimate.</p>
+    <p class="lede">From run 1 data, 95 researched apps. Treat these as rough, since about half the answers were wrong on the answer key.</p>
 
-    <div class="cards-grid">
-      <div class="card"><h3>Auth method mix</h3>
-        <div class="barrow"><div class="blabel">oauth2</div><div class="btrack"><div class="bfill" style="width:100.0%"></div></div><div class="bval">53</div></div>
-<div class="barrow"><div class="blabel">bearer_token</div><div class="btrack"><div class="bfill" style="width:92.5%"></div></div><div class="bval">49</div></div>
-<div class="barrow"><div class="blabel">api_key</div><div class="btrack"><div class="bfill" style="width:90.6%"></div></div><div class="bval">48</div></div>
-<div class="barrow"><div class="blabel">basic</div><div class="btrack"><div class="bfill" style="width:28.3%"></div></div><div class="bval">15</div></div>
-<div class="barrow"><div class="blabel">other</div><div class="btrack"><div class="bfill" style="width:13.2%"></div></div><div class="bval">7</div></div>
-<div class="barrow"><div class="blabel">jwt</div><div class="btrack"><div class="bfill" style="width:11.3%"></div></div><div class="bval">6</div></div>
-<div class="barrow"><div class="blabel">unknown</div><div class="btrack"><div class="bfill" style="width:7.5%"></div></div><div class="bval">4</div></div>
-<div class="barrow"><div class="blabel">none</div><div class="btrack"><div class="bfill" style="width:7.5%"></div></div><div class="bval">4</div></div>
-<div class="barrow"><div class="blabel">session/cookie</div><div class="btrack"><div class="bfill" style="width:1.9%"></div></div><div class="bval">1</div></div>
-<div class="barrow"><div class="blabel">hmac_signature</div><div class="btrack"><div class="bfill" style="width:1.9%"></div></div><div class="bval">1</div></div>
+    <h3 style="margin-top:24px">Where are the leads for Composio?</h3>
+    <div class="funnel">
+      <div class="frow"><div><div class="fbar" style="width:100%">95</div></div><div class="ftext"><b>apps researched</b></div></div>
+      <div class="frow"><div><div class="fbar" style="width:61%">58</div></div><div class="ftext"><b>ready + free/trial sign-up</b> (agent's view)</div></div>
+      <div class="frow"><div><div class="fbar" style="width:9.5%">9</div></div><div class="ftext"><b>of those, not yet in Composio</b></div></div>
+      <div class="frow"><div><div class="fbar" style="width:1%;background:var(--good)">1</div></div><div class="ftext"><b>lead I can back</b>: fanbasis (matches the answer key)</div></div>
+    </div>
+    <div class="chips">
+      <span class="chip good">fanbasis &#10003;</span>
+      <span class="chip">DealCloud <span class="ctx">&mdash; wrong on answer key</span></span>
+      <span class="chip">Sherlock <span class="ctx">&mdash; wrong on answer key</span></span>
+      <span class="chip">LiveAgent <span class="ctx">&mdash; not checked</span></span>
+      <span class="chip">systeme.io <span class="ctx">&mdash; not checked</span></span>
+      <span class="chip">WooCommerce <span class="ctx">&mdash; not checked</span></span>
+      <span class="chip">Salesforce Commerce Cloud <span class="ctx">&mdash; not checked</span></span>
+      <span class="chip">SE Ranking <span class="ctx">&mdash; not checked</span></span>
+      <span class="chip">Netlify <span class="ctx">&mdash; only an AI-connector toolkit</span></span>
+    </div>
+
+    <div class="grid2" style="margin-top:24px">
+      <div class="card"><h3>Is the app already in Composio?</h3>
+        <p class="cap" style="margin-top:0">All 100 apps, matched by name against Composio's public list (23 Nov 2026).</p>
+        <div class="stack">
+          <div style="width:76%;background:var(--accent)">76</div>
+          <div style="width:4%;background:var(--accent2)"></div>
+          <div style="width:20%;background:var(--line);color:var(--text)">20</div>
+        </div>
+        <div class="skey"><span><i style="background:var(--accent)"></i>Has a toolkit (76)</span><span><i style="background:var(--accent2)"></i>AI-connector only (4)</span><span><i style="background:var(--line)"></i>Not found (20)</span></div>
       </div>
-      <div class="card"><h3>Top blockers to buildability</h3>
-        <div class="barrow"><div class="blabel">no blocker found</div><div class="btrack"><div class="bfill" style="width:100.0%"></div></div><div class="bval">76</div></div>
-<div class="barrow"><div class="blabel">unknown</div><div class="btrack"><div class="bfill" style="width:23.7%"></div></div><div class="bval">18</div></div>
-<div class="barrow"><div class="blabel">partner_approval</div><div class="btrack"><div class="bfill" style="width:1.3%"></div></div><div class="bval">1</div></div>
+      <div class="card"><h3>Can it be built?</h3>
+        <p class="cap" style="margin-top:0">Agent's answer for 95 apps.</p>
+        <div class="big" style="margin-top:12px">73<small>/95</small></div>
+        <p class="cap">rated "ready". This answer was right only 55% of the time on the answer key and mistakes lean hopeful, so the real number is likely lower.</p>
       </div>
     </div>
 
-    <h3 style="margin-top:28px;font-size:18px">Self-serve vs. gated, by category</h3>
-    <div class="card heatwrap" style="margin-top:14px">
+    <div class="grid2" style="margin-top:16px">
+      <div class="card"><h3>Login methods used</h3>
+        <p class="cap" style="margin-top:0">Number of apps. One app can use more than one.</p>
+        <div class="barrow"><div class="blabel">OAuth login</div><div class="btrack"><div class="bfill" style="width:100.0%"></div></div><div class="bval">53</div></div>
+<div class="barrow"><div class="blabel">bearer token</div><div class="btrack"><div class="bfill" style="width:92.5%"></div></div><div class="bval">49</div></div>
+<div class="barrow"><div class="blabel">API key</div><div class="btrack"><div class="bfill" style="width:90.6%"></div></div><div class="bval">48</div></div>
+<div class="barrow"><div class="blabel">username/password</div><div class="btrack"><div class="bfill" style="width:28.3%"></div></div><div class="bval">15</div></div>
+<div class="barrow"><div class="blabel">other</div><div class="btrack"><div class="bfill" style="width:13.2%"></div></div><div class="bval">7</div></div>
+<div class="barrow"><div class="blabel">JWT token</div><div class="btrack"><div class="bfill" style="width:11.3%"></div></div><div class="bval">6</div></div>
+<div class="barrow"><div class="blabel">unknown</div><div class="btrack"><div class="bfill" style="width:7.5%"></div></div><div class="bval">4</div></div>
+<div class="barrow"><div class="blabel">no login</div><div class="btrack"><div class="bfill" style="width:7.5%"></div></div><div class="bval">4</div></div>
+<div class="barrow"><div class="blabel">session cookie</div><div class="btrack"><div class="bfill" style="width:1.9%"></div></div><div class="bval">1</div></div>
+<div class="barrow"><div class="blabel">signed request</div><div class="btrack"><div class="bfill" style="width:1.9%"></div></div><div class="bval">1</div></div>
+      </div>
+      <div class="card"><h3>What blocks building?</h3>
+        <p class="cap" style="margin-top:0">Number of apps.</p>
+        <div class="barrow"><div class="blabel">nothing found</div><div class="btrack"><div class="bfill" style="width:100%"></div></div><div class="bval">76</div></div>
+        <div class="barrow"><div class="blabel">unknown</div><div class="btrack"><div class="bfill" style="width:23.7%"></div></div><div class="bval">18</div></div>
+        <div class="barrow"><div class="blabel">partner approval</div><div class="btrack"><div class="bfill" style="width:1.3%"></div></div><div class="bval">1</div></div>
+        <h3 style="margin-top:22px">Needs talking to someone (4)</h3>
+        <div class="chips">
+          <span class="chip">Intercom <span class="ctx">admin approval</span></span>
+          <span class="chip">Meta Ads <span class="ctx">app review</span></span>
+          <span class="chip">Magento <span class="ctx">admin approval</span></span>
+          <span class="chip">Amazon Selling Partner <span class="ctx">admin approval</span></span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">Can anyone sign up? By category</h3>
+    <p class="cap" style="margin-top:0">Darker = more apps. Finance and AI apps are mostly "unknown".</p>
+    <div class="card heatwrap" style="margin-top:12px">
       <table>
-        <thead><tr><th></th><th>admin approval</th><th>app review required</th><th>paid plan required</th><th>self serve free</th><th>self serve trial</th><th>unknown</th></tr></thead>
+        <thead><tr><th></th><th>needs admin approval</th><th>needs app review</th><th>paid plan</th><th>free</th><th>free trial</th><th>unknown</th></tr></thead>
         <tbody>
-          <tr><td class="heatcat">AI, Research and Media-native</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.649">7</div></td></tr>
+<tr><td class="heatcat">AI, Research and Media-native</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.649">7</div></td></tr>
 <tr><td class="heatcat">CRM and Sales</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.724">8</div></td><td><div class="heatcell" style="--a:0.271">2</div></td><td><div class="heatcell" style="--a:0.0"></div></td></tr>
 <tr><td class="heatcat">Communications and Messaging</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.8">9</div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.196">1</div></td></tr>
 <tr><td class="heatcat">Data, SEO and Scraping</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.724">8</div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.271">2</div></td></tr>
@@ -283,109 +444,107 @@
 <tr><td class="heatcat">Marketing, Ads, Email and Social</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.196">1</div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.573">6</div></td><td><div class="heatcell" style="--a:0.196">1</div></td><td><div class="heatcell" style="--a:0.271">2</div></td></tr>
 <tr><td class="heatcat">Productivity and Project Management</td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.649">7</div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.347">3</div></td></tr>
 <tr><td class="heatcat">Support and Helpdesk</td><td><div class="heatcell" style="--a:0.196">1</div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.196">1</div></td><td><div class="heatcell" style="--a:0.422">4</div></td><td><div class="heatcell" style="--a:0.0"></div></td><td><div class="heatcell" style="--a:0.422">4</div></td></tr>
+        
         </tbody>
       </table>
     </div>
 
-    <h3 style="margin-top:28px;font-size:18px">Ready and self-serve vs. needs outreach</h3>
-    <p class="lede">Checked by name against Composio's public toolkit list (1,841 toolkits) on 23 Nov 2026. I ran this check by hand with Claude after pass 1; the agent's own catalog check never ran.</p>
-    <div class="cards-grid" style="align-items:start">
-      <div class="card warn"><h3>Ready, self-serve, not in the catalog <span class="count">9</span></h3>
-        <div class="chips">
-          <span class="chip">DealCloud <span class="ctx">(CRM and Sales)</span></span>
-          <span class="chip">LiveAgent <span class="ctx">(Support and Helpdesk)</span></span>
-          <span class="chip">systeme.io <span class="ctx">(Marketing, Ads, Email and Social)</span></span>
-          <span class="chip">WooCommerce <span class="ctx">(Ecommerce)</span></span>
-          <span class="chip">Salesforce Commerce Cloud <span class="ctx">(Ecommerce)</span></span>
-          <span class="chip">fanbasis <span class="ctx">(Ecommerce)</span></span>
-          <span class="chip">SE Ranking <span class="ctx">(Data, SEO and Scraping)</span></span>
-          <span class="chip">Sherlock <span class="ctx">(Data, SEO and Scraping)</span></span>
-          <span class="chip">Netlify <span class="ctx">(Developer, Infra and Data platforms &middot; MCP-only toolkit)</span></span>
-        </div>
-        <p class="cap" style="margin-top:14px">Only <b style="color:var(--text)">fanbasis</b> is a lead I can back: the agent matched gold there (self-serve, ready, no blocker). <b style="color:var(--text)">DealCloud</b> and <b style="color:var(--text)">Sherlock</b> were wrong on the gold set (admin approval; CLI-only), so they are not leads. The other 5 are unchecked, and "ready" is optimistic.</p>
-      </div>
-      <div class="card"><h3>Ready, self-serve, already in the catalog <span class="count">49</span></h3>
-        <p class="cap">A name match shows a toolkit exists, not how complete it is. Full list of 49 apps is in the all-apps table below (filter by access = self_serve_free/self_serve_trial, buildability = ready).</p>
-      </div>
-    </div>
-    <div class="card warn" style="margin-top:16px"><h3>Needs outreach: partner, sales or admin-gated <span class="count">4</span></h3>
-      <div class="chips">
-        <span class="chip">Intercom <span class="ctx">(admin_approval &middot; in catalog)</span></span>
-        <span class="chip">Meta Ads <span class="ctx">(app_review_required &middot; in catalog)</span></span>
-        <span class="chip">Magento (Adobe Commerce) <span class="ctx">(admin_approval &middot; not in catalog)</span></span>
-        <span class="chip">Amazon Selling Partner <span class="ctx">(admin_approval &middot; not in catalog)</span></span>
-      </div>
-    </div>
-
-    <h3 style="margin-top:28px;font-size:18px">Flags for review</h3>
-    <p class="lede">Rows where the agent's own fields don't add up.</p>
-    <div class="cards-grid">
-      <div class="card warn"><h3>Inconsistent, needs review <span class="count">3</span></h3>
-        <ul class="clean" style="margin-top:10px">
-          <li>Meta Ads &mdash; access=<code>app_review_required</code>, buildability=<code>ready</code></li>
-          <li>Intercom &mdash; access=<code>admin_approval</code>, buildability=<code>ready</code></li>
-          <li>Magento (Adobe Commerce) &mdash; access=<code>admin_approval</code>, buildability=<code>ready</code></li>
-        </ul>
-        <p class="cap" style="margin-top:12px">(3) Access is gated (admin approval / app review / contact sales) but buildability was rated "ready" anyway &mdash; these two fields disagree with each other and I should check them.</p>
-      </div>
-      <div class="card warn"><h3>Not an API <span class="count">1</span></h3>
-        <ul class="clean" style="margin-top:10px"><li>Sherlock &mdash; none</li></ul>
-        <p class="cap" style="margin-top:12px">(1) CLI-only, SDK-only, or self-host-only &mdash; a toolkit here would need a different approach than a hosted API wrapper.</p>
-      </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card warn"><h3>Answers that don't add up (3)</h3>
+        <p class="cap" style="margin-top:0">Says "needs approval" but also "ready". To check.</p>
+        <div class="chips"><span class="chip">Meta Ads</span><span class="chip">Intercom</span><span class="chip">Magento</span></div></div>
+      <div class="card warn"><h3>Not a web API (1)</h3>
+        <p class="cap" style="margin-top:0">Command-line tool only. Needs a different kind of connector.</p>
+        <div class="chips"><span class="chip">Sherlock</span></div></div>
     </div>
   </section>
 
   <section id="all-apps">
     <div class="label">All apps</div>
     <h2>All 100 apps</h2>
-    <p class="lede">These are the pass 1 records for all 100 apps. The 50 pass 2 records are in <code>output/pass2.json</code> and are not shown in this table, so some values here differ from the pass 2 values in the human review above (for example existing_mcp for Copper, Notion, Jira and Linear). The last column shows which model made each pass 1 record.</p>
-    <div class="controls">
-      <input type="text" id="searchBox" placeholder="Search name&hellip;">
-      <select id="catFilter"><option value="">All categories</option></select>
-    </div>
-    <div class="tablewrap">
-      <table id="appsTable">
-        <thead><tr>
-          <th>ID</th><th>Name</th><th>Category</th><th>Auth</th><th>Access</th><th>API type</th>
-          <th>Buildability</th><th>Blocker</th><th>MCP</th><th>Catalog</th><th>Model / pass</th>
-        </tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
+    <p class="lede">Run 1 answers. Run 2 answers are in <code>output/pass2.json</code>, so some values differ from the hand check above.</p>
+    <details>
+      <summary>Show the table</summary>
+      <div class="dbody">
+        <div class="controls">
+          <input type="text" id="searchBox" placeholder="Search name&hellip;">
+          <select id="catFilter"><option value="">All categories</option></select>
+        </div>
+        <div class="tablewrap">
+          <table id="appsTable">
+            <thead><tr>
+              <th>ID</th><th>Name</th><th>Category</th><th>Login</th><th>Access</th><th>API type</th>
+              <th>Can build?</th><th>Blocker</th><th>AI connector</th><th>In Composio?</th><th>AI model used</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </details>
   </section>
 
   <section id="limitations">
-    <div class="label">Limitations</div>
-    <h2>Limitations and next steps</h2>
-    <ul class="clean">
-      <li><b style="color:var(--text)">49</b> of 95 researched apps have at least one <code>unknown</code>/low-confidence field (147 such fields total) &mdash; these are gaps the agent admitted to, not silent guesses.</li>
-      <li>Accuracy on the gold set is 49.5% in both pass 1 and pass 2 &mdash; well short of production quality. The verify/retry loop in pass 2 did not improve it.</li>
-      <li><code>qwen/qwen3.8-27b</code>'s records are markedly less reliable than the other two models &mdash; a direct consequence of switching providers mid-run under free-tier quota pressure, not a reflection of the agent design.</li>
-      <li>5 apps have no record at all (not researched), all due to LLM provider errors during extraction, not missing data on the web.</li>
-      <li>D1 only checks that the evidence quote exists on the page it cites &mdash; it does not check that the quote actually supports the field's value. A real quote next to a wrong conclusion still passes.</li>
-      <li>List fields can pick up extra values. Exact-set scoring marks the whole field as a miss. The extra values were not checked one by one, so some may be wrong.</li>
-      <li>An <code>unknown</code> <code>api_breadth</code> or <code>unknown</code> <code>existing_mcp_status</code> can never trigger a retry under the current checks, by construction, not bad luck. Of the fields left <code>unknown</code> after pass 2, 31 were never retried for this reason.</li>
-      <li>The gold set is small: 20 apps total, and only 7 of them have a verified <code>existing_mcp_status</code> label, so the existing_mcp_status numbers above are on a thin sample.</li>
-      <li>No flag does not mean correct: Copper's existing_mcp was <code>none</code> with no evidence and no flag, and it was wrong. All 5 <code>unknown</code> MCP values checked by hand were findable.</li>
-      <li>The agent's own catalog check never ran. The catalog check above was done separately, by name, so it shows that a toolkit exists, not how complete it is.</li>
+    <div class="label">Limits</div>
+    <h2>What to keep in mind</h2>
+    <ul class="points bad">
+      <li>About half the answers are right. Not ready for real use without a person checking.</li>
+      <li>The answer key is small: 20 apps, and only 7 for the AI-connector question.</li>
+      <li>The proof check only sees if a quote exists on the page, not if it supports the answer.</li>
+      <li>Some "unknown" answers can never trigger a retry. 31 were never retried for this reason.</li>
+      <li>"Not marked as unsure" does not mean correct (Copper).</li>
+      <li>The Composio check is by name only. It shows a toolkit exists, not how complete it is.</li>
     </ul>
 
-    <h3 style="margin-top:32px;font-size:20px">Next steps <span style="color:var(--muted);font-weight:500;font-size:14px">(planned, not done yet)</span></h3>
-    <ul class="clean" style="margin-top:14px">
-      <li>Let unknown <code>api_breadth</code> and <code>existing_mcp_status</code> fields trigger a retry.</li>
-      <li>Check that each value in a list field has its own supporting quote.</li>
-      <li>Look for docs on a different domain than the product site (the fanbasis case).</li>
-      <li>Review the rest of the 29 flagged apps and the low-confidence fields, and re-score.</li>
-      <li>Run pass 2 on the other 50 apps when quota allows.</li>
+    <h3 style="margin-top:30px">Next steps <span style="color:var(--muted);font-weight:500;font-size:14px">(planned, not done yet)</span></h3>
+    <ul class="todo">
+      <li>Let "unknown" API-size and AI-connector answers trigger a retry.</li>
+      <li>Check each item in a list answer has its own proof.</li>
+      <li>Search for docs on other websites, not just the product site (the fanbasis case).</li>
+      <li>Hand check the other 21 marked apps and the low-confidence answers, then re-score.</li>
+      <li>Run run 2 on the other 50 apps when free limits allow.</li>
     </ul>
+
+    <details style="margin-top:28px">
+      <summary>Technical details</summary>
+      <div class="dbody">
+        <ul class="points" style="margin-top:0;font-size:14px">
+          <li><b class="w">Answer key:</b> drafted from official docs; I verified 15 of the 20 apps myself.</li>
+          <li><b class="w">Checks D1&ndash;D4:</b> D1 quote is on the page, D2 trusted source, D3 page loaded, D4 fields agree. Run 1 numbers cover 45 apps, because the other 5 of the 50 failed in run 1.</li>
+          <li><b class="w">Why D4 got worse:</b> D4 checks 3 rules: access vs buildability, api_type vs main_blocker, and existing_mcp_status vs existing_mcp_url. On the 45 apps in both runs, run 1 had 21 apps with MCP status official/community (7 missing a URL), and run 2 had 20 (11 missing a URL). That explains the rise from 8 to 11 within those 45. The rest of the jump to 14 comes from Xero, Fathom and Reducto (not researched in run 1), which run 2 also marked official/community with no URL. Run 2 does not claim an MCP server more often. It just leaves out the URL more often. The cause was not measured.</li>
+          <li><b class="w">Gemini-only subset:</b> the 9 answer-key apps whose run 1 record also came from Gemini went from 29/49 to 31/49. That's too few to call an improvement.</li>
+          <li><b class="w">Confidence in run 1:</b> no "high" level; medium 52/88 (59.1%), low 1/19 (5.3%).</li>
+          <li><b class="w">Rate limits:</b> 12 Gemini "too many requests" (429) errors in run 2. All were retried by Google's own client library, so this project's own wait-60s-and-stop logic was not exercised.</li>
+          <li><b class="w">Unsure fields in run 1:</b> 49 of 95 apps have at least one unknown or low-confidence field (147 fields in total). These are gaps the agent admitted, not silent guesses.</li>
+          <li><b class="w">Failed apps:</b> 5 apps have no record (QuickBooks, Xero, Otter AI, Fathom, Reducto). All failed because of AI provider errors during extraction, not missing data on the web.</li>
+          <li><b class="w">Models in run 1:</b> gemini-3.5-flash-lite (48 apps), openai/gpt-oss-120b, qwen/qwen3.8-27b. Qwen's records are clearly less reliable, a result of switching providers under free-limit pressure.</li>
+          <li><b class="w">API calls:</b> Groq 126 (exact). Gemini in run 1 was not counted exactly: at least 2 per completed app (~96), excluding retries. Run 2: about 310 Gemini requests (counted by the pipeline), including retries.</li>
+          <li><b class="w">Composio check:</b> done by hand with Claude in Chrome after run 1, against 1,841 toolkits. Short names that could be another product (Close, Front, Plain, Copper, Clay, Grain, Consensus, Ramp) were checked by reading the toolkit description. The agent's own catalog check never ran.</li>
+          <li><b class="w">Hand check notes:</b> for the 5 "unknown" apps I looked at Google results, not the vendors' own pages, so server URLs are not confirmed. URLs for HubSpot and Close were not found on the pages I opened. The data files were not changed.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Words used on this page</summary>
+      <div class="dbody">
+        <div class="gloss">
+          <div><b>API</b> <span>&mdash; a way for software to talk to an app</span></div>
+          <div><b>MCP server / AI connector</b> <span>&mdash; a ready-made plug that lets AI agents use an app</span></div>
+          <div><b>OAuth</b> <span>&mdash; "Log in with&hellip;" style permission</span></div>
+          <div><b>API key / bearer token</b> <span>&mdash; a secret code sent with each request</span></div>
+          <div><b>REST / GraphQL</b> <span>&mdash; two common styles of API</span></div>
+          <div><b>Toolkit</b> <span>&mdash; Composio's connector for an app</span></div>
+          <div><b>Answer key</b> <span>&mdash; correct answers for 20 apps, from official docs</span></div>
+          <div><b>Run 1 / Run 2</b> <span>&mdash; pass 1 and pass 2 in the repo</span></div>
+        </div>
+      </div>
+    </details>
   </section>
 </main>
 
 <footer>
-  <p>App integration research agent &middot; pass 1 + pass 2 (50 of 100 apps)</p>
-  <p>Generated 2026-11-23 17:04 UTC. Pass 1 models: gemini-3.5-flash-lite (48 apps), openai/gpt-oss-120b, qwen/qwen3.8-27b. Groq API calls (exact, from the usage tracker): 126. Gemini calls: not instrumented exactly &mdash; at least 2 per completed Gemini app (~96), excluding retries.</p>
-  <p>Pass 2 (Gemini only, no fallback): about 310 Gemini requests (counted by the pipeline) across 50 apps, including retries. 12 real 429s occurred, all absorbed by Google's client-side retry.</p>
-  <p>Pass 1 covers 100 apps; pass 2 covers 50 of them; a partial human review of 8 apps was done (see "Human review of 8 apps"), the rest of the flagged apps are not reviewed.</p>
+  <p>App integration research agent &middot; run 1 on 100 apps, run 2 on 50 apps &middot; hand check of 8 apps</p>
+  <p>Generated 2026-11-23 17:04 UTC &middot; page updated 2026-11-24.</p>
   <p><a href="results.csv">results.csv</a> &middot; <a href="results.json">results.json</a> &middot; <a href="llms.txt">llms.txt</a></p>
 </footer>
 
@@ -397,31 +556,26 @@
   var tbody = document.querySelector('#appsTable tbody');
   var catSel = document.getElementById('catFilter');
   var search = document.getElementById('searchBox');
-
   function el(tag, props, text) {
     var e = document.createElement(tag);
     if (props) Object.assign(e, props);
     if (text !== undefined) e.textContent = text;
     return e;
   }
-
   var cats = Array.from(new Set(apps.filter(function(a){return a.category;}).map(function(a){return a.category;}))).sort();
   cats.forEach(function(c) { catSel.appendChild(el('option', {value: c}, c)); });
-
   var rows = [];
   apps.forEach(function(a) {
     var tr = document.createElement('tr');
     tr.dataset.category = a.category || '';
     tr.dataset.name = a.name.toLowerCase();
+    tr.appendChild(el('td', {}, String(a.id)));
+    tr.appendChild(el('td', {}, a.name));
     if (!a.researched) {
-      tr.appendChild(el('td', {}, String(a.id)));
-      tr.appendChild(el('td', {}, a.name));
       var td = el('td', {className: 'notresearched'}, 'not researched');
-      td.colSpan = 8;
+      td.colSpan = 9;
       tr.appendChild(td);
     } else {
-      tr.appendChild(el('td', {}, String(a.id)));
-      tr.appendChild(el('td', {}, a.name));
       tr.appendChild(el('td', {}, a.category));
       tr.appendChild(el('td', {}, a.auth || ''));
       tr.appendChild(el('td', {}, a.access || ''));
@@ -429,27 +583,23 @@
       tr.appendChild(el('td', {}, a.buildability || ''));
       tr.appendChild(el('td', {}, a.blocker || ''));
       var mcpTd = el('td', {});
-      if (a.mcp_url) {
-        var link = el('a', {href: a.mcp_url, target: '_blank', rel: 'noopener'}, a.mcp_status || '');
-        mcpTd.appendChild(link);
+      if (a.mcp_url && /^https?:\/\//.test(a.mcp_url)) {
+        mcpTd.appendChild(el('a', {href: a.mcp_url, target: '_blank', rel: 'noopener'}, a.mcp_status || ''));
       } else {
         mcpTd.textContent = a.mcp_status || '';
       }
       tr.appendChild(mcpTd);
-      var catalogLabel = a.catalog === 'yes' ? 'in catalog' : (a.catalog === 'mcp_only' ? 'MCP-only' : 'not in catalog');
-      tr.appendChild(el('td', {}, catalogLabel));
+      tr.appendChild(el('td', {}, a.catalog === 'yes' ? 'yes' : (a.catalog === 'mcp_only' ? 'AI-connector only' : 'no')));
       tr.appendChild(el('td', {className: 'mono'}, a.model || ''));
     }
     tbody.appendChild(tr);
     rows.push(tr);
   });
-
   function apply() {
     var q = search.value.toLowerCase();
     rows.forEach(function(r) {
-      var matches = (!catSel.value || r.dataset.category === catSel.value)
-        && (!q || r.dataset.name.indexOf(q) !== -1);
-      r.style.display = matches ? '' : 'none';
+      var ok = (!catSel.value || r.dataset.category === catSel.value) && (!q || r.dataset.name.indexOf(q) !== -1);
+      r.style.display = ok ? '' : 'none';
     });
   }
   catSel.addEventListener('input', apply);
@@ -459,18 +609,11 @@
 <script>
 (function() {
   var links = Array.prototype.slice.call(document.querySelectorAll('.pill a'));
-  var items = links.map(function(a) {
-    return {a: a, el: document.querySelector(a.getAttribute('href'))};
-  }).filter(function(x) { return x.el; });
+  var items = links.map(function(a) { return {a: a, el: document.querySelector(a.getAttribute('href'))}; }).filter(function(x) { return x.el; });
   function update() {
-    var y = window.scrollY + 140;
-    var current = items[0];
-    items.forEach(function(x) {
-      if (x.a.getAttribute('href') !== '#top' && x.el.offsetTop <= y) current = x;
-    });
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
-      current = items[items.length - 1];
-    }
+    var y = window.scrollY + 140, current = items[0];
+    items.forEach(function(x) { if (x.a.getAttribute('href') !== '#top' && x.el.offsetTop <= y) current = x; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = items[items.length - 1];
     links.forEach(function(l) { l.classList.toggle('on', l === current.a); });
   }
   window.addEventListener('scroll', update, {passive: true});
