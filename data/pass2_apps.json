@@ -1,0 +1,277 @@
+[
+  {
+    "id": "2",
+    "name": "HubSpot",
+    "reason": "gold"
+  },
+  {
+    "id": "5",
+    "name": "Twenty",
+    "reason": "gold"
+  },
+  {
+    "id": "10",
+    "name": "DealCloud",
+    "reason": "gold"
+  },
+  {
+    "id": "11",
+    "name": "Zendesk",
+    "reason": "gold"
+  },
+  {
+    "id": "21",
+    "name": "Slack",
+    "reason": "gold"
+  },
+  {
+    "id": "28",
+    "name": "WhatsApp Business",
+    "reason": "gold"
+  },
+  {
+    "id": "31",
+    "name": "Google Ads",
+    "reason": "gold"
+  },
+  {
+    "id": "41",
+    "name": "Shopify",
+    "reason": "gold"
+  },
+  {
+    "id": "49",
+    "name": "Amazon Selling Partner",
+    "reason": "gold"
+  },
+  {
+    "id": "50",
+    "name": "fanbasis",
+    "reason": "gold"
+  },
+  {
+    "id": "51",
+    "name": "DataForSEO",
+    "reason": "gold"
+  },
+  {
+    "id": "58",
+    "name": "Sherlock",
+    "reason": "gold"
+  },
+  {
+    "id": "59",
+    "name": "Waterfall.io",
+    "reason": "gold"
+  },
+  {
+    "id": "61",
+    "name": "GitHub",
+    "reason": "gold"
+  },
+  {
+    "id": "71",
+    "name": "Notion",
+    "reason": "gold"
+  },
+  {
+    "id": "81",
+    "name": "Stripe",
+    "reason": "gold"
+  },
+  {
+    "id": "85",
+    "name": "iPayX",
+    "reason": "gold"
+  },
+  {
+    "id": "90",
+    "name": "PitchBook",
+    "reason": "gold"
+  },
+  {
+    "id": "91",
+    "name": "NotebookLM",
+    "reason": "gold"
+  },
+  {
+    "id": "98",
+    "name": "Mermaid CLI",
+    "reason": "gold"
+  },
+  {
+    "id": "86",
+    "name": "QuickBooks",
+    "reason": "failed_pass1"
+  },
+  {
+    "id": "87",
+    "name": "Xero",
+    "reason": "failed_pass1"
+  },
+  {
+    "id": "92",
+    "name": "Otter AI",
+    "reason": "failed_pass1"
+  },
+  {
+    "id": "93",
+    "name": "Fathom",
+    "reason": "failed_pass1"
+  },
+  {
+    "id": "95",
+    "name": "Reducto",
+    "reason": "failed_pass1"
+  },
+  {
+    "id": "45",
+    "name": "Magento (Adobe Commerce)",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 9
+  },
+  {
+    "id": "18",
+    "name": "Help Scout",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 6
+  },
+  {
+    "id": "9",
+    "name": "Copper",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 6
+  },
+  {
+    "id": "36",
+    "name": "Klaviyo",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 4
+  },
+  {
+    "id": "39",
+    "name": "Threads (Meta)",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 4
+  },
+  {
+    "id": "40",
+    "name": "SendGrid",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 4
+  },
+  {
+    "id": "48",
+    "name": "Gumroad",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 4
+  },
+  {
+    "id": "73",
+    "name": "Linear",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 4
+  },
+  {
+    "id": "8",
+    "name": "Close",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 4
+  },
+  {
+    "id": "17",
+    "name": "Plain",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 3
+  },
+  {
+    "id": "57",
+    "name": "Bright Data",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 3
+  },
+  {
+    "id": "60",
+    "name": "Clay",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 3
+  },
+  {
+    "id": "74",
+    "name": "Jira",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 3
+  },
+  {
+    "id": "16",
+    "name": "LiveAgent",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "26",
+    "name": "Discord",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "27",
+    "name": "Telegram",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "30",
+    "name": "Vonage",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "32",
+    "name": "Meta Ads",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "56",
+    "name": "Firecrawl",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "65",
+    "name": "Supabase",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "7",
+    "name": "Zoho CRM",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 2
+  },
+  {
+    "id": "1",
+    "name": "Salesforce",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 1
+  },
+  {
+    "id": "12",
+    "name": "Intercom",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 1
+  },
+  {
+    "id": "19",
+    "name": "Gorgias",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 1
+  },
+  {
+    "id": "22",
+    "name": "Twilio",
+    "reason": "most_d1_d2_d4_failures",
+    "score": 1
+  }
+]

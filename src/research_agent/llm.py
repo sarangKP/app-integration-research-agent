@@ -18,7 +18,8 @@ import threading
 import time
 from collections import deque
 from dataclasses import asdict, dataclass, field
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from typing import Any
 
@@ -30,8 +31,21 @@ from research_agent.retry import call_with_backoff
 logger = logging.getLogger(__name__)
 
 GROQ_USAGE_PATH = Path("output/groq_usage.json")
+GEMINI_USAGE_PATH = Path("output/gemini_usage.json")
 
 GROQ_LIMITS = {"rpm": 30, "tpm": 8000, "tpd": 200000, "rpd": 1000}
+
+# Gemini's real free-tier limits are 15 RPM / 250K TPM / 500 RPD for
+# gemini-3.5-flash-lite. We pace ourselves to a safety margin below the
+# real RPM/TPM ceilings instead of running right up against them, since a
+# live 429 mid-run still costs the 60s wait-and-retry below.
+GEMINI_RPM_LIMIT = 15
+GEMINI_SAFE_RPM = 13
+GEMINI_TPM_LIMIT = 250_000
+GEMINI_SAFE_TPM = 220_000
+GEMINI_DAILY_DISPLAY_LIMIT = 500
+GEMINI_429_MAX_RETRIES = 3
+GEMINI_429_WAIT_SECONDS = 60
 
 # Proactively switch to the fallback model before actually hitting the real
 # 200K/day wall (user-specified safety margin), rather than waiting for a
@@ -65,6 +79,72 @@ class StructuredOutputEmpty(Exception):
     """Raised when the model call succeeded but parsing produced None."""
 
 
+class GeminiQuotaExhausted(Exception):
+    """Raised after 3 failed wait-and-retry attempts on a Gemini 429. The
+    run should stop cleanly here, not fall back to a different model -
+    Gemini has no second model to fall back to, and retrying harder just
+    burns more of the daily quota."""
+
+
+def _is_gemini_quota_error(exc: Exception) -> bool:
+    text = str(exc)
+    return "429" in text and ("RESOURCE_EXHAUSTED" in text or "quota" in text.lower())
+
+
+# Gemini's free-tier daily quota resets on Google's clock, which is
+# Pacific time, not whatever timezone this machine happens to be in - using
+# local time would reset the counter at the wrong moment (e.g. hours early
+# or late) relative to when the real quota actually refills.
+GEMINI_QUOTA_RESET_TZ = ZoneInfo("America/Los_Angeles")
+
+
+def _gemini_quota_date() -> str:
+    return datetime.now(GEMINI_QUOTA_RESET_TZ).date().isoformat()
+
+
+@dataclass
+class _GeminiDailyUsage:
+    date: str = field(default_factory=_gemini_quota_date)
+    requests: int = 0
+
+
+class GeminiUsageTracker:
+    """Persists a daily request count for Gemini so '<N> / 500' survives
+    process restarts, same resumability reasoning as GroqUsageTracker."""
+
+    def __init__(self, path: Path = GEMINI_USAGE_PATH) -> None:
+        self.path = path
+        self._lock = threading.Lock()
+        self._usage = _GeminiDailyUsage()
+        if self.path.exists():
+            raw = json.loads(self.path.read_text())
+            self._usage = _GeminiDailyUsage(**raw)
+        self._reset_if_new_day()
+
+    def _reset_if_new_day(self) -> None:
+        today = _gemini_quota_date()
+        if self._usage.date != today:
+            self._usage = _GeminiDailyUsage(date=today)
+
+    def _save(self) -> None:
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(asdict(self._usage), indent=2))
+        os.replace(tmp, self.path)
+
+    def record(self) -> int:
+        with self._lock:
+            self._reset_if_new_day()
+            self._usage.requests += 1
+            self._save()
+            return self._usage.requests
+
+    def requests_today(self) -> int:
+        with self._lock:
+            self._reset_if_new_day()
+            return self._usage.requests
+
+
 class GeminiExtractionLLM:
     provider = "gemini"
 
@@ -73,11 +153,45 @@ class GeminiExtractionLLM:
 
         self._model = ChatGoogleGenerativeAI(model=config.gemini_model, google_api_key=config.google_api_key)
         self.model_name = config.gemini_model
+        self._rate_limiter = MinuteRateLimiter(GEMINI_SAFE_RPM, GEMINI_SAFE_TPM, label="Gemini")
+        self._usage = GeminiUsageTracker()
+
+    @property
+    def requests_today(self) -> int:
+        return self._usage.requests_today()
 
     def invoke_structured(self, schema: type[BaseModel], messages: Any) -> tuple[BaseModel, str, str]:
+        text = _messages_to_text(messages)
+        estimated_tokens = len(text) // 4
+
         structured = self._model.with_structured_output(schema, method="json_schema")
-        result = call_with_backoff(structured.invoke, messages)
-        return result, self.provider, self.model_name
+
+        retries_used = 0
+        while True:
+            self._rate_limiter.acquire(estimated_tokens)
+            try:
+                # Not call_with_backoff: that retries any 429-shaped error 5x
+                # with its own exponential backoff *before* this loop ever
+                # sees the exception, which would turn "retry up to 3
+                # times, 60s apart" into dozens of extra calls against an
+                # already-exhausted quota. We want the flat 60s wait
+                # specified here, nothing stacked on top of it.
+                result = structured.invoke(messages)
+            except Exception as exc:
+                if not _is_gemini_quota_error(exc):
+                    raise
+                if retries_used >= GEMINI_429_MAX_RETRIES:
+                    raise GeminiQuotaExhausted(str(exc)) from exc
+                retries_used += 1
+                logger.warning(
+                    "Gemini 429 (retry %d/%d), waiting %ds before retrying",
+                    retries_used, GEMINI_429_MAX_RETRIES, GEMINI_429_WAIT_SECONDS,
+                )
+                time.sleep(GEMINI_429_WAIT_SECONDS)
+                continue
+            else:
+                self._usage.record()
+                return result, self.provider, self.model_name
 
 
 @dataclass
@@ -138,9 +252,10 @@ class GroqUsageTracker:
 class MinuteRateLimiter:
     """Paces calls to stay under a model's RPM and TPM (rolling 60s window)."""
 
-    def __init__(self, rpm: int, tpm: int) -> None:
+    def __init__(self, rpm: int, tpm: int, label: str = "pacing") -> None:
         self.rpm = rpm
         self.tpm = tpm
+        self.label = label
         self._lock = threading.Lock()
         self._requests: deque[float] = deque()
         self._tokens: deque[tuple[float, int]] = deque()
@@ -164,7 +279,7 @@ class MinuteRateLimiter:
                 if tokens_in_window + estimated_tokens > self.tpm and self._tokens:
                     waits.append(60 - (now - self._tokens[0][0]))
                 wait_s = max(0.2, min(waits) if waits else 1.0)
-            logger.info("Groq pacing: sleeping %.1fs to stay under RPM/TPM", wait_s)
+            logger.info("%s pacing: sleeping %.1fs to stay under RPM/TPM", self.label, wait_s)
             time.sleep(wait_s)
 
 
@@ -250,7 +365,7 @@ class GroqExtractionLLM:
 
     def _get_limiter(self, name: str) -> "MinuteRateLimiter":
         if name not in self._limiters:
-            self._limiters[name] = MinuteRateLimiter(GROQ_LIMITS["rpm"], GROQ_LIMITS["tpm"])
+            self._limiters[name] = MinuteRateLimiter(GROQ_LIMITS["rpm"], GROQ_LIMITS["tpm"], label="Groq")
         return self._limiters[name]
 
     def _get_model(self, name: str):

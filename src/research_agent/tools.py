@@ -298,3 +298,19 @@ def fetch_page(url: str, *, use_cache: bool = True, min_text_len: int = 500) -> 
     if len(pw_result.get("text", "")) > len(result.get("text", "")):
         return pw_result
     return result
+
+
+def fetch_page_cached_only(url: str, *, min_text_len: int = 500) -> dict[str, Any] | None:
+    """Same free-fetch-first-then-playwright selection as fetch_page, but reads
+    only from the on-disk cache - never hits the network. Returns None if
+    neither fetch method has a cached result for this url. Used by offline
+    audit scripts that must not make live calls."""
+    free = _cache_get(_cache_key("fetch_free", url))
+    free_text = free.get("text", "") if free else ""
+    if len(free_text) >= min_text_len:
+        return free
+    pw = _cache_get(_cache_key("fetch_playwright", url))
+    pw_text = pw.get("text", "") if pw else ""
+    if len(pw_text) > len(free_text):
+        return pw
+    return free if free is not None else pw
