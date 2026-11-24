@@ -22,7 +22,7 @@
 
 <br>
 
-<img src="images/report.png?v=2" alt="The results page: KPI tiles, headline numbers and pattern charts" width="800">
+<img src="images/report.png?v=2" alt="The results page: headline and key numbers" width="800">
 
 </div>
 
