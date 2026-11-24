@@ -179,7 +179,7 @@
     <div class="kpi"><span class="num">49.5%</span><span class="label">pass‑1 accuracy (gold, 20/20)</span></div>
     <div class="kpi"><span class="num">73</span><span class="label">rated ready (upper estimate)</span></div>
     <div class="kpi"><span class="num">58</span><span class="label">ready + self-serve</span></div>
-    <div class="kpi"><span class="num">50/100</span><span class="label">pass‑2 verified (Gemini only)</span></div>
+    <div class="kpi"><span class="num">50/100</span><span class="label">pass 2 run (Gemini only)</span></div>
   </div>
 </header>
 
@@ -3413,7 +3413,7 @@
   <div class="card-body"><ul class="clean two-col"><li>The 20 gold labels were drafted with Claude from official docs, independently of the agent's output. I verified 15 of 20 against the sources myself and found one error (fanbasis: docs on commasdocs.com, a different domain from the product site, which search missed). I corrected it. (See Verification.)</li>
   <li>I decided to switch models mid-run after Gemini's free-tier daily quota ran out.</li>
   <li>I found the 5 apps that defeated the agent entirely (listed above as "not researched") by reviewing the run logs, not the agent itself.</li>
-  <li>Pass 2 (automated verify/retry) has now run on 50 of 100 apps using Gemini only; my own correction pass (final human review) still has not happened — everything beyond pass 2's checks is the agent's unreviewed output.</li></ul></div>
+  <li>Pass 2 (automated verify/retry) has now run on 50 of 100 apps using Gemini only; I did a partial human review of 8 apps by hand (see "Human review of 8 apps"), but the rest of the flagged apps are still the agent's unreviewed output.</li></ul></div>
 </div>
 
 <div class="section-head"><h2>Verification</h2></div>
@@ -3556,7 +3556,7 @@
 <div class="card warn-card" style="margin-top:20px">
   <div class="card-header"><span class="card-title">8 regressions, not hidden</span></div>
   <div class="card-body"><ul class="clean">
-  <li><code>DealCloud</code>/<code>api_type</code>, <code>Zendesk</code>/<code>api_type</code>, <code>Sherlock</code>/<code>api_type</code>, <code>WhatsApp Business</code>/<code>auth_methods</code>, <code>PitchBook</code>/<code>auth_methods</code> — pass 2 added an extra value to a list field in all five; exact-set scoring marks the whole field wrong even though the original correct value is still there.</li>
+  <li><code>DealCloud</code>/<code>api_type</code>, <code>Zendesk</code>/<code>api_type</code>, <code>Sherlock</code>/<code>api_type</code>, <code>WhatsApp Business</code>/<code>auth_methods</code>, <code>PitchBook</code>/<code>auth_methods</code> — pass 2 added an extra value to a list field in all five; exact-set scoring marks the whole field wrong even though the original correct value is still there; the extra values were not checked one by one.</li>
   <li><code>fanbasis</code>/<code>auth_methods</code> and <code>fanbasis</code>/<code>access</code> — correct in pass 1, <code>unknown</code> in pass 2. A real loss: fanbasis's real docs are on <code>commasdocs.com</code>, a different domain from its product site, and pass 2's search missed that domain again, same as pass 1's did.</li>
   <li><code>Waterfall.io</code>/<code>access</code> — <code>unknown</code> in pass 1, a specific (wrong, per gold) guess in pass 2.</li>
   </ul></div>
@@ -3573,7 +3573,20 @@
 <tr><td>D4 (fields agree)</td><td>8 apps failing</td><td>14 apps failing (worse)</td></tr>
 </tbody>
 </table>
-  <p class="card-caption">Pass 1 only has 45 of the 50 apps here, not 50 — the other 5 failed outright and have no pass 1 record. D1-D3 improved sharply, which is what the retry loop is for. <strong>D4 got worse</strong>: pass 2's targeted MCP searches assert <code>existing_mcp_status = official/community</code> more often, but frequently still can't find a matching URL even after 2 retries, which is a new D4 violation pass 1 rarely hit because it said <code>unknown</code> or <code>none</code> more often instead. This audit shows pass 2's evidence is better grounded against these specific checks — it is not a measure of whether the final answers are more accurate; the gold comparison above is.</p>
+  <p class="card-caption">Pass 1 only has 45 of the 50 apps here, not 50 — the other 5 failed outright and have no pass 1 record. D1-D3 improved sharply, which is what the retry loop is for. <strong>D4 got worse</strong>: on the 45 apps present in both passes, pass 1 had 21 apps with <code>existing_mcp_status</code> official/community (7 of those missing a URL); pass 2 had 20 (11 missing a URL). Pass 2 is not claiming official/community more often overall; it is more likely to leave the URL missing when it does make that claim, likely because its targeted MCP searches still frequently can't find a matching URL even after 2 retries. The exact cause of the increase was not measured further. This audit shows pass 2's evidence is better grounded against these specific checks — it is not a measure of whether the final answers are more accurate; the gold comparison above is.</p>
+</div>
+
+<div class="card warn-card" style="margin-top:20px">
+  <div class="card-header"><span class="card-title">Human review of 8 apps</span></div>
+  <div class="card-body">
+    <p>I checked 13 fields on 8 apps against vendor pages and search results: HubSpot, Close, Copper, GitHub, Notion, Jira, Linear and Clay. The agent had flagged 7 of the 8 (HubSpot and Close existing_mcp; unknown existing_mcp for GitHub, Notion, Jira, Linear, Clay). Copper was not flagged.</p>
+    <ul class="clean">
+      <li>Wrong or missed (6): Copper existing_mcp "none" (an official server is announced but not public yet, and third-party servers exist); existing_mcp "unknown" for GitHub, Notion, Jira, Linear and Clay, where an official server exists for each.</li>
+      <li>Unproven or weak (3): Close access "paid_plan_required" (the pricing page shows a free trial that seems to include API access; one FAQ answer was not fully read); Close "bearer_token" (the API key page says HTTP Basic; the OAuth page was not opened); HubSpot's single "public beta" quote used for 3 fields (an old changelog post).</li>
+      <li>Held up (4): HubSpot official MCP, Close official MCP, Copper auth methods, HubSpot bearer_token (a Bearer header, but not a separate method).</li>
+    </ul>
+    <p>For the five "unknown" apps I looked at Google results, not the vendors' own pages, so server URLs are not confirmed. URLs for HubSpot and Close were not found on the pages I opened. These apps were picked because they were flagged or looked doubtful, so the counts are not an error rate for all 50 apps. The data files were not changed. Notes are in data/human_review_notes.md.</p>
+  </div>
 </div>
 
 <div class="card table-card" style="margin-top:20px">
@@ -3603,7 +3616,7 @@
       <span class="big">12</span>
       <div class="caption-text">429 errors across all pass 2 runs</div>
     </div>
-    <p class="card-caption">Every one was retried and absorbed by Google's own client library before it ever reached this project's code. The wait-60s-and-stop logic this project added for 429s was never actually exercised — it should not be described as tested.</p>
+    <p class="card-caption">Every one was retried and absorbed by Google's own client library before it ever reached this project's code. This project's own wait-60s-and-stop logic for 429s was not exercised in these runs.</p>
   </div>
 </div>
 
@@ -3734,9 +3747,10 @@
   <li><code>qwen/qwen3.8-27b</code>'s records are markedly less reliable than the other two models (see "accuracy by model" chart above) — a direct consequence of switching providers mid-run under free-tier quota pressure, not a reflection of the agent design.</li>
   <li>5 apps have no record at all (not researched), all due to LLM provider errors during extraction, not missing data on the web.</li>
   <li>D1 only checks that the evidence quote exists on the page it cites — it does not check that the quote actually supports the field's value. A real quote next to a wrong conclusion still passes.</li>
-  <li>List fields (<code>auth_methods</code>, <code>api_type</code>) can pick up extra values that aren't individually wrong, but exact-set gold scoring marks the whole field as a miss anyway — most of pass 2's regressions are this, not real errors.</li>
+  <li>List fields can pick up extra values. Exact-set scoring marks the whole field as a miss. The extra values were not checked one by one, so some may be wrong.</li>
   <li>An <code>unknown</code> <code>api_breadth</code> or <code>unknown</code> <code>existing_mcp_status</code> can never trigger a retry under the current checks, by construction, not bad luck. Of the fields left <code>unknown</code> after pass 2, 31 were never retried for this reason.</li>
-  <li>The gold set is small: 20 apps total, and only 7 of them have a verified <code>existing_mcp_status</code> label, so the existing_mcp_status numbers above are on a thin sample.</li></ul></div>
+  <li>The gold set is small: 20 apps total, and only 7 of them have a verified <code>existing_mcp_status</code> label, so the existing_mcp_status numbers above are on a thin sample.</li>
+  <li>No flag does not mean correct: Copper's existing_mcp was <code>none</code> with no evidence and no flag, and it was wrong. All 5 <code>unknown</code> MCP values checked by hand were findable.</li></ul></div>
   </div>
   <div class="card">
     <div class="card-header"><span class="card-title">Run it yourself</span></div>
@@ -3752,8 +3766,8 @@
   <div class="footer-links">
     Generated 2026-11-23 17:04 UTC. Pass 1 models: gemini-3.5-flash-lite (48 apps), openai/gpt-oss-120b, qwen/qwen3.8-27b.
     Groq API calls (exact, from the usage tracker): 126. Gemini calls: not instrumented exactly — at least 2 per completed Gemini app (~96), excluding retries.
-    Pass 2 (Gemini only, no fallback): 310 Gemini requests across 50 apps, including retries. 12 real 429s occurred, all absorbed by Google's client-side retry.
-    Pass 1 covers 100 apps; pass 2 covers 50 of them; my final human-review pass still has not run.
+    Pass 2 (Gemini only, no fallback): about 310 Gemini requests (counted by the pipeline) across 50 apps, including retries. 12 real 429s occurred, all absorbed by Google's client-side retry.
+    Pass 1 covers 100 apps; pass 2 covers 50 of them; a partial human review of 8 apps was done (see "Human review of 8 apps"), the rest of the flagged apps are not reviewed.
     <br><a href="results.csv">results.csv</a> · <a href="results.json">results.json</a> · <a href="llms.txt">llms.txt</a>
   </div>
 </footer>

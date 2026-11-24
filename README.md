@@ -90,7 +90,7 @@ On the 9 gold apps whose pass 1 record also came from Gemini, accuracy went from
 
 **8 regressions, not hidden:**
 
-- `DealCloud` / `api_type`, `Zendesk` / `api_type`, `Sherlock` / `api_type`, `WhatsApp Business` / `auth_methods`, `PitchBook` / `auth_methods` — in all five, pass 2 added an extra value to a list field; the exact-set scoring rule marks the whole field wrong even though the original correct value is still there.
+- `DealCloud` / `api_type`, `Zendesk` / `api_type`, `Sherlock` / `api_type`, `WhatsApp Business` / `auth_methods`, `PitchBook` / `auth_methods` — in all five, pass 2 added an extra value to a list field; the exact-set scoring rule marks the whole field wrong even though the original correct value is still there; the extra values were not checked one by one.
 - `fanbasis` / `auth_methods` and `fanbasis` / `access` — correct in pass 1, `unknown` in pass 2. A real loss, not a scoring artifact: fanbasis's real docs are on `commasdocs.com`, a different domain from its product site, and pass 2's search missed that domain again, the same way pass 1's did.
 - `Waterfall.io` / `access` — `unknown` in pass 1, a specific (wrong, per gold) guess in pass 2.
 
@@ -103,7 +103,17 @@ On the 9 gold apps whose pass 1 record also came from Gemini, accuracy went from
 | D3 (fetched 200) | 1 app failing | 0 apps failing |
 | D4 (fields agree) | 8 apps failing | 14 apps failing (worse) |
 
-Pass 1 only has 45 of the 50 apps here, not 50, because the other 5 failed outright and have no pass 1 record. D1-D3 improved sharply, which is what the retry loop is for. **D4 got worse**: pass 2's targeted MCP searches assert `existing_mcp_status = official/community` more often, but frequently still can't find a matching URL even after 2 retries, which is a new D4 violation pass 1 rarely hit because it said `unknown` or `none` more often instead. This audit shows pass 2's evidence is better grounded against these specific checks - it is not a measure of whether the final answers are more accurate; the gold comparison above is.
+Pass 1 only has 45 of the 50 apps here, not 50, because the other 5 failed outright and have no pass 1 record. D1-D3 improved sharply, which is what the retry loop is for. **D4 got worse**: on the 45 apps present in both passes, pass 1 had 21 apps with `existing_mcp_status` official/community (7 of those missing a URL); pass 2 had 20 (11 missing a URL). Pass 2 is not claiming official/community more often overall; it is more likely to leave the URL missing when it does make that claim, likely because its targeted MCP searches still frequently can't find a matching URL even after 2 retries. The exact cause of the increase was not measured further. This audit shows pass 2's evidence is better grounded against these specific checks - it is not a measure of whether the final answers are more accurate; the gold comparison above is.
+
+**Human review of 8 apps**
+
+I checked 13 fields on 8 apps against vendor pages and search results: HubSpot, Close, Copper, GitHub, Notion, Jira, Linear and Clay. The agent had flagged 7 of the 8 (HubSpot and Close existing_mcp; unknown existing_mcp for GitHub, Notion, Jira, Linear, Clay). Copper was not flagged.
+
+- Wrong or missed (6): Copper existing_mcp "none" (an official server is announced but not public yet, and third-party servers exist); existing_mcp "unknown" for GitHub, Notion, Jira, Linear and Clay, where an official server exists for each.
+- Unproven or weak (3): Close access "paid_plan_required" (the pricing page shows a free trial that seems to include API access; one FAQ answer was not fully read); Close "bearer_token" (the API key page says HTTP Basic; the OAuth page was not opened); HubSpot's single "public beta" quote used for 3 fields (an old changelog post).
+- Held up (4): HubSpot official MCP, Close official MCP, Copper auth methods, HubSpot bearer_token (a Bearer header, but not a separate method).
+
+For the five "unknown" apps I looked at Google results, not the vendors' own pages, so server URLs are not confirmed. URLs for HubSpot and Close were not found on the pages I opened. These apps were picked because they were flagged or looked doubtful, so the counts are not an error rate for all 50 apps. The data files were not changed. Notes are in data/human_review_notes.md.
 
 **Confidence calibration on the gold fields:**
 
@@ -117,7 +127,7 @@ Pass 1 only has 45 of the 50 apps here, not 50, because the other 5 failed outri
 
 **29 of the 50 pass 2 apps have at least one field flagged for human review.**
 
-**Gemini 429s happened 12 times in total across the pass 2 runs.** Every one was retried and absorbed by Google's own client library before it ever reached this project's code, so the wait-60s-and-stop logic this project added for 429s was never actually exercised - it should not be described as tested.
+**Gemini 429s happened 12 times in total across the pass 2 runs.** Every one was retried and absorbed by Google's own client library before it ever reached this project's code. This project's own wait-60s-and-stop logic for 429s was not exercised in these runs.
 
 ## Composio catalog check
 
@@ -183,7 +193,7 @@ The four checks in `verify`:
 - Gemini's free daily quota ran out partway through, and it was shared with another project of mine. The run switched to Groq (`gpt-oss-120b`), and then to `qwen3.8-27b` when that hit its own daily limit. The qwen records are the weakest.
 - Two runs wrote to the same output at once. A lock file and atomic writes fixed this.
 - The 5 failed apps were found by reading the run logs. They are listed as "not researched" and not guessed.
-- Pass 2 and the correction pass were skipped in the first submission, rather than report numbers that could not be backed up. Pass 2 was added and run afterwards, on 50 of the 100 apps; results are in "Results" below and the run mechanics are in "Running pass 2".
+- Pass 2 and the correction pass were skipped in the first submission, rather than report numbers that could not be backed up. Pass 2 was added and run afterwards, on 50 of the 100 apps; results are in "Results" above and the run mechanics are in "Running pass 2".
 
 ## Limitations
 
@@ -195,15 +205,20 @@ The four checks in `verify`:
 - The "ready" and "blocker" fields are optimistic. The agent often wrote `none` where gold had a real blocker.
 - The agent's own catalog check never ran. The catalog check above was done separately, by name, so it shows that a toolkit exists, not how complete it is.
 - D1 only checks that the evidence quote exists on the page it cites - it does not check that the quote actually supports the field's value. A real quote next to a wrong conclusion still passes.
-- List fields (`auth_methods`, `api_type`) can pick up extra values that aren't individually wrong, but exact-set gold scoring marks the whole field as a miss anyway - most of pass 2's regressions are this, not real errors.
+- List fields can pick up extra values. Exact-set scoring marks the whole field as a miss. The extra values were not checked one by one, so some may be wrong.
 - An `unknown` `api_breadth` or `unknown` `existing_mcp_status` can never trigger a retry under the current checks, by construction, not bad luck. Of the fields left `unknown` after pass 2, 31 were never retried for this reason.
 - The gold set is small: 20 apps total, and only 7 of them have a verified `existing_mcp_status` label, so the existing_mcp_status numbers above are on a thin sample.
+- No flag does not mean correct: Copper's existing_mcp was `none` with no evidence and no flag, and it was wrong. All 5 `unknown` MCP values checked by hand were findable.
 
 ## Next steps
 
-- Run pass 2 on the 50 selected apps and compare it with pass 1 on the gold apps.
-- Re-run the apps that qwen processed and the 5 failed ones on a single model after the quota resets.
-- Review the low-confidence and flagged fields by hand and re-score.
+**Planned, not done yet:**
+
+- Let unknown `api_breadth` and `existing_mcp_status` fields trigger a retry.
+- Check that each value in a list field has its own supporting quote.
+- Look for docs on a different domain than the product site (the fanbasis case).
+- Review the rest of the 29 flagged apps and the low-confidence fields, and re-score.
+- Run pass 2 on the other 50 apps when quota allows.
 
 ## Tech stack
 
@@ -278,7 +293,7 @@ The live page was restyled by hand after `build.py` made it, so running `build.p
 
 Pass 2 runs the full graph above, including the verify and retry loop, using Gemini (`gemini-3.5-flash-lite`) instead of Groq, with no fallback model. It runs on 50 apps: the 20 gold apps, the 5 that failed pass 1 outright, and the 25 with the most check failures in pass 1 (`scripts/pick_pass2_apps.py`, output in `data/pass2_apps.json`). The other 50 apps keep their pass 1 results.
 
-Gemini's free tier is tight: **15 requests/minute, 250K tokens/minute, 500 requests/day.** The runner stays under these limits (13 requests/minute, 220K tokens/minute) and stops cleanly on a 429 instead of switching models, since Gemini has no fallback here.
+Gemini's free tier is tight: **15 requests/minute, 250K tokens/minute, 500 requests/day.** The runner stays under these limits (13 requests/minute, 220K tokens/minute) and is designed to stop on a 429 instead of switching models (not exercised in the pass 2 runs, because Google's client retried every 429 itself), since Gemini has no fallback here.
 
 ```bash
 # Trial on a few apps first
