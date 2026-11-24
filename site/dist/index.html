@@ -170,7 +170,7 @@
 <div class="wrap">
 
 <header>
-  <div class="eyebrow">Composio case study · pass 1 results</div>
+  <div class="eyebrow">Composio case study · pass 1 (100 apps) + pass 2 (50 of 100 apps)</div>
   <h1>App Integration Research Agent — Results</h1>
   <p class="subtitle">An autonomous agent researched the API/auth/buildability surface of 100 apps, so Composio doesn't have to do it by hand before deciding what to build next.</p>
 
@@ -179,11 +179,12 @@
     <div class="kpi"><span class="num">49.5%</span><span class="label">pass‑1 accuracy (gold, 20/20)</span></div>
     <div class="kpi"><span class="num">73</span><span class="label">rated ready (upper estimate)</span></div>
     <div class="kpi"><span class="num">58</span><span class="label">ready + self-serve</span></div>
+    <div class="kpi"><span class="num">50/100</span><span class="label">pass‑2 verified (Gemini only)</span></div>
   </div>
 </header>
 
 <div class="callout warn">
-  <strong>Pass 2 and my correction of the agent's flagged answers were not run</strong> (out of time and API rate limits). I did verify the gold labels (15 of 20). Every accuracy number is pass 1 only; no improvement is claimed.
+  <strong>Pass 2 (verify/retry loop, Gemini only) has now run on 50 of the 100 apps</strong> — the 20 gold apps, the 5 that failed pass 1 outright, and the 25 with the most check failures in pass 1. The other 50 apps still show pass 1 results. On the 20 gold apps, pass 2's overall accuracy is unchanged from pass 1 (53/107, 49.5%) — no improvement is claimed. I did verify the gold labels (15 of 20). Full pass 2 breakdown, including 8 regressions and the checks audit, is in Verification below.
 </div>
 
 <div class="section-head"><h2>Headline numbers</h2></div>
@@ -3405,14 +3406,14 @@
 <div class="card" style="margin-top:18px">
   <div class="card-header"><span class="card-title">Pass 1 graph</span><span class="count">7 nodes</span></div>
   <div class="card-body"><div class="pipeline"><span class="pnode term">START</span><span class="parrow">→</span><div class="pnode"><span class="pidx">01</span><span class="pname">plan_queries</span><span class="pdesc">LLM writes 3 search queries</span></div><span class="parrow">→</span><div class="pnode"><span class="pidx">02</span><span class="pname">search</span><span class="pdesc">Tavily via Composio, 1 credit/query</span></div><span class="parrow">→</span><div class="pnode"><span class="pidx">03</span><span class="pname">select_sources</span><span class="pdesc">rank by domain trust, top 6</span></div><span class="parrow">→</span><div class="pnode"><span class="pidx">04</span><span class="pname">fetch_pages</span><span class="pdesc">httpx+trafilatura, Playwright fallback</span></div><span class="parrow">→</span><div class="pnode"><span class="pidx">05</span><span class="pname">extract</span><span class="pdesc">LLM structured output to AppRecord</span></div><span class="parrow">→</span><div class="pnode"><span class="pidx">06</span><span class="pname">finalize</span><span class="pdesc">set confidence, flag unknowns</span></div><span class="parrow">→</span><span class="pnode term">END</span></div></div>
-  <p class="card-caption">This is the graph that actually ran (pass 1, extract-only). The verify/retry loop (D1–D6 checks against evidence, a second search pass for failed fields) is part of the design but was <strong>not run</strong> — it belongs to pass 2, which this run did not reach.</p>
+  <p class="card-caption">This is the graph pass 1 ran (extract-only). Pass 2 adds a <code>verify</code> step (D1-D4 checks against evidence) and a <code>targeted_research</code> retry loop for failed fields, and has now run on 50 of the 100 apps using Gemini only — see Verification below for what it changed and what it didn't.</p>
 </div>
 <div class="card" style="margin-top:20px">
   <div class="card-header"><span class="card-title">Where I stepped in</span></div>
   <div class="card-body"><ul class="clean two-col"><li>The 20 gold labels were drafted with Claude from official docs, independently of the agent's output. I verified 15 of 20 against the sources myself and found one error (fanbasis: docs on commasdocs.com, a different domain from the product site, which search missed). I corrected it. (See Verification.)</li>
   <li>I decided to switch models mid-run after Gemini's free-tier daily quota ran out.</li>
   <li>I found the 5 apps that defeated the agent entirely (listed above as "not researched") by reviewing the run logs, not the agent itself.</li>
-  <li>No automated review pass (pass 2) or my correction pass (final) happened — everything on this page is the agent's unreviewed first attempt.</li></ul></div>
+  <li>Pass 2 (automated verify/retry) has now run on 50 of 100 apps using Gemini only; my own correction pass (final human review) still has not happened — everything beyond pass 2's checks is the agent's unreviewed output.</li></ul></div>
 </div>
 
 <div class="section-head"><h2>Verification</h2></div>
@@ -3421,7 +3422,7 @@
 </div>
 
 <div class="callout warn">
-  <strong>Scoring rule:</strong> a predicted value counts as correct when it equals gold, including when both are <code>"unknown"</code> (the agent and I both honestly not knowing counts as agreement). A predicted <code>"unknown"</code> only counts as a miss when gold has a real, verified answer. <code>api_breadth</code> is not scored. <code>existing_mcp</code> is scored only on the gold rows I actually verified.
+  <strong>Scoring rule:</strong> a predicted value counts as correct when it equals gold, including when both are <code>"unknown"</code> (the agent and I both honestly not knowing counts as agreement). A predicted <code>"unknown"</code> only counts as a miss when gold has a real, verified answer. <code>api_breadth</code> is not scored. <code>existing_mcp_status</code> is scored only on the gold rows I actually verified.
 </div>
 
 <div class="cards-grid">
@@ -3460,7 +3461,7 @@
       </div>
       
       <div class="bar-row">
-        <div class="bar-label" title="existing_mcp">existing_mcp</div>
+        <div class="bar-label" title="existing_mcp_status">existing_mcp_status</div>
         <div class="bar-track"><div class="bar-fill" style="width: 28.6%; background: var(--accent);"></div></div>
         <div class="bar-value">28.6%</div>
       </div>
@@ -3524,6 +3525,86 @@
     <div class="caption-text">(94.7%) wrong</div>
   </div>
   <p class="card-caption">The agent flags a field <code>low</code> confidence whenever it couldn't find an answer and said "unknown" instead of guessing. Of the 19 gold-set field values the agent flagged this way, <strong>18 (94.7%) were wrong</strong> — i.e. gold had a real answer the agent missed. That's a strong signal: a <code>low</code> confidence badge in the matrix means "don't trust this without checking," and the data backs that up.</p>
+</div>
+
+<div class="section-head"><h2>Pass 2</h2><span class="subtitle">Verify/retry loop (D1-D4), Gemini (gemini-3.5-flash-lite) only, no fallback model. Run on 50 of the 100 apps: the 20 gold apps, the 5 that failed pass 1 outright, and the 25 with the most check failures in pass 1. The other 50 apps still show pass 1 results.</span></div>
+
+<div class="card" style="margin-top:18px">
+  <div class="card-header"><span class="card-title">Overall accuracy on the 20 gold apps</span></div>
+  <div class="card-body stat-callout">
+    <span class="big">53/107 → 53/107</span>
+    <div class="caption-text">49.5% → 49.5%, no change</div>
+  </div>
+  <p class="card-caption">No improvement is claimed. The 9 gold apps whose pass 1 record also came from Gemini went from 29/49 to 31/49 — 2 more correct answers, too few to call an improvement.</p>
+</div>
+
+<div class="card table-card" style="margin-top:20px">
+  <div class="card-header"><span class="card-title">Per-field accuracy, pass 1 → pass 2 (20 gold apps)</span></div>
+<table>
+<thead><tr><th>Field</th><th>pass 1</th><th>pass 2</th></tr></thead>
+<tbody>
+<tr><td>auth_methods</td><td>7/20</td><td>5/20</td></tr>
+<tr><td>api_type</td><td>13/20</td><td>12/20</td></tr>
+<tr><td>access</td><td>10/20</td><td>10/20</td></tr>
+<tr><td>buildability</td><td>11/20</td><td>13/20</td></tr>
+<tr><td>main_blocker</td><td>10/20</td><td>10/20</td></tr>
+<tr><td>existing_mcp_status</td><td>2/7</td><td>3/7</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card warn-card" style="margin-top:20px">
+  <div class="card-header"><span class="card-title">8 regressions, not hidden</span></div>
+  <div class="card-body"><ul class="clean">
+  <li><code>DealCloud</code>/<code>api_type</code>, <code>Zendesk</code>/<code>api_type</code>, <code>Sherlock</code>/<code>api_type</code>, <code>WhatsApp Business</code>/<code>auth_methods</code>, <code>PitchBook</code>/<code>auth_methods</code> — pass 2 added an extra value to a list field in all five; exact-set scoring marks the whole field wrong even though the original correct value is still there.</li>
+  <li><code>fanbasis</code>/<code>auth_methods</code> and <code>fanbasis</code>/<code>access</code> — correct in pass 1, <code>unknown</code> in pass 2. A real loss: fanbasis's real docs are on <code>commasdocs.com</code>, a different domain from its product site, and pass 2's search missed that domain again, same as pass 1's did.</li>
+  <li><code>Waterfall.io</code>/<code>access</code> — <code>unknown</code> in pass 1, a specific (wrong, per gold) guess in pass 2.</li>
+  </ul></div>
+</div>
+
+<div class="card table-card" style="margin-top:20px">
+  <div class="card-header"><span class="card-title">Verification-check audit (D1-D4), same 50 apps</span></div>
+<table>
+<thead><tr><th>Check</th><th>pass 1 (45 apps)</th><th>pass 2 (50 apps)</th></tr></thead>
+<tbody>
+<tr><td>D1 (quote on page)</td><td>29 apps failing</td><td>2 apps failing</td></tr>
+<tr><td>D2 (trusted source)</td><td>13 apps failing</td><td>0 apps failing</td></tr>
+<tr><td>D3 (fetched 200)</td><td>1 app failing</td><td>0 apps failing</td></tr>
+<tr><td>D4 (fields agree)</td><td>8 apps failing</td><td>14 apps failing (worse)</td></tr>
+</tbody>
+</table>
+  <p class="card-caption">Pass 1 only has 45 of the 50 apps here, not 50 — the other 5 failed outright and have no pass 1 record. D1-D3 improved sharply, which is what the retry loop is for. <strong>D4 got worse</strong>: pass 2's targeted MCP searches assert <code>existing_mcp_status = official/community</code> more often, but frequently still can't find a matching URL even after 2 retries, which is a new D4 violation pass 1 rarely hit because it said <code>unknown</code> or <code>none</code> more often instead. This audit shows pass 2's evidence is better grounded against these specific checks — it is not a measure of whether the final answers are more accurate; the gold comparison above is.</p>
+</div>
+
+<div class="card table-card" style="margin-top:20px">
+  <div class="card-header"><span class="card-title">Confidence calibration on the gold fields</span></div>
+<table>
+<thead><tr><th>Confidence</th><th>pass 1</th><th>pass 2</th></tr></thead>
+<tbody>
+<tr><td>high</td><td>n/a (no high tier in pass 1)</td><td>29/52 (55.8%)</td></tr>
+<tr><td>medium</td><td>52/88 (59.1%)</td><td>21/44 (47.7%)</td></tr>
+<tr><td>low</td><td>1/19 (5.3%)</td><td>3/11 (27.3%)</td></tr>
+</tbody>
+</table>
+  <p class="card-caption"><code>high</code> is not reliably better than <code>medium</code> yet — in this sample it scored lower.</p>
+</div>
+
+<div class="cards-grid" style="margin-top:20px">
+  <div class="card">
+    <div class="card-header"><span class="card-title">Flagged for human review</span></div>
+    <div class="card-body stat-callout">
+      <span class="big">29/50</span>
+      <div class="caption-text">pass 2 apps have at least one flagged field</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Gemini 429s</span></div>
+    <div class="card-body stat-callout">
+      <span class="big">12</span>
+      <div class="caption-text">429 errors across all pass 2 runs</div>
+    </div>
+    <p class="card-caption">Every one was retried and absorbed by Google's own client library before it ever reached this project's code. The wait-60s-and-stop logic this project added for 429s was never actually exercised — it should not be described as tested.</p>
+  </div>
 </div>
 
 <div class="section-head"><h2>All mismatches</h2><span class="subtitle">(54)</span></div>
@@ -3651,7 +3732,11 @@
     <div class="card-body"><ul class="clean"><li><strong>49</strong> of 95 researched apps have at least one <code>unknown</code>/low-confidence field (147 such fields total) — these are gaps the agent admitted to, not silent guesses.</li>
   <li>Pass 1 accuracy overall is 49.5% — well short of production quality. No verify/retry loop ran, and I did not do a correction pass, to improve on this.</li>
   <li><code>qwen/qwen3.8-27b</code>'s records are markedly less reliable than the other two models (see "accuracy by model" chart above) — a direct consequence of switching providers mid-run under free-tier quota pressure, not a reflection of the agent design.</li>
-  <li>5 apps have no record at all (not researched), all due to LLM provider errors during extraction, not missing data on the web.</li></ul></div>
+  <li>5 apps have no record at all (not researched), all due to LLM provider errors during extraction, not missing data on the web.</li>
+  <li>D1 only checks that the evidence quote exists on the page it cites — it does not check that the quote actually supports the field's value. A real quote next to a wrong conclusion still passes.</li>
+  <li>List fields (<code>auth_methods</code>, <code>api_type</code>) can pick up extra values that aren't individually wrong, but exact-set gold scoring marks the whole field as a miss anyway — most of pass 2's regressions are this, not real errors.</li>
+  <li>An <code>unknown</code> <code>api_breadth</code> or <code>unknown</code> <code>existing_mcp_status</code> can never trigger a retry under the current checks, by construction, not bad luck. Of the fields left <code>unknown</code> after pass 2, 31 were never retried for this reason.</li>
+  <li>The gold set is small: 20 apps total, and only 7 of them have a verified <code>existing_mcp_status</code> label, so the existing_mcp_status numbers above are on a thin sample.</li></ul></div>
   </div>
   <div class="card">
     <div class="card-header"><span class="card-title">Run it yourself</span></div>
@@ -3663,11 +3748,12 @@
 </div>
 
 <footer>
-  <div>App integration research agent · pass 1</div>
+  <div>App integration research agent · pass 1 + pass 2 (50 of 100 apps)</div>
   <div class="footer-links">
-    Generated 2026-11-23 17:04 UTC. Models used: gemini-3.5-flash-lite (48 apps), openai/gpt-oss-120b, qwen/qwen3.8-27b.
+    Generated 2026-11-23 17:04 UTC. Pass 1 models: gemini-3.5-flash-lite (48 apps), openai/gpt-oss-120b, qwen/qwen3.8-27b.
     Groq API calls (exact, from the usage tracker): 126. Gemini calls: not instrumented exactly — at least 2 per completed Gemini app (~96), excluding retries.
-    Pass 1 only; pass 2 and final review were not run.
+    Pass 2 (Gemini only, no fallback): 310 Gemini requests across 50 apps, including retries. 12 real 429s occurred, all absorbed by Google's client-side retry.
+    Pass 1 covers 100 apps; pass 2 covers 50 of them; my final human-review pass still has not run.
     <br><a href="results.csv">results.csv</a> · <a href="results.json">results.json</a> · <a href="llms.txt">llms.txt</a>
   </div>
 </footer>

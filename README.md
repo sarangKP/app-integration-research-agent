@@ -18,7 +18,7 @@
 ![Groq](https://img.shields.io/badge/Fallback-Groq-F55036)
 ![S3](https://img.shields.io/badge/AWS-S3-569A31?logo=amazons3&logoColor=white)
 ![CloudFront](https://img.shields.io/badge/AWS-CloudFront-8C4FFF?logo=amazoncloudfront&logoColor=white)
-![Status](https://img.shields.io/badge/Status-pass%201%20only-orange)
+![Status](https://img.shields.io/badge/Status-pass%202%20on%2050%2F100%20apps-blue)
 
 <br>
 
@@ -41,9 +41,11 @@ This is my take on the Composio case study. For each of 100 apps (10 categories)
 
 The results are then analysed for patterns across the 100 apps, and the agent's accuracy is checked against 20 apps with gold labels. All of it is shown on one static page.
 
-## Results (pass 1 only)
+## Results
 
-**Only pass 1 has results so far.** In the original submission, the second pass (checks and retries) and the correction pass were not run, because time and API quota ran out. Nothing on the page claims an improvement.
+### Pass 1 (100 apps)
+
+In the original submission, the second pass (checks and retries) and the correction pass were not run, because time and API quota ran out.
 
 - **95 of 100** apps have a record. 5 failed extraction and are shown as "not researched": QuickBooks, Xero, Otter AI, Fathom, Reducto.
 - **Accuracy on the 20 gold apps: 49.5%** (53 of 107 field values). This is a strict score; see the scoring rule below.
@@ -59,7 +61,7 @@ The results are then analysed for patterns across the 100 apps, and the agent's 
 | access | 50.0% |
 | main_blocker | 50.0% |
 | auth_methods | 35.0% |
-| existing_mcp | 28.6% |
+| existing_mcp_status | 28.6% |
 
 | Model | Accuracy | Notes |
 |---|---|---|
@@ -67,7 +69,55 @@ The results are then analysed for patterns across the 100 apps, and the agent's 
 | openai/gpt-oss-120b (Groq) | 55.3% | Used next |
 | qwen/qwen3.8-27b (Groq) | 15.0% | Last fallback, marked "lower reliability" on the page |
 
-**Scoring rule.** A value counts as correct when it equals gold, including when both are `unknown`. `auth_methods` and `api_type` are exact set matches, so one extra item counts as a miss. With a looser rule (all gold values present) the scores are 70% for auth and 90% for api type. `api_breadth` is not scored, and `existing_mcp` is scored only on gold rows I verified.
+**Scoring rule.** A value counts as correct when it equals gold, including when both are `unknown`. `auth_methods` and `api_type` are exact set matches, so one extra item counts as a miss. With a looser rule (all gold values present) the scores are 70% for auth and 90% for api type. `api_breadth` is not scored, and `existing_mcp_status` is scored only on gold rows I verified.
+
+### Pass 2 (50 of 100 apps)
+
+Pass 2 ran the verify/retry loop on **50 apps only**: the 20 gold apps, the 5 that failed in pass 1 (QuickBooks, Xero, Otter AI, Fathom, Reducto), and the 25 with the most D1/D2/D4 check failures in pass 1. It used Gemini (`gemini-3.5-flash-lite`) only, with no fallback model. **The other 50 apps were not re-run and still show their pass 1 results.**
+
+**On the 20 gold apps, overall accuracy did not change: pass 1 53/107 (49.5%) → pass 2 53/107 (49.5%).**
+
+| Field | pass 1 | pass 2 |
+|---|---|---|
+| auth_methods | 7/20 | 5/20 |
+| api_type | 13/20 | 12/20 |
+| access | 10/20 | 10/20 |
+| buildability | 11/20 | 13/20 |
+| main_blocker | 10/20 | 10/20 |
+| existing_mcp_status | 2/7 | 3/7 |
+
+On the 9 gold apps whose pass 1 record also came from Gemini, accuracy went from 29/49 to 31/49 — 2 more correct answers, too few to call an improvement.
+
+**8 regressions, not hidden:**
+
+- `DealCloud` / `api_type`, `Zendesk` / `api_type`, `Sherlock` / `api_type`, `WhatsApp Business` / `auth_methods`, `PitchBook` / `auth_methods` — in all five, pass 2 added an extra value to a list field; the exact-set scoring rule marks the whole field wrong even though the original correct value is still there.
+- `fanbasis` / `auth_methods` and `fanbasis` / `access` — correct in pass 1, `unknown` in pass 2. A real loss, not a scoring artifact: fanbasis's real docs are on `commasdocs.com`, a different domain from its product site, and pass 2's search missed that domain again, the same way pass 1's did.
+- `Waterfall.io` / `access` — `unknown` in pass 1, a specific (wrong, per gold) guess in pass 2.
+
+**Verification audit (the D1-D4 checks `verify` enforces), pass 1 vs pass 2, same 50 apps:**
+
+| Check | pass 1 (45 apps) | pass 2 (50 apps) |
+|---|---|---|
+| D1 (quote on page) | 29 apps failing | 2 apps failing |
+| D2 (trusted source) | 13 apps failing | 0 apps failing |
+| D3 (fetched 200) | 1 app failing | 0 apps failing |
+| D4 (fields agree) | 8 apps failing | 14 apps failing (worse) |
+
+Pass 1 only has 45 of the 50 apps here, not 50, because the other 5 failed outright and have no pass 1 record. D1-D3 improved sharply, which is what the retry loop is for. **D4 got worse**: pass 2's targeted MCP searches assert `existing_mcp_status = official/community` more often, but frequently still can't find a matching URL even after 2 retries, which is a new D4 violation pass 1 rarely hit because it said `unknown` or `none` more often instead. This audit shows pass 2's evidence is better grounded against these specific checks - it is not a measure of whether the final answers are more accurate; the gold comparison above is.
+
+**Confidence calibration on the gold fields:**
+
+| Confidence | pass 1 | pass 2 |
+|---|---|---|
+| high | n/a (pass 1 has no `high` tier) | 29/52 (55.8%) |
+| medium | 52/88 (59.1%) | 21/44 (47.7%) |
+| low | 1/19 (5.3%) | 3/11 (27.3%) |
+
+`high` is not reliably better than `medium` yet - in this sample it scored lower.
+
+**29 of the 50 pass 2 apps have at least one field flagged for human review.**
+
+**Gemini 429s happened 12 times in total across the pass 2 runs.** Every one was retried and absorbed by Google's own client library before it ever reached this project's code, so the wait-60s-and-stop logic this project added for 429s was never actually exercised - it should not be described as tested.
 
 ## Composio catalog check
 
@@ -133,7 +183,7 @@ The four checks in `verify`:
 - Gemini's free daily quota ran out partway through, and it was shared with another project of mine. The run switched to Groq (`gpt-oss-120b`), and then to `qwen3.8-27b` when that hit its own daily limit. The qwen records are the weakest.
 - Two runs wrote to the same output at once. A lock file and atomic writes fixed this.
 - The 5 failed apps were found by reading the run logs. They are listed as "not researched" and not guessed.
-- Pass 2 and the correction pass were skipped in the first submission, rather than report numbers that could not be backed up. Pass 2 was added afterwards (see "Running pass 2").
+- Pass 2 and the correction pass were skipped in the first submission, rather than report numbers that could not be backed up. Pass 2 was added and run afterwards, on 50 of the 100 apps; results are in "Results" below and the run mechanics are in "Running pass 2".
 
 ## Limitations
 
@@ -144,6 +194,10 @@ The four checks in `verify`:
 - The gold set has only 20 apps, and 5 of the labels are not verified by me line by line.
 - The "ready" and "blocker" fields are optimistic. The agent often wrote `none` where gold had a real blocker.
 - The agent's own catalog check never ran. The catalog check above was done separately, by name, so it shows that a toolkit exists, not how complete it is.
+- D1 only checks that the evidence quote exists on the page it cites - it does not check that the quote actually supports the field's value. A real quote next to a wrong conclusion still passes.
+- List fields (`auth_methods`, `api_type`) can pick up extra values that aren't individually wrong, but exact-set gold scoring marks the whole field as a miss anyway - most of pass 2's regressions are this, not real errors.
+- An `unknown` `api_breadth` or `unknown` `existing_mcp_status` can never trigger a retry under the current checks, by construction, not bad luck. Of the fields left `unknown` after pass 2, 31 were never retried for this reason.
+- The gold set is small: 20 apps total, and only 7 of them have a verified `existing_mcp_status` label, so the existing_mcp_status numbers above are on a thin sample.
 
 ## Next steps
 
