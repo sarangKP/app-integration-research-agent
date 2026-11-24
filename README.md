@@ -22,7 +22,7 @@
 
 <br>
 
-<img src="images/hero.png" alt="The results page: headline and key numbers" width="800">
+<img src="images/hero-v2.png" alt="The results page: headline and key numbers" width="800">
 
 </div>
 
